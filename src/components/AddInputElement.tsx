@@ -39,9 +39,9 @@ export function AddInputElement(props: AddInputElementPropsType) {
         className={error ? 'error__input' : ''}
       />
       <button onClick={onPressAddElement}>+</button>
-      <div className="error">
-        {error && <p>{error}</p>}
-      </div>
+      {error && <div className="error">
+        <p>{error}</p>
+      </div>}
     </div>
   )
 }

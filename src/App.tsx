@@ -77,6 +77,22 @@ function App() {
     }
   }
 
+  function changeTodolistTitle(title: string, todolistId: string) {
+    let changingTodolist: TodolistType | undefined = todolists.find(tl => tl.id === todolistId)
+    if (changingTodolist) {
+      changingTodolist.title = title
+      setTodolists([...todolists])
+    }
+  }
+
+  function changeTaskTitle(title: string, todolistId: string, taskId: string) {
+    let changingTask: TaskType | undefined = taskLists[todolistId].find(t => t.id === taskId)
+    if (changingTask) {
+      changingTask.taskTitle = title
+      setTaskLists({...taskLists})
+    }
+  }
+
   return (
     <div className="App">
       <AddInputElement addElement={addTodolist}/>
@@ -103,6 +119,8 @@ function App() {
             removeTask={removeTask}
             checkTask={checkTask}
             filterTasks={filterTasks}
+            changeTodolistTitle={changeTodolistTitle}
+            changeTaskTitle={changeTaskTitle}
           />
         )
       })}
