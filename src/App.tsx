@@ -1,15 +1,19 @@
 import React, {useState} from 'react';
 import {v1} from 'uuid';
 import './App.css';
-import {TaskType, Todolist} from './components/Todolist';
+import {Todolist} from './components/Todolist';
 import {AddInputElement} from './components/AddInputElement';
 
 export type FilterType = 'all' | 'active' | 'completed'
-
-type TodolistType = {
-  id: string,
-  title: string,
+export type TodolistType = {
+  id: string
+  title: string
   filter: FilterType
+}
+export type TaskType = {
+  id: string
+  taskTitle: string
+  isDone: boolean
 }
 
 function App() {
@@ -21,47 +25,47 @@ function App() {
     {id: todolistId1, title: 'What to learn', filter: 'all'},
     {id: todolistId2, title: 'What to buy', filter: 'all'},
   ])
-
+// как тебя типизировать? как тебя типизировать?
   let [taskLists, setTaskLists] = useState({
       [todolistId1]: [
         {id: v1(), taskTitle: 'HTML&CSS', isDone: true},
         {id: v1(), taskTitle: 'JS', isDone: true},
         {id: v1(), taskTitle: 'React', isDone: false},
         {id: v1(), taskTitle: 'Redux', isDone: false},
-      ],
+      ] as Array<TaskType>,
       [todolistId2]: [
         {id: v1(), taskTitle: 'bread', isDone: true},
         {id: v1(), taskTitle: 'milk', isDone: true},
         {id: v1(), taskTitle: 'book', isDone: false},
-      ],
+      ] as Array<TaskType>,
     }
   )
 
-  function addTodolist(todolistTitle: string) {
+  function addTodolist(todolistTitle: string): void {
     let newTodolist: TodolistType = {id: v1(), title: todolistTitle, filter: 'all'}
     setTodolists([...todolists, newTodolist])
     setTaskLists({...taskLists, [newTodolist.id]: []})
   }
 
-  function deleteTodolist(todolistId: string) {
+  function deleteTodolist(todolistId: string): void {
     const filteredTodolists = todolists.filter(tl => tl.id !== todolistId)
     setTodolists([...filteredTodolists])
     delete taskLists[todolistId]
     setTaskLists({...taskLists})
   }
 
-  function addTask(taskTitle: string, todolistId: string) {
+  function addTask(taskTitle: string, todolistId: string): void {
     let newTask: TaskType = {id: v1(), taskTitle: taskTitle, isDone: false}
     taskLists[todolistId] = [newTask, ...taskLists[todolistId]]
     setTaskLists({...taskLists})
   }
 
-  function removeTask(taskId: string, todolistId: string) {
+  function removeTask(taskId: string, todolistId: string): void {
     taskLists[todolistId] = taskLists[todolistId].filter(t => t.id !== taskId)
     setTaskLists({...taskLists})
   }
 
-  function checkTask(taskId: string, isDone: boolean, todolistId: string) {
+  function checkTask(taskId: string, isDone: boolean, todolistId: string): void {
     let task = taskLists[todolistId].find(t => t.id === taskId)
     if (task) {
       task.isDone = isDone
@@ -69,7 +73,7 @@ function App() {
     setTaskLists({...taskLists})
   }
 
-  function filterTasks(filterValue: FilterType, todolistId: string) {
+  function filterTasks(filterValue: FilterType, todolistId: string): void {
     let todolist: TodolistType | undefined = todolists.find(tl => tl.id === todolistId)
     if (todolist) {
       todolist.filter = filterValue
@@ -77,7 +81,7 @@ function App() {
     }
   }
 
-  function changeTodolistTitle(title: string, todolistId: string) {
+  function changeTodolistTitle(title: string, todolistId: string): void {
     let changingTodolist: TodolistType | undefined = todolists.find(tl => tl.id === todolistId)
     if (changingTodolist) {
       changingTodolist.title = title
@@ -85,7 +89,7 @@ function App() {
     }
   }
 
-  function changeTaskTitle(title: string, todolistId: string, taskId: string) {
+  function changeTaskTitle(title: string, todolistId: string, taskId: string): void {
     let changingTask: TaskType | undefined = taskLists[todolistId].find(t => t.id === taskId)
     if (changingTask) {
       changingTask.taskTitle = title

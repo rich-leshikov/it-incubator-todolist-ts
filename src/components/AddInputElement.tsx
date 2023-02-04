@@ -1,19 +1,19 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 type AddInputElementPropsType = {
-  addElement: (title: string) => void,
+  addElement: (title: string) => void
 }
 
 export function AddInputElement(props: AddInputElementPropsType) {
-  const [newElementTitle, setNewElementTitle] = useState('')
-  const [error, setError] = useState('')
+  const [newElementTitle, setNewElementTitle] = useState<string>('')
+  const [error, setError] = useState<string>('')
 
-  function onChangeInput(e: ChangeEvent<HTMLInputElement>) {
+  function onChangeInput(e: ChangeEvent<HTMLInputElement>): void {
     setNewElementTitle(e.currentTarget.value)
     setError('')
   }
 
-  function onPressAddElement() {
+  function onPressAddElement(): void {
     if (newElementTitle.trim() !== '') {
       props.addElement(newElementTitle.trim())
       setNewElementTitle('')
@@ -22,11 +22,8 @@ export function AddInputElement(props: AddInputElementPropsType) {
     }
   }
 
-  function onKeyPressHandler(e: KeyboardEvent<HTMLInputElement>) {
-    console.log(e)
-    if (e.code === 'Enter' && e.ctrlKey) {
-      onPressAddElement()
-    }
+  function onKeyPressHandler(e: KeyboardEvent<HTMLInputElement>): void {
+    (e.code === 'Enter' && e.ctrlKey) && onPressAddElement()
   }
 
   return (

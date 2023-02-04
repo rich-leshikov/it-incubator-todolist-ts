@@ -1,27 +1,27 @@
 import React, {ChangeEvent, useState} from 'react';
 
 type TitleElementPropsType = {
-  title: string,
-  changeTitle: (title: string) => void,
+  title: string
+  changeTitle: (title: string) => void
 }
 
 export function TitleElement(props: TitleElementPropsType) {
-  const [isChanging, switchChanging] = useState(false)
-  const [value, changeValue] = useState(props.title)
+  const [changing, setChanging] = useState<boolean>(false)
+  const [title, setTitle] = useState<string>(props.title)
 
-  const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => changeValue(e.currentTarget.value)
-  const changingOnTitleHandler = () => switchChanging(true)
-  const changingOffTitleHandler = () => {
-    value.trim() !== '' && props.changeTitle(value.trim())
-    switchChanging(false)
+  const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>): void => setTitle(e.currentTarget.value)
+  const changingOnTitleHandler = (): void => setChanging(true)
+  const changingOffTitleHandler = (): void => {
+    title.trim() !== '' && props.changeTitle(title.trim())
+    setChanging(false)
   }
 
   return (
     <>
-      {!isChanging && <span onDoubleClick={changingOnTitleHandler}>{props.title}</span>}
-      {isChanging && <input
+      {!changing && <span onDoubleClick={changingOnTitleHandler}>{props.title}</span>}
+      {changing && <input
         type={'text'}
-        value={value}
+        value={title}
         onChange={onChangeValueHandler}
         onBlur={changingOffTitleHandler}
         autoFocus/>}
