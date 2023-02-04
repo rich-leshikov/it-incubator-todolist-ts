@@ -1,34 +1,29 @@
-import React, {ChangeEvent} from 'react';
-import {FilterType} from '../App';
+import React from 'react';
+import {FilterType, TaskType} from '../App';
 import {AddInputElement} from './AddInputElement';
 import {TitleElement} from './TitleElement';
-
-export type TaskType = {
-  id: string,
-  taskTitle: string,
-  isDone: boolean
-}
+import {Task} from './Task';
 
 type TodolistPropsType = {
-  id: string,
-  title: string,
-  filter: FilterType,
-  list: Array<TaskType>,
-  deleteTodolist: (id: string) => void,
-  addTask: (taskTitle: string, todolistId: string) => void,
-  filterTasks: (value: FilterType, todolistId: string) => void,
-  removeTask: (id: string, todolistId: string) => void,
-  checkTask: (id: string, isDone: boolean, todolistId: string) => void,
-  changeTodolistTitle: (title: string, todolistId: string) => void,
-  changeTaskTitle: (title: string, todolistId: string, taskId: string) => void,
+  id: string
+  title: string
+  filter: FilterType
+  list: Array<TaskType>
+  deleteTodolist: (id: string) => void
+  changeTodolistTitle: (title: string, todolistId: string) => void
+  addTask: (taskTitle: string, todolistId: string) => void
+  filterTasks: (value: FilterType, todolistId: string) => void
+  removeTask: (id: string, todolistId: string) => void
+  checkTask: (id: string, isDone: boolean, todolistId: string) => void
+  changeTaskTitle: (title: string, todolistId: string, taskId: string) => void
 }
 
 export function Todolist(props: TodolistPropsType) {
 
-  const addTask = (title: string) => props.addTask(title, props.id)
-  const onDeleteTodolist = () => props.deleteTodolist(props.id)
-  const onPressFilter = (filter: FilterType) => props.filterTasks(filter, props.id)
-  const onChangeTitleHandler = (title: string) => props.changeTodolistTitle(title, props.id)
+  const addTask = (title: string): void => props.addTask(title, props.id)
+  const onDeleteTodolist = (): void => props.deleteTodolist(props.id)
+  const onPressFilter = (filter: FilterType): void => props.filterTasks(filter, props.id)
+  const onChangeTitleHandler = (title: string): void => props.changeTodolistTitle(title, props.id)
 
   return (
     <div className={'todolist'}>
@@ -40,23 +35,12 @@ export function Todolist(props: TodolistPropsType) {
       <AddInputElement addElement={addTask}/>
       <ul>
         {props.list.map(t => {
-          const removeTask = () => props.removeTask(t.id, props.id)
-          const checkTask = (e: ChangeEvent<HTMLInputElement>) => props.checkTask(t.id, e.currentTarget.checked, props.id)
-          const changeTaskTitle = (title: string) => props.changeTaskTitle(title, props.id, t.id)
-
           return (
-            <li className={t.isDone ? 'fade' : ''}>
-              <input
-                type={'checkbox'}
-                checked={t.isDone}
-                onChange={checkTask}
-              />
-              <TitleElement
-                title={t.taskTitle}
-                changeTitle={changeTaskTitle}
-              />
-              <button onClick={removeTask}>x</button>
-            </li>
+            <Task
+              id={t.id} todolistID={props.id} taskTitle={t.taskTitle}
+              isDone={t.isDone} filterTasks={props.filterTasks} removeTask={props.removeTask}
+              checkTask={props.checkTask} changeTaskTitle={props.changeTaskTitle}
+            />
           )
         })}
       </ul>
