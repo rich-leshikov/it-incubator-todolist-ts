@@ -3,6 +3,8 @@ import {FilterType, TaskType} from '../App';
 import {AddInputElement} from './AddInputElement';
 import {TitleElement} from './TitleElement';
 import {Task} from './Task';
+import {Button, IconButton} from '@mui/material';
+import {Delete} from '@mui/icons-material';
 
 type TodolistPropsType = {
   id: string
@@ -29,11 +31,11 @@ export function Todolist(props: TodolistPropsType) {
     <div className={'todolist'}>
       <div className="todolist__title">
         <h2><TitleElement title={props.title} changeTitle={onChangeTitleHandler}/>
-          <button onClick={onDeleteTodolist}>x</button>
+          <IconButton onClick={onDeleteTodolist}><Delete style={{color: '#ccc0c0'}}/></IconButton>
         </h2>
       </div>
       <AddInputElement addElement={addTask}/>
-      <ul>
+      <div>
         {props.list.map(t => {
           return (
             <Task
@@ -43,23 +45,29 @@ export function Todolist(props: TodolistPropsType) {
             />
           )
         })}
-      </ul>
+      </div>
       <div className="buttons">
-        <button
-          className={props.filter === 'all' ? 'activeFilter' : ''}
+        <Button
+          // className={props.filter === 'all' ? 'activeFilter' : ''}
           onClick={() => onPressFilter('all')}
+          color={'inherit'}
+          variant={props.filter === 'all' ? 'contained' : 'outlined'}
         >All
-        </button>
-        <button
-          className={props.filter === 'active' ? 'activeFilter' : ''}
+        </Button>
+        <Button
+          // className={props.filter === 'active' ? 'activeFilter' : ''}
           onClick={() => onPressFilter('active')}
+          color={'error'}
+          variant={props.filter === 'active' ? 'contained' : 'outlined'}
         >Active
-        </button>
-        <button
-          className={props.filter === 'completed' ? 'activeFilter' : ''}
+        </Button>
+        <Button
+          // className={props.filter === 'completed' ? 'activeFilter' : ''}
           onClick={() => onPressFilter('completed')}
+          color={'success'}
+          variant={props.filter === 'completed' ? 'contained' : 'outlined'}
         >Completed
-        </button>
+        </Button>
       </div>
     </div>
   );

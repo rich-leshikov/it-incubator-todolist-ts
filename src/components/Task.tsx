@@ -1,6 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import {FilterType} from '../App';
 import {TitleElement} from './TitleElement';
+import {Checkbox, IconButton} from '@mui/material';
+import { Delete } from '@mui/icons-material';
 
 type TaskPropsType = {
   id: string
@@ -22,9 +24,9 @@ export function Task(props: TaskPropsType) {
   const changeTaskTitle = (title: string): void => props.changeTaskTitle(title, props.todolistID, props.id)
 
   return (
-    <li className={props.isDone ? 'fade' : ''}>
-      <input
-        type={'checkbox'}
+    <div className={props.isDone ? 'fade' : ''}>
+      <Checkbox
+        color={'success'}
         checked={props.isDone}
         onChange={checkTask}
       />
@@ -32,7 +34,7 @@ export function Task(props: TaskPropsType) {
         title={props.taskTitle}
         changeTitle={changeTaskTitle}
       />
-      <button onClick={removeTask}>x</button>
-    </li>
+      <IconButton onClick={removeTask}><Delete style={{color: '#ccc0c0'}}/></IconButton>
+    </div>
   )
 }

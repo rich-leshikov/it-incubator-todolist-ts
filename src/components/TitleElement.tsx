@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import React, {ChangeEvent, useState} from 'react';
 
 type TitleElementPropsType = {
@@ -19,8 +20,9 @@ export function TitleElement(props: TitleElementPropsType) {
   return (
     <>
       {!changing && <span onDoubleClick={changingOnTitleHandler}>{props.title}</span>}
-      {changing && <input
-        type={'text'}
+      {changing && <TextField
+        variant={'outlined'}
+        size={'small'}
         value={title}
         onChange={onChangeValueHandler}
         onBlur={changingOffTitleHandler}
