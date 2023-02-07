@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from 'react';
-import {FilterType} from '../App';
 import {TitleElement} from './TitleElement';
 import {Checkbox, IconButton} from '@mui/material';
 import { Delete } from '@mui/icons-material';
+import {FilterType} from '../state/todolists-reducer';
 
 type TaskPropsType = {
   id: string

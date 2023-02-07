@@ -1,10 +1,11 @@
 import React from 'react';
-import {FilterType, TaskType} from '../App';
+import {TaskType} from '../App';
 import {AddInputElement} from './AddInputElement';
 import {TitleElement} from './TitleElement';
 import {Task} from './Task';
 import {Button, IconButton} from '@mui/material';
 import {Delete} from '@mui/icons-material';
+import {FilterType} from '../state/todolists-reducer';
 
 type TodolistPropsType = {
   id: string

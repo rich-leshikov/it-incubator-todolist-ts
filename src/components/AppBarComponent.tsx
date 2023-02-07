@@ -7,7 +7,7 @@ type AppBarPropsType = {}
 export function AppBarComponent(props: AppBarPropsType) {
   return (
     <div className={'appBar'}>
-      <AppBar position={'static'}>
+      <AppBar position={'static'} color={'transparent'}>
         <Toolbar>
           <IconButton edge={'start'} color={'inherit'} aria-label={'menu'}>
             <Menu/>

@@ -5,20 +5,12 @@ import {Todolist} from './components/Todolist';
 import {AddInputElement} from './components/AddInputElement';
 import {AppBarComponent} from './components/AppBarComponent';
 import {Container, Grid, Paper} from '@mui/material';
+import {FilterType, TodolistTaskType, TodolistType} from './state/todolists-reducer';
 
-export type FilterType = 'all' | 'active' | 'completed'
-export type TodolistType = {
-  id: string
-  title: string
-  filter: FilterType
-}
 export type TaskType = {
   id: string
   taskTitle: string
   isDone: boolean
-}
-export type TodolistTaskType = {
-  [key: string]: Array<TaskType>
 }
 
 function App() {
@@ -66,6 +58,14 @@ function App() {
     }
   }
 
+  function filterTasks(filterValue: FilterType, todolistId: string): void {
+    let todolist: TodolistType | undefined = todolists.find(tl => tl.id === todolistId)
+    if (todolist) {
+      todolist.filter = filterValue
+      setTodolists([...todolists])
+    }
+  }
+
   function addTask(taskTitle: string, todolistId: string): void {
     let newTask: TaskType = {id: v1(), taskTitle: taskTitle, isDone: false}
     taskLists[todolistId] = [newTask, ...taskLists[todolistId]]
@@ -90,14 +90,6 @@ function App() {
     if (changingTask) {
       changingTask.taskTitle = title
       setTaskLists({...taskLists})
-    }
-  }
-
-  function filterTasks(filterValue: FilterType, todolistId: string): void {
-    let todolist: TodolistType | undefined = todolists.find(tl => tl.id === todolistId)
-    if (todolist) {
-      todolist.filter = filterValue
-      setTodolists([...todolists])
     }
   }
 
