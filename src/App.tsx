@@ -5,11 +5,11 @@ import {Todolist} from './components/Todolist';
 import {AddInputElement} from './components/AddInputElement';
 import {AppBarComponent} from './components/AppBarComponent';
 import {Container, Grid, Paper} from '@mui/material';
-import {FilterType, TodolistTaskType, TodolistType} from './state/todolists-reducer';
+import {FilterType, TasksStateType, TodolistType} from './state/todolists-reducer';
 
 export type TaskType = {
   id: string
-  taskTitle: string
+  title: string
   isDone: boolean
 }
 
@@ -22,17 +22,17 @@ function App() {
     {id: todolistId1, title: 'What to learn', filter: 'all'},
     {id: todolistId2, title: 'What to buy', filter: 'all'},
   ])
-  let [taskLists, setTaskLists] = useState<TodolistTaskType>({
+  let [taskLists, setTaskLists] = useState<TasksStateType>({
       [todolistId1]: [
-        {id: v1(), taskTitle: 'HTML&CSS', isDone: true},
-        {id: v1(), taskTitle: 'JS', isDone: true},
-        {id: v1(), taskTitle: 'React', isDone: false},
-        {id: v1(), taskTitle: 'Redux', isDone: false},
+        {id: v1(), title: 'HTML&CSS', isDone: true},
+        {id: v1(), title: 'JS', isDone: true},
+        {id: v1(), title: 'React', isDone: false},
+        {id: v1(), title: 'Redux', isDone: false},
       ],
       [todolistId2]: [
-        {id: v1(), taskTitle: 'bread', isDone: true},
-        {id: v1(), taskTitle: 'milk', isDone: true},
-        {id: v1(), taskTitle: 'book', isDone: false},
+        {id: v1(), title: 'bread', isDone: true},
+        {id: v1(), title: 'milk', isDone: true},
+        {id: v1(), title: 'book', isDone: false},
       ],
     }
   )
@@ -67,7 +67,7 @@ function App() {
   }
 
   function addTask(taskTitle: string, todolistId: string): void {
-    let newTask: TaskType = {id: v1(), taskTitle: taskTitle, isDone: false}
+    let newTask: TaskType = {id: v1(), title: taskTitle, isDone: false}
     taskLists[todolistId] = [newTask, ...taskLists[todolistId]]
     setTaskLists({...taskLists})
   }
@@ -77,8 +77,8 @@ function App() {
     setTaskLists({...taskLists})
   }
 
-  function checkTask(taskId: string, isDone: boolean, todolistId: string): void {
-    let task = taskLists[todolistId].find(t => t.id === taskId)
+  function changeTaskStatus(taskId: string, isDone: boolean, todolistId: string): void {
+    let task: TaskType | undefined = taskLists[todolistId].find(t => t.id === taskId)
     if (task) {
       task.isDone = isDone
     }
@@ -88,7 +88,7 @@ function App() {
   function changeTaskTitle(title: string, todolistId: string, taskId: string): void {
     let changingTask: TaskType | undefined = taskLists[todolistId].find(t => t.id === taskId)
     if (changingTask) {
-      changingTask.taskTitle = title
+      changingTask.title = title
       setTaskLists({...taskLists})
     }
   }
@@ -123,7 +123,7 @@ function App() {
                       deleteTodolist={deleteTodolist}
                       addTask={addTask}
                       removeTask={removeTask}
-                      checkTask={checkTask}
+                      checkTask={changeTaskStatus}
                       filterTasks={filterTasks}
                       changeTodolistTitle={changeTodolistTitle}
                       changeTaskTitle={changeTaskTitle}
@@ -137,7 +137,6 @@ function App() {
       </Container>
     </div>
   )
-    ;
 }
 
 export default App;

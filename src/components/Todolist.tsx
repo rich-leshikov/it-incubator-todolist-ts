@@ -22,7 +22,6 @@ type TodolistPropsType = {
 }
 
 export function Todolist(props: TodolistPropsType) {
-
   const addTask = (title: string): void => props.addTask(title, props.id)
   const onDeleteTodolist = (): void => props.deleteTodolist(props.id)
   const onPressFilter = (filter: FilterType): void => props.filterTasks(filter, props.id)
@@ -40,7 +39,7 @@ export function Todolist(props: TodolistPropsType) {
         {props.list.map(t => {
           return (
             <Task
-              id={t.id} todolistID={props.id} taskTitle={t.taskTitle}
+              id={t.id} todolistID={props.id} taskTitle={t.title}
               isDone={t.isDone} filterTasks={props.filterTasks} removeTask={props.removeTask}
               checkTask={props.checkTask} changeTaskTitle={props.changeTaskTitle}
             />
@@ -53,22 +52,19 @@ export function Todolist(props: TodolistPropsType) {
           onClick={() => onPressFilter('all')}
           color={'inherit'}
           variant={props.filter === 'all' ? 'contained' : 'outlined'}
-        >All
-        </Button>
+        >All</Button>
         <Button
           // className={props.filter === 'active' ? 'activeFilter' : ''}
           onClick={() => onPressFilter('active')}
           color={'error'}
           variant={props.filter === 'active' ? 'contained' : 'outlined'}
-        >Active
-        </Button>
+        >Active</Button>
         <Button
           // className={props.filter === 'completed' ? 'activeFilter' : ''}
           onClick={() => onPressFilter('completed')}
           color={'success'}
           variant={props.filter === 'completed' ? 'contained' : 'outlined'}
-        >Completed
-        </Button>
+        >Completed</Button>
       </div>
     </div>
   );
