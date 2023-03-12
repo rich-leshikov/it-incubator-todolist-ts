@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {IconButton, TextField} from '@mui/material';
 import {AddBox} from '@mui/icons-material';
+import styles from './AddInputElement.module.css'
 
 type AddInputElementPropsType = {
   addElement: (title: string) => void
@@ -27,21 +28,24 @@ export function AddInputElement(props: AddInputElementPropsType) {
   }
 
   return (
-    <div className="addInput">
+    <div className={styles.addInput}>
       <TextField
+        className={styles.input}
         variant={'outlined'}
         size={'small'}
         value={newElementTitle}
         onChange={onChangeInput}
         onKeyPress={onKeyPressHandler}
         error={!!error}
-        label={'Title'}
+        label={'Task title'}
         placeholder={error}
       />
       <IconButton
         onClick={onPressAddElement}
-        style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}
-      ><AddBox style={{color: '#20c9b5'}}/></IconButton>
+        style={{maxWidth: '40px', maxHeight: '40px', minWidth: '40px', minHeight: '40px'}}
+      >
+        <AddBox style={{maxWidth: '35px', maxHeight: '35px', minWidth: '35px', minHeight: '35px', color: '#20c9b5'}}/>
+      </IconButton>
       {error && <div className="error">
         <p>{error}</p>
       </div>}

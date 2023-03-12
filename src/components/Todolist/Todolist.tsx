@@ -1,11 +1,12 @@
 import React from 'react';
-import {TaskType} from '../App';
-import {AddInputElement} from './AddInputElement';
-import {TitleElement} from './TitleElement';
-import {Task} from './Task';
+import {TaskType} from '../../App';
+import {AddInputElement} from '../AddInputElement/AddInputElement';
+import {TitleElement} from './Task/TitleElement';
+import {Task} from './Task/Task';
 import {Button, IconButton} from '@mui/material';
 import {Delete} from '@mui/icons-material';
-import {FilterType} from '../state/todolists-reducer';
+import {FilterType} from '../../state/todolists-reducer';
+import styles from './Todolist.module.css'
 
 type TodolistPropsType = {
   id: string
@@ -34,7 +35,29 @@ export function Todolist(props: TodolistPropsType) {
           <IconButton onClick={onDeleteTodolist}><Delete style={{color: '#ccc0c0'}}/></IconButton>
         </h2>
       </div>
-      <AddInputElement addElement={addTask}/>
+      <div className={styles.buttons}>
+        <Button
+          className={styles.button}
+          onClick={() => onPressFilter('all')}
+          color={'inherit'}
+          size={'small'}
+          variant={props.filter === 'all' ? 'contained' : 'outlined'}
+        >All</Button>
+        <Button
+          className={styles.button}
+          onClick={() => onPressFilter('active')}
+          color={'error'}
+          size={'small'}
+          variant={props.filter === 'active' ? 'contained' : 'outlined'}
+        >Active</Button>
+        <Button
+          className={styles.button}
+          onClick={() => onPressFilter('completed')}
+          color={'success'}
+          size={'small'}
+          variant={props.filter === 'completed' ? 'contained' : 'outlined'}
+        >Completed</Button>
+      </div>
       <div>
         {props.list.map(t => {
           return (
@@ -46,26 +69,7 @@ export function Todolist(props: TodolistPropsType) {
           )
         })}
       </div>
-      <div className="buttons">
-        <Button
-          // className={props.filter === 'all' ? 'activeFilter' : ''}
-          onClick={() => onPressFilter('all')}
-          color={'inherit'}
-          variant={props.filter === 'all' ? 'contained' : 'outlined'}
-        >All</Button>
-        <Button
-          // className={props.filter === 'active' ? 'activeFilter' : ''}
-          onClick={() => onPressFilter('active')}
-          color={'error'}
-          variant={props.filter === 'active' ? 'contained' : 'outlined'}
-        >Active</Button>
-        <Button
-          // className={props.filter === 'completed' ? 'activeFilter' : ''}
-          onClick={() => onPressFilter('completed')}
-          color={'success'}
-          variant={props.filter === 'completed' ? 'contained' : 'outlined'}
-        >Completed</Button>
-      </div>
+      <AddInputElement addElement={addTask}/>
     </div>
   );
 }

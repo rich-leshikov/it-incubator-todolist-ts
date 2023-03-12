@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {v1} from 'uuid';
-import './App.css';
-import {Todolist} from './components/Todolist';
-import {AddInputElement} from './components/AddInputElement';
+import styles from './App.module.css';
+import {Todolist} from './components/Todolist/Todolist';
+import {AddInputElement} from './components/AddInputElement/AddInputElement';
 import {AppBarComponent} from './components/AppBarComponent';
 import {Container, Grid, Paper} from '@mui/material';
 import {FilterType, TasksStateType, TodolistType} from './state/todolists-reducer';
@@ -113,7 +113,7 @@ function App() {
               }
               return (
                 <Grid item>
-                  <Paper style={{padding: '10px'}}>
+                  <Paper className={styles.todolist} style={{padding: '10px'}}>
                     <Todolist
                       key={tl.id}
                       id={tl.id}

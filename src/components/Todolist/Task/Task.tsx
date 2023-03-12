@@ -1,8 +1,9 @@
-import React, {ChangeEvent} from 'react';
-import {TitleElement} from './TitleElement';
-import {Checkbox, IconButton} from '@mui/material';
-import { Delete } from '@mui/icons-material';
-import {FilterType} from '../state/todolists-reducer';
+import React, {ChangeEvent} from 'react'
+import {TitleElement} from './TitleElement'
+import {Checkbox, IconButton} from '@mui/material'
+import {Delete} from '@mui/icons-material'
+import {FilterType} from '../../../state/todolists-reducer'
+import styles from './Task.module.css'
 
 type TaskPropsType = {
   id: string
@@ -24,16 +25,18 @@ export function Task(props: TaskPropsType) {
   const changeTaskTitle = (title: string): void => props.changeTaskTitle(title, props.todolistID, props.id)
 
   return (
-    <div className={props.isDone ? 'fade' : ''}>
-      <Checkbox
-        color={'success'}
-        checked={props.isDone}
-        onChange={checkTask}
-      />
-      <TitleElement
-        title={props.taskTitle}
-        changeTitle={changeTaskTitle}
-      />
+    <div className={styles.task}>
+      <div className={styles.content}>
+        <Checkbox
+          color={'success'}
+          checked={props.isDone}
+          onChange={checkTask}
+        />
+        <TitleElement
+          title={props.taskTitle}
+          changeTitle={changeTaskTitle}
+        />
+      </div>
       <IconButton onClick={removeTask}><Delete style={{color: '#ccc0c0'}}/></IconButton>
     </div>
   )
