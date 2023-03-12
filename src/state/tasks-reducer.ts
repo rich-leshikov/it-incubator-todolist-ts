@@ -1,4 +1,4 @@
-import {AddTodolistActionType, FilterType, RemoveTodolistActionType, TasksStateType} from './todolists-reducer';
+import {AddTodolistActionType, RemoveTodolistActionType, TasksStateType, todolistId1, todolistId2} from './todolists-reducer';
 import {v1} from 'uuid';
 import {TaskType} from '../App';
 
@@ -32,7 +32,21 @@ export type ChangeTaskTitleActionType = {
   todolistID: string
 }
 
-export const tasksReducer = (state: TasksStateType, action: TaskActionType): TasksStateType => {
+const initialState: TasksStateType = {
+  [todolistId1]: [
+    {id: v1(), title: 'HTML&CSS', isDone: true},
+    {id: v1(), title: 'JS', isDone: true},
+    {id: v1(), title: 'React', isDone: false},
+    {id: v1(), title: 'Redux', isDone: false},
+  ],
+  [todolistId2]: [
+    {id: v1(), title: 'bread', isDone: true},
+    {id: v1(), title: 'milk', isDone: true},
+    {id: v1(), title: 'book', isDone: false},
+  ],
+}
+
+export const tasksReducer = (state: TasksStateType = initialState, action: TaskActionType): TasksStateType => {
   switch (action.type) {
     case 'ADD-TASK':
       const newTask: TaskType = {id: v1(), title: action.title, isDone: false}
@@ -40,18 +54,15 @@ export const tasksReducer = (state: TasksStateType, action: TaskActionType): Tas
     case 'REMOVE-TASK':
       return {...state, [action.todolistID]: state[action.todolistID].filter(t => t.id !== action.taskID)}
     case 'CHANGE-TASK-STATUS':
-      const statusChangingTask: TaskType | undefined = state[action.todolistID].find(t => t.id === action.taskID)
-      if (statusChangingTask) {
-        statusChangingTask.isDone = action.isDone
-        // return {...state, [action.todolistID]: [...state[action.todolistID], {...statusChangingTask, isDone: action.isDone}]}
+      return {
+        ...state, [action.todolistID]: state[action.todolistID].map(t => t.id === action.taskID ?
+          {...t, isDone: action.isDone} : t)
       }
-      return {...state}
     case 'CHANGE-TASK-TITLE':
-      const titleChangingTask: TaskType | undefined = state[action.todolistID].find(t => t.id === action.taskID)
-      if (titleChangingTask) {
-        titleChangingTask.title = action.title
+      return {
+        ...state, [action.todolistID]: state[action.todolistID].map(t => t.id === action.taskID ?
+          {...t, title: action.title} : t)
       }
-      return {...state}
     case 'ADD-TODOLIST':
       return {[action.id]: [], ...state}
     case 'REMOVE-TODOLIST':
