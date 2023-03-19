@@ -1,9 +1,18 @@
 .addInput {
   margin: 15px 0;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  /*align-items: center;*/
 }
-
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
 .input {
-  width: 90%;
+  width: 100%;
+}
+.error p {
+  margin: 0;
+  color: #c20a0a;
 }

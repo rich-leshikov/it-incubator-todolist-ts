@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from 'react'
-import {TitleElement} from './TitleElement'
+import React, {ChangeEvent, useCallback} from 'react'
+import {EditableTitle} from '../EditableTitle'
 import {Checkbox, IconButton} from '@mui/material'
 import {Delete} from '@mui/icons-material'
 import {FilterType} from '../../../state/todolists-reducer'
@@ -16,13 +16,20 @@ type TaskPropsType = {
   changeTaskTitle: (title: string, todolistId: string, taskId: string) => void
 }
 
-export function Task(props: TaskPropsType) {
+export const Task = React.memo((props: TaskPropsType) => {
+  // console.log('Task rendered')
 
-  const removeTask = (): void => props.removeTask(props.id, props.todolistID)
-  const checkTask = (e: ChangeEvent<HTMLInputElement>): void => {
+  const removeTask = useCallback((): void => {
+    props.removeTask(props.id, props.todolistID)
+  }, [props.removeTask, props.id, props.todolistID])
+
+  const checkTask = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
     props.checkTask(props.id, e.currentTarget.checked, props.todolistID)
-  }
-  const changeTaskTitle = (title: string): void => props.changeTaskTitle(title, props.todolistID, props.id)
+  }, [props.checkTask, props.id, props.todolistID])
+
+  const changeTaskTitle = useCallback((title: string): void => {
+    props.changeTaskTitle(title, props.todolistID, props.id)
+  }, [props.changeTaskTitle, props.todolistID, props.id])
 
   return (
     <div className={styles.task}>
@@ -32,7 +39,7 @@ export function Task(props: TaskPropsType) {
           checked={props.isDone}
           onChange={checkTask}
         />
-        <TitleElement
+        <EditableTitle
           title={props.taskTitle}
           changeTitle={changeTaskTitle}
         />
@@ -40,4 +47,4 @@ export function Task(props: TaskPropsType) {
       <IconButton onClick={removeTask}><Delete style={{color: '#ccc0c0'}}/></IconButton>
     </div>
   )
-}
+})
