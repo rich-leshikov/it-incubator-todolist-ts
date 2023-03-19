@@ -71,7 +71,7 @@ function App() {
         </Grid>
         <Grid container spacing={3}>
           {
-            todolists.map(tl => <Grid item>
+            todolists.map(tl => <Grid key={tl.id} item>
                 <Paper className={styles.todolist} style={{padding: '10px'}}>
                   <Todolist
                     key={tl.id}
