@@ -5,6 +5,7 @@ import {Delete} from '@mui/icons-material'
 import {FilterType} from '../../../state/todolists-reducer'
 import styles from './Task.module.css'
 
+
 type TaskPropsType = {
   id: string
   todolistID: string
