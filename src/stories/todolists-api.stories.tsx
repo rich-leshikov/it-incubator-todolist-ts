@@ -1,5 +1,12 @@
 import {useEffect, useState} from 'react';
-import {TaskType, todolistAPI, TodolistType} from '../api/todolist-api';
+import {
+  TaskPriorities,
+  TaskStatuses,
+  TaskType,
+  todolistAPI,
+  TodolistType,
+  UpdateTaskModelType
+} from '../api/todolist-api';
 
 
 export default {
@@ -33,7 +40,7 @@ export const DeleteTodolist = () => {
   const [state, setState] = useState<any>(null)
 
   useEffect(() => {
-    let todolistId = '753bd591-4359-407e-aeb5-e205bd4b1cba'
+    let todolistId = 'dc418e23-7064-44ed-84fd-00743cca8f99'
 
     todolistAPI.deleteTodolist(todolistId)
       .then(response => setState(response.data))
@@ -63,7 +70,7 @@ export const GetTasks = () => {
     let todolistId = '6ee902d6-24ca-4bbd-aee2-88fe6e31af55'
 
     todolistAPI.getTasks(todolistId)
-      .then(response => setState(response.data))
+      .then(response => setState(response.data.items))
   }, [])
 
   return <div>{JSON.stringify(state)}</div>
@@ -103,9 +110,16 @@ export const UpdateTaskTitle = () => {
   useEffect(() => {
     let todolistId = 'c7ec2c84-40a3-4b83-9e20-201a162022c5'
     let taskId = 'c7ec2c84-40a3-4b83-9e20-201a162022c5'
-    let title = 'smth new'
+    let taskModel: UpdateTaskModelType = {
+      title: 'new title',
+      description: '',
+      status: 0,
+      priority: 1,
+      startDate: '',
+      deadline: ''
+    }
 
-    todolistAPI.updateTask(todolistId, taskId,title)
+    todolistAPI.updateTask(todolistId, taskId, taskModel)
       .then(response => setState(response.data))
   }, [])
 
