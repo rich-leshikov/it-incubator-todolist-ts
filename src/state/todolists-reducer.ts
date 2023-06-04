@@ -38,8 +38,19 @@ export const todolistId1 = v1()
 export const todolistId2 = v1()
 
 const initialState: TodolistDomainType[] = [
-  {id: todolistId1, title: 'What to learn', addedDate: '', order: 0, filter: 'all'},
-  {id: todolistId2, title: 'What to buy', addedDate: '', order: 0, filter: 'all'},
+  {
+    id: todolistId1,
+    title: 'What to learn',
+    addedDate: '',
+    order: 0,
+    filter: 'all'
+  }, {
+    id: todolistId2,
+    title: 'What to buy',
+    addedDate: '',
+    order: 0,
+    filter: 'all'
+  }
 ]
 
 
