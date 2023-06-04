@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions'
 import {Task} from '../components/Todolist/Task/Task';
+import {TaskStatuses} from '../api/todolist-api';
 
 
 const meta: Meta<typeof Task> = {
@@ -13,7 +14,7 @@ const meta: Meta<typeof Task> = {
     removeTask: action('Remove Button clicked changed inside Task'),
     id: '12wsdewfijdei',
     taskTitle: 'JS',
-    isDone: false,
+    status: TaskStatuses.New,
     todolistID: 'fgdosrg8rgjuh'
   }
 }
@@ -27,6 +28,6 @@ export const TaskIsDoneStory: Story = {
   args: {
     id: '12wsdewfijdei2343',
     taskTitle: 'CSS',
-    isDone: true
+    status: TaskStatuses.Completed
   },
 }
