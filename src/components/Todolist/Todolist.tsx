@@ -18,10 +18,10 @@ type TodolistPropsType = {
   tasksList: Array<TaskType>
   deleteTodolist: (id: string) => void
   changeTodolistTitle: (title: string, todolistId: string) => void
-  addTask: (taskTitle: string, todolistId: string) => void
+  addTask: (task: TaskType) => void
   filterTasks: (value: FilterType, todolistId: string) => void
   removeTask: (id: string, todolistId: string) => void
-  checkTask: (id: string, status: TaskStatuses, todolistId: string) => void
+  checkTask: (id: string, todolistId: string, status: TaskStatuses) => void
   changeTaskTitle: (title: string, todolistId: string, taskId: string) => void
 }
 
@@ -33,8 +33,8 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     dispatch(fetchTasksTC(props.id))
   })
 
-  const addTask = useCallback((title: string): void => {
-    props.addTask(title, props.id)
+  const addTask = useCallback((task: TaskType): void => {
+    props.addTask(task)
   }, [props.addTask, props.id])
 
   const onDeleteTodolist = useCallback((): void => {
