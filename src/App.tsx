@@ -5,13 +5,13 @@ import {AddInputElement} from './components/AddInputElement/AddInputElement';
 import {AppBarComponent} from './components/AppBarComponent';
 import {Container, Grid, Paper} from '@mui/material';
 import {
-  addTodolistAC,
+  addTodolistAC, addTodolistTC,
   changeTodolistFilterAC,
-  changeTodolistTitleAC,
+  updateTodolistAC,
   fetchTodolistsTC,
   FilterType,
-  removeTodolistAC,
-  TodolistDomainType
+  removeTodolistAC, removeTodolistTC,
+  TodolistDomainType, updateTodolistTC
 } from './state/todolists-reducer';
 import {addTaskTC, changeTaskTitleAC, removeTaskTC, TasksStateType, updateTaskStatusTC} from './state/tasks-reducer';
 import {useSelector} from 'react-redux';
@@ -29,15 +29,15 @@ function App() {
   }, [])
 
   const addTodolist = useCallback((todolistTitle: string): void => {
-    dispatch(addTodolistAC(todolistTitle))
+    dispatch(addTodolistTC(todolistTitle))
   }, [dispatch])
 
   const deleteTodolist = useCallback((todolistId: string): void => {
-    dispatch(removeTodolistAC(todolistId))
+    dispatch(removeTodolistTC(todolistId))
   }, [dispatch])
 
-  const changeTodolistTitle = useCallback((title: string, todolistId: string): void => {
-    dispatch(changeTodolistTitleAC(todolistId, title))
+  const updateTodolist = useCallback((title: string, todolistId: string): void => {
+    dispatch(updateTodolistTC(todolistId, title))
   }, [dispatch])
 
   const filterTasks = useCallback((filterValue: FilterType, todolistId: string): void => {
@@ -82,7 +82,7 @@ function App() {
                     removeTask={removeTask}
                     checkTask={changeTaskStatus}
                     filterTasks={filterTasks}
-                    changeTodolistTitle={changeTodolistTitle}
+                    changeTodolistTitle={updateTodolist}
                     changeTaskTitle={changeTaskTitle}
                   />
                 </Paper>
