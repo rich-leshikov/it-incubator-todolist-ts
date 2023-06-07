@@ -77,7 +77,7 @@ export const todolistAPI = {
   getTasks: (todolistId: string) => {
     return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
   },
-  createTask: (todolistId: string, taskTitle: string) => {
+  addTask: (todolistId: string, taskTitle: string) => {
     return instance.post<ResponseType<{ item: TaskType }>, AxiosResponse<ResponseType<{ item: TaskType }>>, { title: string }>(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
   },
   deleteTask: (todolistId: string, taskId: string) => {

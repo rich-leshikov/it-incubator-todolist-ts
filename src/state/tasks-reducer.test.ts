@@ -90,7 +90,18 @@ beforeEach(() => {
 
 
 test('correct task should be added to correct array', () => {
-  const action = addTaskAC('juce', 'todolistId2')
+  const action = addTaskAC({
+    description: '',
+    title: 'juce',
+    status: TaskStatuses.New,
+    priority: TaskPriorities.Middle,
+    startDate: '',
+    deadline: '',
+    id: '12340932516512',
+    todoListId: 'todolistId2',
+    order: 0,
+    addedDate: '',
+  })
 
   const endState = tasksReducer(startState, action)
 
