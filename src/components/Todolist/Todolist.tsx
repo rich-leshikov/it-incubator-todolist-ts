@@ -17,7 +17,7 @@ type TodolistPropsType = {
   filter: FilterType
   tasksList: Array<TaskType>
   deleteTodolist: (id: string) => void
-  changeTodolistTitle: (title: string, todolistId: string) => void
+  updateTodolist: (title: string, todolistId: string) => void
   addTask: (taskTitle: string, todolistId: string) => void
   filterTasks: (value: FilterType, todolistId: string) => void
   removeTask: (id: string, todolistId: string) => void
@@ -46,8 +46,8 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     }, [props.filterTasks, props.id])
 
   const onChangeTitleHandler = useCallback((title: string): void => {
-      props.changeTodolistTitle(title, props.id)
-    }, [props.changeTodolistTitle, props.id])
+      props.updateTodolist(title, props.id)
+    }, [props.updateTodolist, props.id])
 
   let tasksList = props.tasksList
 

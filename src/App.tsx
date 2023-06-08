@@ -5,13 +5,13 @@ import {AddInputElement} from './components/AddInputElement/AddInputElement';
 import {AppBarComponent} from './components/AppBarComponent';
 import {Container, Grid, Paper} from '@mui/material';
 import {
-  addTodolistAC, addTodolistTC,
+  addTodolistTC,
   changeTodolistFilterAC,
-  updateTodolistAC,
   fetchTodolistsTC,
   FilterType,
-  removeTodolistAC, removeTodolistTC,
-  TodolistDomainType, updateTodolistTC
+  removeTodolistTC,
+  TodolistDomainType,
+  updateTodolistTC
 } from './state/todolists-reducer';
 import {addTaskTC, changeTaskTitleAC, removeTaskTC, TasksStateType, updateTaskStatusTC} from './state/tasks-reducer';
 import {useSelector} from 'react-redux';
@@ -30,35 +30,35 @@ function App() {
 
   const addTodolist = useCallback((todolistTitle: string): void => {
     dispatch(addTodolistTC(todolistTitle))
-  }, [dispatch])
+  }, [])
 
   const deleteTodolist = useCallback((todolistId: string): void => {
     dispatch(removeTodolistTC(todolistId))
-  }, [dispatch])
+  }, [])
 
   const updateTodolist = useCallback((title: string, todolistId: string): void => {
     dispatch(updateTodolistTC(todolistId, title))
-  }, [dispatch])
+  }, [])
 
   const filterTasks = useCallback((filterValue: FilterType, todolistId: string): void => {
     dispatch(changeTodolistFilterAC(todolistId, filterValue))
-  }, [dispatch])
+  }, [])
 
   const addTask = useCallback((taskTitle: string, todolistId: string): void => {
     dispatch(addTaskTC(taskTitle, todolistId))
-  }, [dispatch])
+  }, [])
 
   const removeTask = useCallback((taskId: string, todolistId: string): void => {
     dispatch(removeTaskTC(taskId, todolistId))
-  }, [dispatch])
+  }, [])
 
   const changeTaskStatus = useCallback((taskId: string, todolistId: string, status: TaskStatuses): void => {
     dispatch(updateTaskStatusTC(taskId, todolistId, status))
-  }, [dispatch])
+  }, [])
 
   const changeTaskTitle = useCallback((title: string, todolistId: string, taskId: string): void => {
     dispatch(changeTaskTitleAC(taskId, title, todolistId))
-  }, [dispatch])
+  }, [])
 
   return (
     <div className="App">
@@ -82,7 +82,7 @@ function App() {
                     removeTask={removeTask}
                     checkTask={changeTaskStatus}
                     filterTasks={filterTasks}
-                    changeTodolistTitle={updateTodolist}
+                    updateTodolist={updateTodolist}
                     changeTaskTitle={changeTaskTitle}
                   />
                 </Paper>
