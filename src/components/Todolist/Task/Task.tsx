@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback} from 'react'
+import React, {ChangeEvent} from 'react'
 import {EditableTitle} from '../EditableTitle'
 import {Checkbox, IconButton} from '@mui/material'
 import {Delete} from '@mui/icons-material'
@@ -19,18 +19,15 @@ type TaskPropsType = {
 }
 
 export const Task = React.memo((props: TaskPropsType) => {
-  const removeTask = useCallback((): void => {
+  const removeTask = (): void => {
     props.removeTask(props.id, props.todolistID)
-  }, [props.removeTask, props.id, props.todolistID])
-
-  const checkTask = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
-
+  }
+  const checkTask = (e: ChangeEvent<HTMLInputElement>): void => {
     props.checkTask(props.id, props.todolistID, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)
-  }, [props.checkTask, props.id, props.todolistID])
-
-  const changeTaskTitle = useCallback((title: string): void => {
+  }
+  const changeTaskTitle = (title: string): void => {
     props.changeTaskTitle(title, props.todolistID, props.id)
-  }, [props.changeTaskTitle, props.todolistID, props.id])
+  }
 
   return (
     <div className={`${styles.task} ${props.status === TaskStatuses.Completed && 'isCompleted'}`}>
