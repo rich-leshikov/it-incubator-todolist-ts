@@ -9,6 +9,7 @@ type TitleElementPropsType = {
 
 
 export const EditableTitle = React.memo((props: TitleElementPropsType) => {
+  console.log('render title')
   const [changing, setChanging] = useState<boolean>(false)
   const [title, setTitle] = useState<string>(props.title)
 

@@ -9,6 +9,7 @@ type AddInputElementPropsType = {
 }
 
 export const AddInputElement = React.memo((props: AddInputElementPropsType) => {
+  console.log('render input')
   const [newElementTitle, setNewElementTitle] = useState<string>('')
   const [error, setError] = useState<string>('')
 

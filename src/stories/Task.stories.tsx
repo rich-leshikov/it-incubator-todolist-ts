@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions'
 import {Task} from '../components/Todolist/Task/Task';
-import {TaskStatuses} from '../api/todolist-api';
+import {TaskPriorities, TaskStatuses} from '../api/todolist-api';
 
 
 const meta: Meta<typeof Task> = {
@@ -12,10 +12,18 @@ const meta: Meta<typeof Task> = {
     checkTask: action('Status changed inside Task'),
     changeTaskTitle: action('Title changed inside Task'),
     removeTask: action('Remove Button clicked changed inside Task'),
-    id: '12wsdewfijdei',
-    taskTitle: 'JS',
-    status: TaskStatuses.New,
-    todolistID: 'fgdosrg8rgjuh'
+    task: {
+      id: '1',
+      title: 'CSS',
+      status: TaskStatuses.New,
+      todoListId: 'todolistId1',
+      description: '',
+      startDate: '',
+      deadline: '',
+      addedDate: '',
+      order: 0,
+      priority: TaskPriorities.Low
+    }
   }
 }
 
@@ -26,8 +34,17 @@ export const TaskIsNotDoneStory: Story = {};
 
 export const TaskIsDoneStory: Story = {
   args: {
-    id: '12wsdewfijdei2343',
-    taskTitle: 'CSS',
-    status: TaskStatuses.Completed
-  },
+    task: {
+      id: '1',
+      title: 'CSS',
+      status: TaskStatuses.New,
+      todoListId: 'todolistId1',
+      description: '',
+      startDate: '',
+      deadline: '',
+      addedDate: '',
+      order: 0,
+      priority: TaskPriorities.Low
+    }
+  }
 }
