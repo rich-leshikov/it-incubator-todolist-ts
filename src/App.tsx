@@ -15,8 +15,9 @@ import {useSelector} from 'react-redux';
 import {AppRootStateType, useAppDispatch} from './state/store';
 
 
-function App() {
-  console.log('render app')
+export function App() {
+  // console.log('render app')
+
   const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
   const dispatch = useAppDispatch()
 
@@ -24,19 +25,29 @@ function App() {
     dispatch(fetchTodolistsTC())
   }, [])
 
-  const addTodolist = useCallback((todolistTitle: string): void => {
+  const addTodolist = useCallback((todolistTitle: string) => {
     dispatch(addTodolistTC(todolistTitle))
   }, [])
-
-  const deleteTodolist = useCallback((todolistId: string): void => {
+  const deleteTodolist = useCallback((todolistId: string) => {
     dispatch(removeTodolistTC(todolistId))
   }, [])
-
-  const updateTodolist = useCallback((title: string, todolistId: string): void => {
+  const updateTodolist = useCallback((title: string, todolistId: string) => {
     dispatch(updateTodolistTC(todolistId, title))
   }, [])
 
-
+  const todolistsList = todolists.map(tl => <Grid key={tl.id} item>
+      <Paper className={styles.todolist} style={{padding: '10px'}}>
+        <Todolist
+          key={tl.id}
+          id={tl.id}
+          title={tl.title}
+          filter={tl.filter}
+          deleteTodolist={deleteTodolist}
+          updateTodolist={updateTodolist}
+        />
+      </Paper>
+    </Grid>
+  )
 
   return (
     <div className="App">
@@ -45,26 +56,8 @@ function App() {
         <Grid container style={{margin: '20px 0'}}>
           <AddInputElement addElement={addTodolist}/>
         </Grid>
-        <Grid container spacing={3}>
-          {
-            todolists.map(tl => <Grid key={tl.id} item>
-                <Paper className={styles.todolist} style={{padding: '10px'}}>
-                  <Todolist
-                    key={tl.id}
-                    id={tl.id}
-                    title={tl.title}
-                    filter={tl.filter}
-                    deleteTodolist={deleteTodolist}
-                    updateTodolist={updateTodolist}
-                  />
-                </Paper>
-              </Grid>
-            )
-          }
-        </Grid>
+        <Grid container spacing={3}>{todolistsList}</Grid>
       </Container>
     </div>
   )
 }
-
-export default App

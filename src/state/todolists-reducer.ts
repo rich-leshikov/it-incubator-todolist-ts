@@ -1,4 +1,3 @@
-import {v1} from 'uuid';
 import {todolistAPI, TodolistType} from '../api/todolist-api';
 import {Dispatch} from 'redux';
 
@@ -39,24 +38,7 @@ export type SetTodolistsActionType = {
 }
 
 
-export const todolistId1 = v1()
-export const todolistId2 = v1()
-
-const initialState: TodolistDomainType[] = [
-  // {
-  //   id: todolistId1,
-  //   title: 'What to learn',
-  //   addedDate: '',
-  //   order: 0,
-  //   filter: 'all'
-  // }, {
-  //   id: todolistId2,
-  //   title: 'What to buy',
-  //   addedDate: '',
-  //   order: 0,
-  //   filter: 'all'
-  // }
-]
+const initialState: TodolistDomainType[] = []
 
 
 export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: TodolistActionType): Array<TodolistDomainType> => {
@@ -106,9 +88,9 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
 }
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
   todolistAPI.removeTodolist(todolistId)
-    .then(res => dispatch(removeTodolistAC(todolistId)))
+    .then(() => dispatch(removeTodolistAC(todolistId)))
 }
 export const updateTodolistTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
   todolistAPI.updateTodolist(todolistId, title)
-    .then(res => dispatch(updateTodolistAC(todolistId, title)))
+    .then(() => dispatch(updateTodolistAC(todolistId, title)))
 }

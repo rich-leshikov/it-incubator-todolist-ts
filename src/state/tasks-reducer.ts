@@ -46,79 +46,7 @@ export type SetTasksActionType = {
 }
 
 
-const initialState: TasksStateType = {
-  // [todolistId1]: [
-  //   {
-  //     id: '1',
-  //     title: 'CSS',
-  //     status: TaskStatuses.New,
-  //     todoListId: 'todolistId1',
-  //     description: '',
-  //     startDate: '',
-  //     deadline: '',
-  //     addedDate: '',
-  //     order: 0,
-  //     priority: TaskPriorities.Low
-  //   }, {
-  //     id: '2',
-  //     title: 'JS',
-  //     status: TaskStatuses.Completed,
-  //     todoListId: 'todolistId1',
-  //     description: '',
-  //     startDate: '',
-  //     deadline: '',
-  //     addedDate: '',
-  //     order: 0,
-  //     priority: TaskPriorities.Low
-  //   }, {
-  //     id: '3',
-  //     title: 'React',
-  //     status: TaskStatuses.New,
-  //     todoListId: 'todolistId1',
-  //     description: '',
-  //     startDate: '',
-  //     deadline: '',
-  //     addedDate: '',
-  //     order: 0,
-  //     priority: TaskPriorities.Low
-  //   }
-  // ],
-  // [todolistId2]: [
-  //   {
-  //     id: '1',
-  //     title: 'bread',
-  //     status: TaskStatuses.New,
-  //     todoListId: 'todolistId2',
-  //     description: '',
-  //     startDate: '',
-  //     deadline: '',
-  //     addedDate: '',
-  //     order: 0, priority: TaskPriorities.Low
-  //   }, {
-  //     id: '2',
-  //     title: 'milk',
-  //     status: TaskStatuses.Completed,
-  //     todoListId: 'todolistId2',
-  //     description: '',
-  //     startDate: '',
-  //     deadline: '',
-  //     addedDate: '',
-  //     order: 0,
-  //     priority: TaskPriorities.Low
-  //   }, {
-  //     id: '3',
-  //     title: 'tea',
-  //     status: TaskStatuses.New,
-  //     todoListId: 'todolistId2',
-  //     description: '',
-  //     startDate: '',
-  //     deadline: '',
-  //     addedDate: '',
-  //     order: 0,
-  //     priority: TaskPriorities.Low
-  //   }
-  // ]
-}
+const initialState: TasksStateType = {}
 
 
 export const tasksReducer = (state: TasksStateType = initialState, action: TaskActionType): TasksStateType => {
@@ -177,7 +105,6 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
   todolistAPI.removeTask(todolistId, taskId)
     .then(() => dispatch(removeTaskAC(taskId, todolistId)))
 }
-
 export const updateTaskTC = (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModelType) => {
   return (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistId].find(t => t.id === taskId)

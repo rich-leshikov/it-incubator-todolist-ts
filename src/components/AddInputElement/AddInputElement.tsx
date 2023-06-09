@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from 'react';
+import {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import {IconButton, TextField} from '@mui/material';
 import {AddBox} from '@mui/icons-material';
 import styles from './AddInputElement.module.css'
@@ -8,28 +8,27 @@ type AddInputElementPropsType = {
   addElement: (title: string) => void
 }
 
-export const AddInputElement = React.memo((props: AddInputElementPropsType) => {
-  console.log('render input')
+export const AddInputElement = memo((props: AddInputElementPropsType) => {
+  // console.log('render input')
+
   const [newElementTitle, setNewElementTitle] = useState<string>('')
   const [error, setError] = useState<string>('')
 
-  const onChangeInput = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNewElementTitle(e.currentTarget.value)
     error && setError('')
-  }, [error])
-
-  const onPressAddElement = useCallback((): void => {
+  }
+  const onPressAddElement = () => {
     if (newElementTitle.trim() !== '') {
       props.addElement(newElementTitle.trim())
       setNewElementTitle('')
     } else {
       setError('Field is empty!')
     }
-  }, [newElementTitle, props.addElement])
-
-  const onKeyPressHandler = useCallback((e: KeyboardEvent<HTMLInputElement>): void => {
+  }
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     (e.code === 'Enter' && e.ctrlKey) && onPressAddElement()
-  }, [onPressAddElement])
+  }
 
   return (
     <div className={styles.addInput}>

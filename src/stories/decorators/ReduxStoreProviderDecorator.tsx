@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {combineReducers, legacy_createStore} from 'redux';
 import {AppRootStateType} from '../../state/store';
 import {tasksReducer} from '../../state/tasks-reducer';
-import {todolistId1, todolistId2, todolistsReducer} from '../../state/todolists-reducer';
+import {todolistsReducer} from '../../state/todolists-reducer';
 import {TaskPriorities, TaskStatuses} from '../../api/todolist-api';
 
 
@@ -15,13 +15,13 @@ const rootReducer = combineReducers({
 const initialGlobalState = {
   todolists: [
     {
-      id: todolistId1,
+      id: 'todolistId1',
       title: 'What to learn',
       addedDate: '',
       order: 0,
       filter: 'all'
     }, {
-      id: todolistId2,
+      id: 'todolistId2',
       title: 'What to buy',
       addedDate: '',
       order: 0,
@@ -29,7 +29,7 @@ const initialGlobalState = {
     }
   ],
   tasks: {
-    [todolistId1]: [
+    ['todolistId1']: [
       {
         id: '1',
         title: 'CSS',
@@ -65,7 +65,7 @@ const initialGlobalState = {
         priority: TaskPriorities.Low
       }
     ],
-    [todolistId2]: [
+    ['todolistId2']: [
       {
         id: '1',
         title: 'bread',

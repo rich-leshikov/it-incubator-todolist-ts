@@ -1,5 +1,5 @@
 import {TextField} from '@mui/material';
-import React, {ChangeEvent, useState} from 'react';
+import {ChangeEvent, memo, useState} from 'react';
 
 
 type TitleElementPropsType = {
@@ -8,18 +8,19 @@ type TitleElementPropsType = {
 }
 
 
-export const EditableTitle = React.memo((props: TitleElementPropsType) => {
-  console.log('render title')
+export const EditableTitle = memo((props: TitleElementPropsType) => {
+  // console.log('render title')
+
   const [changing, setChanging] = useState<boolean>(false)
   const [title, setTitle] = useState<string>(props.title)
 
-  const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+  const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
   }
-  const changingOnTitleHandler = (): void => {
+  const changingOnTitleHandler = () => {
     setChanging(true)
   }
-  const changingOffTitleHandler =(): void => {
+  const changingOffTitleHandler = () => {
     title.trim() !== '' && props.changeTitle(title.trim())
     setChanging(false)
   }

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import {memo, useCallback, useState} from 'react';
 import {AddInputElement} from '../AddInputElement/AddInputElement';
 import {EditableTitle} from './EditableTitle';
 import {Task} from './Task/Task';
@@ -21,8 +21,9 @@ type TodolistPropsType = {
 }
 
 
-export const Todolist = React.memo((props: TodolistPropsType) => {
-  console.log('render todolist')
+export const Todolist = memo((props: TodolistPropsType) => {
+  // console.log('render todolist')
+
   const tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[props.id])
   const dispatch = useAppDispatch()
 
@@ -30,33 +31,27 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     dispatch(fetchTasksTC(props.id))
   })
 
-  const onDeleteTodolist = useCallback((): void => {
+  const onDeleteTodolist = () => {
     props.deleteTodolist(props.id)
-  }, [props.deleteTodolist, props.id])
-
-  const onChangeTitleHandler = useCallback((title: string): void => {
+  }
+  const onChangeTitleHandler = useCallback((title: string) => {
     props.updateTodolist(title, props.id)
   }, [props.updateTodolist, props.id])
-
-  const filterTasks = useCallback((filterValue: FilterType): void => {
+  const filterTasks = (filterValue: FilterType) => {
     dispatch(changeTodolistFilterAC(props.id, filterValue))
-  }, [])
-
-  const addTask = useCallback((taskTitle: string): void => {
+  }
+  const addTask = useCallback((taskTitle: string) => {
     dispatch(addTaskTC(taskTitle, props.id))
-  }, [])
-
-  const removeTask = useCallback((taskId: string): void => {
+  }, [props.id])
+  const removeTask = useCallback((taskId: string) => {
     dispatch(removeTaskTC(taskId, props.id))
-  }, [])
-
-  const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses): void => {
+  }, [props.id])
+  const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses) => {
     dispatch(updateTaskTC(taskId, props.id, {status: status}))
-  }, [])
-
-  const changeTaskTitle = useCallback((taskId: string, title: string): void => {
+  }, [props.id])
+  const changeTaskTitle = useCallback((taskId: string, title: string) => {
     dispatch(updateTaskTC(taskId, props.id, {title: title}))
-  }, [])
+  }, [props.id])
 
 
   let tasksList = tasks
@@ -67,6 +62,15 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
   if (props.filter === 'completed') {
     tasksList = tasksList.filter(t => t.status === TaskStatuses.Completed)
   }
+
+  let finalTasksList = tasksList.map(t => <Task
+      key={t.id}
+      task={t}
+      removeTask={removeTask}
+      checkTask={changeTaskStatus}
+      changeTaskTitle={changeTaskTitle}
+    />
+  )
 
   return (
     <div className={'todolist'}>
@@ -99,14 +103,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
         >Completed</Button>
       </div>
       <div>
-        {tasksList.map(t => <Task
-            key={t.id}
-            task={t}
-            removeTask={removeTask}
-            checkTask={changeTaskStatus}
-            changeTaskTitle={changeTaskTitle}
-          />
-        )}
+        {finalTasksList}
       </div>
       <AddInputElement addElement={addTask}/>
     </div>
