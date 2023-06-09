@@ -32,19 +32,19 @@ export const changeTodolistFilterAC = (id: string, filter: FilterType) =>
   ({type: 'CHANGE-TODOLIST-FILTER', id, filter} as const)
 
 // thunks
-export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
+export const fetchTodolistsTC = () => (dispatch: Dispatch<TodolistActionType>) => {
   todolistAPI.getTodolists()
     .then(res => dispatch(setTodolistsAC(res.data)))
 }
-export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
+export const addTodolistTC = (title: string) => (dispatch: Dispatch<TodolistActionType>) => {
   todolistAPI.addTodolist(title)
     .then(res => dispatch(addTodolistAC(res.data.data.item)))
 }
-export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch<TodolistActionType>) => {
   todolistAPI.removeTodolist(todolistId)
     .then(() => dispatch(removeTodolistAC(todolistId)))
 }
-export const updateTodolistTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+export const updateTodolistTC = (todolistId: string, title: string) => (dispatch: Dispatch<TodolistActionType>) => {
   todolistAPI.updateTodolist(todolistId, title)
     .then(() => dispatch(updateTodolistAC(todolistId, title)))
 }

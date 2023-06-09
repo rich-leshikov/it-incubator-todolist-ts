@@ -50,20 +50,20 @@ export const updateTaskAC = (taskID: string, model: UpdateDomainTaskModelType, t
   ({type: 'UPDATE-TASK', taskID, model, todolistID} as const)
 
 // thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<TaskActionType>) => {
   todolistAPI.getTasks(todolistId)
     .then((res) => dispatch(setTasksAC(res.data.items, todolistId)))
 }
-export const addTaskTC = (taskTitle: string, todolistId: string) => (dispatch: Dispatch) => {
+export const addTaskTC = (taskTitle: string, todolistId: string) => (dispatch: Dispatch<TaskActionType>) => {
   todolistAPI.addTask(todolistId, taskTitle)
     .then(res => dispatch(addTaskAC(res.data.data.item)))
 }
-export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
+export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<TaskActionType>) => {
   todolistAPI.removeTask(todolistId, taskId)
     .then(() => dispatch(removeTaskAC(taskId, todolistId)))
 }
 export const updateTaskTC = (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModelType) =>
-  (dispatch: Dispatch, getState: () => AppRootStateType) => {
+  (dispatch: Dispatch<TaskActionType>, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistId].find(t => t.id === taskId)
 
     if (!task) {
