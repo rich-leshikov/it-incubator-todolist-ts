@@ -16,14 +16,14 @@ type TaskPropsType = {
 
 export const Task = React.memo((props: TaskPropsType) => {
   console.log('render task')
-  const removeTask = (): void => {
+  const removeTask = () => {
     props.removeTask(props.task.id)
   }
-  const checkTask = (e: ChangeEvent<HTMLInputElement>): void => {
+  const checkTask = (e: ChangeEvent<HTMLInputElement>) => {
     props.checkTask(props.task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)
   }
-  const changeTaskTitle = (title: string): void => {
-    props.changeTaskTitle(title, props.task.id)
+  const changeTaskTitle = (title: string) => {
+    props.changeTaskTitle(props.task.id, title)
   }
 
   return (
