@@ -1,9 +1,9 @@
 import {ChangeEvent, memo, useCallback} from 'react'
-import {EditableTitle} from '../EditableTitle'
+import {EditableTitle} from '../../../../components/EditableTitle/EditableTitle'
 import {Checkbox, IconButton} from '@mui/material'
 import {Delete} from '@mui/icons-material'
 import styles from './Task.module.css'
-import {TaskStatuses, TaskType} from '../../../api/todolist-api'
+import {TaskStatuses, TaskType} from '../../../../api/todolist-api'
 
 
 type TaskPropsType = {

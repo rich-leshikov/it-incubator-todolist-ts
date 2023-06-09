@@ -1,10 +1,12 @@
 import {AppBar, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import {Menu} from '@mui/icons-material';
-import React from 'react';
+import {FC} from 'react';
+
 
 type AppBarPropsType = {}
 
-export function AppBarComponent(props: AppBarPropsType) {
+
+export const AppBarComponent: FC<AppBarPropsType> = () => {
   return (
     <div className={'appBar'}>
       <AppBar position={'static'} color={'transparent'}>

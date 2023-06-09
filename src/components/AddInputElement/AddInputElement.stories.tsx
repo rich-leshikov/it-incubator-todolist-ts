@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-import {AddInputElement} from '../components/AddInputElement/AddInputElement';
+import {AddInputElement} from './AddInputElement';
 
 
 const meta: Meta<typeof AddInputElement> = {

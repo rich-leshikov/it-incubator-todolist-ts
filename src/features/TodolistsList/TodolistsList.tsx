@@ -1,22 +1,24 @@
-import {useCallback, useEffect} from 'react';
-import styles from './App.module.css';
-import {Todolist} from './components/Todolist/Todolist';
-import {AddInputElement} from './components/AddInputElement/AddInputElement';
-import {AppBarComponent} from './components/AppBarComponent';
-import {Container, Grid, Paper} from '@mui/material';
+import {Grid, Paper} from '@mui/material';
+import styles from '../../app/App.module.css';
+import {Todolist} from './Todolist/Todolist';
+import {useSelector} from 'react-redux';
+import {AppRootStateType, useAppDispatch} from '../../app/store';
 import {
   addTodolistTC,
   fetchTodolistsTC,
   removeTodolistTC,
   TodolistDomainType,
   updateTodolistTC
-} from './state/todolists-reducer';
-import {useSelector} from 'react-redux';
-import {AppRootStateType, useAppDispatch} from './state/store';
+} from './todolists-reducer';
+import {FC, useCallback, useEffect} from 'react';
+import {AddInputElement} from '../../components/AddInputElement/AddInputElement';
 
 
-export function App() {
-  // console.log('render app')
+type TodolistsListPropsType = {}
+
+
+export const TodolistsList: FC<TodolistsListPropsType> = () => {
+  // console.log('render TodolistsList')
 
   const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
   const dispatch = useAppDispatch()
@@ -50,14 +52,13 @@ export function App() {
   )
 
   return (
-    <div className="App">
-      <AppBarComponent/>
-      <Container fixed>
-        <Grid container style={{margin: '20px 0'}}>
-          <AddInputElement addElement={addTodolist}/>
-        </Grid>
-        <Grid container spacing={3}>{todolistsList}</Grid>
-      </Container>
-    </div>
+    <>
+      <Grid container style={{margin: '20px 0'}}>
+        <AddInputElement addElement={addTodolist}/>
+      </Grid>
+      <Grid container spacing={3}>
+        {todolistsList}
+      </Grid>
+    </>
   )
 }

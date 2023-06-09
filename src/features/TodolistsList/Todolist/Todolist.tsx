@@ -1,15 +1,15 @@
 import {memo, useCallback, useState} from 'react';
-import {AddInputElement} from '../AddInputElement/AddInputElement';
-import {EditableTitle} from './EditableTitle';
-import {Task} from './Task/Task';
+import {AddInputElement} from '../../../components/AddInputElement/AddInputElement';
+import {EditableTitle} from '../../../components/EditableTitle/EditableTitle';
 import {Button, IconButton} from '@mui/material';
 import {Delete} from '@mui/icons-material';
-import {changeTodolistFilterAC, FilterType} from '../../state/todolists-reducer';
+import {changeTodolistFilterAC, FilterType} from '../todolists-reducer';
 import styles from './Todolist.module.css'
-import {TaskStatuses, TaskType} from '../../api/todolist-api';
-import {AppRootStateType, useAppDispatch} from '../../state/store';
-import {addTaskTC, fetchTasksTC, removeTaskTC, updateTaskTC} from '../../state/tasks-reducer';
+import {TaskStatuses, TaskType} from '../../../api/todolist-api';
+import {AppRootStateType, useAppDispatch} from '../../../app/store';
+import {addTaskTC, fetchTasksTC, removeTaskTC, updateTaskTC} from '../tasks-reducer';
 import {useSelector} from 'react-redux';
+import {Task} from './Task/Task';
 
 
 type TodolistPropsType = {
@@ -34,7 +34,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
   const onDeleteTodolist = () => {
     props.deleteTodolist(props.id)
   }
-  const onChangeTitleHandler = useCallback((title: string) => {
+  const onChangeTitleTodolist = useCallback((title: string) => {
     props.updateTodolist(title, props.id)
   }, [props.updateTodolist, props.id])
   const filterTasks = (filterValue: FilterType) => {
@@ -75,7 +75,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
   return (
     <div className={'todolist'}>
       <div className="todolist__title">
-        <h2><EditableTitle title={props.title} changeTitle={onChangeTitleHandler}/>
+        <h2><EditableTitle title={props.title} changeTitle={onChangeTitleTodolist}/>
           <IconButton onClick={onDeleteTodolist}><Delete style={{color: '#ccc0c0'}}/></IconButton>
         </h2>
       </div>
