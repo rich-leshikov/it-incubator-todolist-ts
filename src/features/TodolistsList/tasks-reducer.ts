@@ -6,6 +6,7 @@ import {
 import {TaskPriorities, TaskStatuses, TaskType, todolistAPI, TodolistType} from '../../api/todolist-api';
 import {Dispatch} from 'redux';
 import {AppRootStateType} from '../../app/store';
+import {AppActionType, setAppStatusAC} from '../../api/app-reducer';
 
 
 export const tasksReducer = (state: TasksStateType = {}, action: TaskActionType): TasksStateType => {
@@ -49,20 +50,35 @@ export const updateTaskAC = (taskID: string, model: UpdateDomainTaskModelType, t
   ({type: 'UPDATE-TASK', taskID, model, todolistID} as const)
 
 // thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<TaskActionType>) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<TaskActionType | AppActionType>) => {
+  dispatch(setAppStatusAC('loading'))
   todolistAPI.getTasks(todolistId)
-    .then((res) => dispatch(setTasksAC(res.data.items, todolistId)))
+    .then((res) => {
+      dispatch(setTasksAC(res.data.items, todolistId))
+      dispatch(setAppStatusAC('succeeded'))
+    })
 }
-export const addTaskTC = (taskTitle: string, todolistId: string) => (dispatch: Dispatch<TaskActionType>) => {
-  todolistAPI.addTask(todolistId, taskTitle)
-    .then(res => dispatch(addTaskAC(res.data.data.item)))
-}
-export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<TaskActionType>) => {
-  todolistAPI.removeTask(todolistId, taskId)
-    .then(() => dispatch(removeTaskAC(taskId, todolistId)))
-}
+export const addTaskTC = (taskTitle: string, todolistId: string) =>
+  (dispatch: Dispatch<TaskActionType | AppActionType>) => {
+    dispatch(setAppStatusAC('loading'))
+    todolistAPI.addTask(todolistId, taskTitle)
+      .then(res => {
+        dispatch(addTaskAC(res.data.data.item))
+        dispatch(setAppStatusAC('succeeded'))
+      })
+  }
+export const removeTaskTC = (taskId: string, todolistId: string) =>
+  (dispatch: Dispatch<TaskActionType | AppActionType>) => {
+    dispatch(setAppStatusAC('loading'))
+    todolistAPI.removeTask(todolistId, taskId)
+      .then(() => {
+        dispatch(removeTaskAC(taskId, todolistId))
+        dispatch(setAppStatusAC('succeeded'))
+      })
+  }
 export const updateTaskTC = (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModelType) =>
-  (dispatch: Dispatch<TaskActionType>, getState: () => AppRootStateType) => {
+  (dispatch: Dispatch<TaskActionType | AppActionType>, getState: () => AppRootStateType) => {
+    dispatch(setAppStatusAC('loading'))
     const task = getState().tasks[todolistId].find(t => t.id === taskId)
 
     if (!task) {
@@ -77,7 +93,10 @@ export const updateTaskTC = (taskId: string, todolistId: string, domainModel: Up
       deadline: task.deadline,
       status: task.status,
       ...domainModel
-    }).then(() => dispatch(updateTaskAC(taskId, domainModel, todolistId)))
+    }).then(() => {
+      dispatch(updateTaskAC(taskId, domainModel, todolistId))
+      dispatch(setAppStatusAC('succeeded'))
+    })
   }
 
 // types

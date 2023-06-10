@@ -100,6 +100,9 @@ const initialGlobalState = {
         priority: TaskPriorities.Low
       }
     ]
+  },
+  app: {
+    status: 'idle'
   }
 }
 
