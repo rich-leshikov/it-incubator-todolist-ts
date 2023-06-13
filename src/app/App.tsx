@@ -1,6 +1,7 @@
 import {AppBarComponent} from '../features/AppBarComponent/AppBarComponent';
 import {Container} from '@mui/material';
 import {TodolistsList} from '../features/TodolistsList/TodolistsList';
+import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 
 
 export function App() {
@@ -8,6 +9,7 @@ export function App() {
 
   return (
     <div className="App">
+      <ErrorSnackbar/>
       <AppBarComponent/>
       <Container fixed>
         <TodolistsList/>

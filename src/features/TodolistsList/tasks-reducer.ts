@@ -6,7 +6,7 @@ import {
 import {TaskPriorities, TaskStatuses, TaskType, todolistAPI, TodolistType} from '../../api/todolist-api';
 import {Dispatch} from 'redux';
 import {AppRootStateType} from '../../app/store';
-import {AppActionType, setAppStatusAC} from '../../api/app-reducer';
+import {AppActionType, setAppErrorAC, setAppStatusAC} from '../../api/app-reducer';
 
 
 export const tasksReducer = (state: TasksStateType = {}, action: TaskActionType): TasksStateType => {
@@ -63,8 +63,17 @@ export const addTaskTC = (taskTitle: string, todolistId: string) =>
     dispatch(setAppStatusAC('loading'))
     todolistAPI.addTask(todolistId, taskTitle)
       .then(res => {
-        dispatch(addTaskAC(res.data.data.item))
-        dispatch(setAppStatusAC('succeeded'))
+        if (res.data.resultCode === 0) {
+          dispatch(addTaskAC(res.data.data.item))
+          dispatch(setAppStatusAC('succeeded'))
+        } else {
+          if (res.data.messages.length) {
+            dispatch(setAppErrorAC(res.data.messages[0]))
+          } else {
+            dispatch(setAppErrorAC('Some error occurred'))
+          }
+          dispatch(setAppStatusAC('failed'))
+        }
       })
   }
 export const removeTaskTC = (taskId: string, todolistId: string) =>

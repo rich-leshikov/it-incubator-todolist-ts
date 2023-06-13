@@ -102,7 +102,8 @@ const initialGlobalState = {
     ]
   },
   app: {
-    status: 'idle'
+    status: 'idle',
+    error: null
   }
 }
 
