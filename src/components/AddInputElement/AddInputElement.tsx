@@ -6,6 +6,7 @@ import styles from './AddInputElement.module.css'
 
 type AddInputElementPropsType = {
   addElement: (title: string) => void
+  isDisabled: boolean
 }
 
 export const AddInputElement = memo((props: AddInputElementPropsType) => {
@@ -43,10 +44,12 @@ export const AddInputElement = memo((props: AddInputElementPropsType) => {
           error={!!error}
           label={'Task title'}
           placeholder={error}
+          disabled={props.isDisabled}
         />
         <IconButton
           onClick={onPressAddElement}
           style={{maxWidth: '40px', maxHeight: '40px', minWidth: '40px', minHeight: '40px'}}
+          disabled={props.isDisabled}
         >
           <AddBox style={{maxWidth: '35px', maxHeight: '35px', minWidth: '35px', minHeight: '35px', color: '#20c9b5'}}/>
         </IconButton>

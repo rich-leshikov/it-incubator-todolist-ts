@@ -19,13 +19,15 @@ const initialGlobalState = {
       title: 'What to learn',
       addedDate: '',
       order: 0,
-      filter: 'all'
+      filter: 'all',
+      entityStatus: 'idle'
     }, {
       id: 'todolistId2',
       title: 'What to buy',
       addedDate: '',
       order: 0,
-      filter: 'all'
+      filter: 'all',
+      entityStatus: 'idle'
     }
   ],
   tasks: {

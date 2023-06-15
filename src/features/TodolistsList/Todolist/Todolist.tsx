@@ -10,12 +10,14 @@ import {AppRootStateType, useAppDispatch} from '../../../app/store';
 import {addTaskTC, fetchTasksTC, removeTaskTC, updateTaskTC} from '../tasks-reducer';
 import {useSelector} from 'react-redux';
 import {Task} from './Task/Task';
+import {RequestStatusType} from '../../../app/app-reducer';
 
 
 type TodolistPropsType = {
   id: string
   title: string
   filter: FilterType
+  entityStatus: RequestStatusType
   deleteTodolist: (id: string) => void
   updateTodolist: (title: string, todolistId: string) => void
 }
@@ -76,7 +78,9 @@ export const Todolist = memo((props: TodolistPropsType) => {
     <div className={'todolist'}>
       <div className="todolist__title">
         <h2><EditableTitle title={props.title} changeTitle={onChangeTitleTodolist}/>
-          <IconButton onClick={onDeleteTodolist}><Delete style={{color: '#ccc0c0'}}/></IconButton>
+          <IconButton onClick={onDeleteTodolist} disabled={props.entityStatus === 'loading'}>
+            <Delete style={{color: '#ccc0c0'}}/>
+          </IconButton>
         </h2>
       </div>
       <div className={styles.buttons}>
@@ -102,10 +106,8 @@ export const Todolist = memo((props: TodolistPropsType) => {
           variant={props.filter === 'completed' ? 'contained' : 'outlined'}
         >Completed</Button>
       </div>
-      <div>
-        {finalTasksList}
-      </div>
-      <AddInputElement addElement={addTask}/>
+      <div>{finalTasksList}</div>
+      <AddInputElement addElement={addTask} isDisabled={props.entityStatus === 'loading'}/>
     </div>
   )
 })

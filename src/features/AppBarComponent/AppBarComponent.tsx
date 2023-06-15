@@ -4,7 +4,7 @@ import {FC} from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../../app/store';
-import {RequestStatusType} from '../../api/app-reducer';
+import {RequestStatusType} from '../../app/app-reducer';
 
 
 type AppBarPropsType = {}

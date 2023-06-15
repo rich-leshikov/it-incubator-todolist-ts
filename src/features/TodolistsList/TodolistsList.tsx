@@ -44,6 +44,7 @@ export const TodolistsList: FC<TodolistsListPropsType> = () => {
           id={tl.id}
           title={tl.title}
           filter={tl.filter}
+          entityStatus={tl.entityStatus}
           deleteTodolist={deleteTodolist}
           updateTodolist={updateTodolist}
         />
@@ -54,7 +55,7 @@ export const TodolistsList: FC<TodolistsListPropsType> = () => {
   return (
     <>
       <Grid container style={{margin: '20px 0'}}>
-        <AddInputElement addElement={addTodolist}/>
+        <AddInputElement addElement={addTodolist} isDisabled={false}/>
       </Grid>
       <Grid container spacing={3}>
         {todolistsList}
