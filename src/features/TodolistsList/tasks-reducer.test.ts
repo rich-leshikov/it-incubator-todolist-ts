@@ -18,7 +18,8 @@ beforeEach(() => {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }, {
         id: '2',
         title: 'JS',
@@ -29,7 +30,8 @@ beforeEach(() => {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }, {
         id: '3',
         title: 'React',
@@ -40,7 +42,8 @@ beforeEach(() => {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }
     ],
     'todolistId2': [
@@ -53,7 +56,8 @@ beforeEach(() => {
         startDate: '',
         deadline: '',
         addedDate: '',
-        order: 0, priority: TaskPriorities.Low
+        order: 0, priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }, {
         id: '2',
         title: 'milk',
@@ -64,7 +68,8 @@ beforeEach(() => {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }, {
         id: '3',
         title: 'tea',
@@ -75,7 +80,8 @@ beforeEach(() => {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }
     ]
   }

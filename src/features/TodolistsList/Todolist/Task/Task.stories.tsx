@@ -22,7 +22,8 @@ const meta: Meta<typeof Task> = {
       deadline: '',
       addedDate: '',
       order: 0,
-      priority: TaskPriorities.Low
+      priority: TaskPriorities.Low,
+      entityStatus: 'idle'
     }
   }
 }
@@ -44,7 +45,8 @@ export const TaskIsDoneStory: Story = {
       deadline: '',
       addedDate: '',
       order: 0,
-      priority: TaskPriorities.Low
+      priority: TaskPriorities.Low,
+      entityStatus: 'idle'
     }
   }
 }

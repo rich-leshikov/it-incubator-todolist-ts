@@ -45,7 +45,8 @@ const initialGlobalState = {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }, {
         id: '2',
         title: 'JS',
@@ -56,7 +57,8 @@ const initialGlobalState = {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }, {
         id: '3',
         title: 'React',
@@ -67,7 +69,8 @@ const initialGlobalState = {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }
     ],
     ['todolistId2']: [
@@ -80,7 +83,8 @@ const initialGlobalState = {
         startDate: '',
         deadline: '',
         addedDate: '',
-        order: 0, priority: TaskPriorities.Low
+        order: 0, priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }, {
         id: '2',
         title: 'milk',
@@ -91,7 +95,8 @@ const initialGlobalState = {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }, {
         id: '3',
         title: 'tea',
@@ -102,7 +107,8 @@ const initialGlobalState = {
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low
+        priority: TaskPriorities.Low,
+        entityStatus: 'idle'
       }
     ]
   },
