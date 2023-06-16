@@ -77,7 +77,12 @@ export const Todolist = memo((props: TodolistPropsType) => {
   return (
     <div className={'todolist'}>
       <div className="todolist__title">
-        <h2><EditableTitle title={props.title} changeTitle={onChangeTitleTodolist}/>
+        <h2>
+          <EditableTitle
+            title={props.title}
+            changeTitle={onChangeTitleTodolist}
+            isDisabled={props.entityStatus === 'loading'}
+          />
           <IconButton onClick={onDeleteTodolist} disabled={props.entityStatus === 'loading'}>
             <Delete style={{color: '#ccc0c0'}}/>
           </IconButton>

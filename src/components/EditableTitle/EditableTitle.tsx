@@ -5,33 +5,37 @@ import {ChangeEvent, memo, useState} from 'react';
 type TitleElementPropsType = {
   title: string
   changeTitle: (title: string) => void
+  isDisabled: boolean
 }
 
 
-export const EditableTitle = memo((props: TitleElementPropsType) => {
+export const EditableTitle = memo(({title, changeTitle, isDisabled}: TitleElementPropsType) => {
   // console.log('render title')
 
   const [changing, setChanging] = useState<boolean>(false)
-  const [title, setTitle] = useState<string>(props.title)
+  const [localTitle, setLocalTitle] = useState<string>(title)
 
   const onChangeValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value)
+    setLocalTitle(e.currentTarget.value)
   }
   const changingOnTitleHandler = () => {
+    if (isDisabled) {
+      return
+    }
     setChanging(true)
   }
   const changingOffTitleHandler = () => {
-    title.trim() !== '' && props.changeTitle(title.trim())
+    localTitle.trim() !== '' && changeTitle(localTitle.trim())
     setChanging(false)
   }
 
   return (
     <>
-      {!changing && <span onDoubleClick={changingOnTitleHandler}>{props.title}</span>}
+      {!changing && <span onDoubleClick={changingOnTitleHandler}>{title}</span>}
       {changing && <TextField
         variant={'outlined'}
         size={'small'}
-        value={title}
+        value={localTitle}
         onChange={onChangeValueHandler}
         onBlur={changingOffTitleHandler}
         autoFocus/>}

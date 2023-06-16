@@ -3,11 +3,12 @@ import {EditableTitle} from '../../../../components/EditableTitle/EditableTitle'
 import {Checkbox, IconButton} from '@mui/material'
 import {Delete} from '@mui/icons-material'
 import styles from './Task.module.css'
-import {TaskStatuses, TaskType} from '../../../../api/todolist-api'
+import {TaskStatuses} from '../../../../api/todolist-api'
+import {TaskDomainType} from '../../tasks-reducer';
 
 
 type TaskPropsType = {
-  task: TaskType
+  task: TaskDomainType
   removeTask: (id: string) => void
   checkTask: (id: string, status: TaskStatuses) => void
   changeTaskTitle: (title: string, taskId: string) => void
@@ -34,10 +35,12 @@ export const Task = memo((props: TaskPropsType) => {
           color={'success'}
           checked={props.task.status === TaskStatuses.Completed}
           onChange={checkTask}
+          disabled={props.task.entityStatus === 'loading'}
         />
         <EditableTitle
           title={props.task.title}
           changeTitle={changeTaskTitle}
+          isDisabled={props.task.entityStatus === 'loading'}
         />
       </div>
       <IconButton onClick={removeTask}><Delete style={{color: '#ccc0c0'}}/></IconButton>
