@@ -1,16 +1,16 @@
-import {memo, useCallback, useState} from 'react';
-import {AddInputElement} from '../../../components/AddInputElement/AddInputElement';
-import {EditableTitle} from '../../../components/EditableTitle/EditableTitle';
-import {Button, IconButton} from '@mui/material';
-import {Delete} from '@mui/icons-material';
-import {changeTodolistFilterAC, FilterType} from '../todolists-reducer';
+import {memo, useCallback, useState} from 'react'
+import {AddInputElement} from '../../../components/AddInputElement/AddInputElement'
+import {EditableTitle} from '../../../components/EditableTitle/EditableTitle'
+import {Button, IconButton} from '@mui/material'
+import {Delete} from '@mui/icons-material'
+import {changeTodolistFilterAC, FilterType} from '../todolists-reducer'
 import styles from './Todolist.module.css'
-import {TaskStatuses} from '../../../api/todolist-api';
-import {AppRootStateType, useAppDispatch} from '../../../app/store';
-import {addTaskTC, fetchTasksTC, removeTaskTC, TaskDomainType, updateTaskTC} from '../tasks-reducer';
-import {useSelector} from 'react-redux';
-import {Task} from './Task/Task';
-import {RequestStatusType} from '../../../app/app-reducer';
+import {TaskStatuses} from '../../../api/todolist-api'
+import {AppRootStateType, useAppDispatch} from '../../../app/store'
+import {addTaskTC, fetchTasksTC, removeTaskTC, TaskDomainType, updateTaskTC} from '../tasks-reducer'
+import {useSelector} from 'react-redux'
+import {Task} from './Task/Task'
+import {RequestStatusType} from '../../../app/app-reducer'
 
 
 type TodolistPropsType = {

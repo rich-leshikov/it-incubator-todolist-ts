@@ -1,6 +1,6 @@
-import {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
-import {IconButton, TextField} from '@mui/material';
-import {AddBox} from '@mui/icons-material';
+import {ChangeEvent, KeyboardEvent, memo, useState} from 'react'
+import {IconButton, TextField} from '@mui/material'
+import {AddBox} from '@mui/icons-material'
 import styles from './AddInputElement.module.css'
 
 

@@ -1,5 +1,5 @@
-import {TextField} from '@mui/material';
-import {ChangeEvent, memo, useState} from 'react';
+import {TextField} from '@mui/material'
+import {ChangeEvent, memo, useState} from 'react'
 
 
 type TitleElementPropsType = {

@@ -1,9 +1,9 @@
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from './todolists-reducer';
-import {TaskPriorities, TaskStatuses, TaskType, todolistAPI, TodolistType} from '../../api/todolist-api';
-import {Dispatch} from 'redux';
-import {AppRootStateType} from '../../app/store';
-import {AppActionType, RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
-import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
+import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from './todolists-reducer'
+import {TaskPriorities, TaskStatuses, TaskType, todolistAPI, TodolistType} from '../../api/todolist-api'
+import {Dispatch} from 'redux'
+import {AppRootStateType} from '../../app/store'
+import {AppActionType, RequestStatusType, setAppStatusAC} from '../../app/app-reducer'
+import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils'
 
 
 export const tasksReducer = (state: TasksStateType = {}, action: TaskActionType): TasksStateType => {
