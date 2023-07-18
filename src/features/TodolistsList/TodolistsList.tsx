@@ -1,17 +1,17 @@
-import {Grid, Paper} from '@mui/material';
-import styles from '../../app/App.module.css';
-import {Todolist} from './Todolist/Todolist';
-import {useSelector} from 'react-redux';
-import {AppRootStateType, useAppDispatch} from '../../app/store';
+import {Grid, Paper} from '@mui/material'
+import styles from '../../app/App.module.css'
+import {Todolist} from './Todolist/Todolist'
+import {useSelector} from 'react-redux'
+import {AppRootStateType, useAppDispatch} from '../../app/store'
 import {
   addTodolistTC,
   fetchTodolistsTC,
   removeTodolistTC,
   TodolistDomainType,
   updateTodolistTC
-} from './todolists-reducer';
-import {FC, useCallback, useEffect} from 'react';
-import {AddInputElement} from '../../components/AddInputElement/AddInputElement';
+} from './todolists-reducer'
+import {FC, useCallback, useEffect} from 'react'
+import {AddInputElement} from '../../components/AddInputElement/AddInputElement'
 
 
 type TodolistsListPropsType = {}
