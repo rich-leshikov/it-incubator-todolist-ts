@@ -11,12 +11,18 @@ export const instance = axios.create({
 })
 
 // API
+export const authAPI = {
+  login: (payload: LoginParamsType) => {
+    return instance.post<ResponseType<{ userId: string }>>('auth/login', payload)
+  }
+}
+
 export const todolistAPI = {
   getTodolists: () => {
     return instance.get<TodolistType[]>('todo-lists')
   },
   addTodolist: (title: string) => {
-    return instance.post<ResponseType<{ item: TodolistType }>, AxiosResponse<ResponseType<{ item: TodolistType }>>, { title: string }>('todo-lists', {title: title})
+    return instance.post<ResponseType<{ item: TodolistType }>, AxiosResponse<ResponseType<{ item: TodolistType }>>, { title: string }>('todo-lists', {title})
   },
   removeTodolist: (id: string) => {
     return instance.delete<ResponseType>(`todo-lists/${id}`)
@@ -38,25 +44,34 @@ export const todolistAPI = {
   }
 }
 
-// types
-export type TodolistType = {
-  id: string
-  title: string
-  addedDate: string
-  order: number
-}
+// enums
 export enum TaskStatuses {
   New = 0,
   InProgress = 1,
   Completed = 2,
   Draft = 3
 }
+
 export enum TaskPriorities {
   Low = 0,
   Middle = 1,
   Hi = 2,
   Urgently = 3,
   Later = 4
+}
+
+// types
+export type LoginParamsType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha?: boolean
+}
+export type TodolistType = {
+  id: string
+  title: string
+  addedDate: string
+  order: number
 }
 export type TaskType = {
   description: string
