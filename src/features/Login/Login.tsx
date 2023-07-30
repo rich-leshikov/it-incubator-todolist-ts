@@ -60,7 +60,6 @@ export const Login = () => {
               label="Email"
               margin="normal"
               {...formik.getFieldProps('email')}
-              onBlur={formik.handleBlur}
             />
             {
               formik.errors.email && formik.touched.email
@@ -72,7 +71,6 @@ export const Login = () => {
               label="Password"
               margin="normal"
               {...formik.getFieldProps('password')}
-              onBlur={formik.handleBlur}
             />
             {
               formik.errors.password && formik.touched.password
@@ -82,9 +80,8 @@ export const Login = () => {
             <FormControlLabel
               label={'Remember me'}
               control={<Checkbox
-                name="rememberMe"
-                onChange={formik.handleChange}
                 checked={formik.values.rememberMe}
+                {...formik.getFieldProps('rememberMe')}
               />}
             />
             <Button type={'submit'} variant={'contained'} color={'primary'}>Login </Button>
