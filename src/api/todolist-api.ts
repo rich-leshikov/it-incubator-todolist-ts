@@ -12,8 +12,8 @@ export const instance = axios.create({
 
 // API
 export const authAPI = {
-  login: (payload: LoginParamsType) => {
-    return instance.post<ResponseType<{ userId: string }>>('auth/login', payload)
+  login: (data: LoginParamsType) => {
+    return instance.post<ResponseType<{ userId: number }>>('auth/login', data)
   }
 }
 
@@ -65,7 +65,7 @@ export type LoginParamsType = {
   email: string
   password: string
   rememberMe: boolean
-  captcha?: boolean
+  captcha?: string
 }
 export type TodolistType = {
   id: string
