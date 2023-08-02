@@ -12,6 +12,7 @@ import {
 } from './todolists-reducer'
 import {FC, useCallback, useEffect} from 'react'
 import {AddInputElement} from '../../components/AddInputElement/AddInputElement'
+import { Navigate } from 'react-router-dom'
 
 
 type TodolistsListPropsType = {}
@@ -21,9 +22,14 @@ export const TodolistsList: FC<TodolistsListPropsType> = () => {
   // console.log('render TodolistsList')
 
   const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
+  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      return
+    }
+
     dispatch(fetchTodolistsTC())
   }, [])
 
@@ -51,6 +57,10 @@ export const TodolistsList: FC<TodolistsListPropsType> = () => {
       </Paper>
     </Grid>
   )
+
+  if (!isLoggedIn) {
+    return <Navigate to={'/login'}/>
+  }
 
   return (
     <>
