@@ -14,6 +14,9 @@ export const instance = axios.create({
 export const authAPI = {
   login: (data: LoginParamsType) => {
     return instance.post<ResponseType<{ userId: number }>>('auth/login', data)
+  },
+  me: () => {
+    return instance.get<ResponseType<AuthMeType>>('auth/me')
   }
 }
 
@@ -102,4 +105,9 @@ export type ResponseType<D = {}> = {
   resultCode: number
   messages: Array<string>
   data: D
+}
+export type AuthMeType = {
+  id: number
+  email: string
+  login: string
 }

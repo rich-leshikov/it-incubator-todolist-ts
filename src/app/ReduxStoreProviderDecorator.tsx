@@ -16,6 +16,13 @@ const rootReducer = combineReducers({
 })
 
 const initialGlobalState = {
+  app: {
+    status: 'idle',
+    error: null
+  },
+  auth: {
+    isLoggedIn: false
+  },
   todolists: [
     {
       id: 'todolistId1',
@@ -111,10 +118,6 @@ const initialGlobalState = {
         entityStatus: 'idle'
       }
     ]
-  },
-  app: {
-    status: 'idle',
-    error: null
   }
 }
 
