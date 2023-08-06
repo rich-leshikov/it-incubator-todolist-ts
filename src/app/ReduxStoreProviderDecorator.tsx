@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
 
 const initialGlobalState = {
   app: {
+    isInitialized: false,
     status: 'idle',
     error: null
   },

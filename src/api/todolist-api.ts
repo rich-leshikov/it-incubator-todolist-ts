@@ -70,6 +70,11 @@ export type LoginParamsType = {
   rememberMe: boolean
   captcha?: string
 }
+export type AuthMeType = {
+  id: number
+  email: string
+  login: string
+}
 export type TodolistType = {
   id: string
   title: string
@@ -105,9 +110,4 @@ export type ResponseType<D = {}> = {
   resultCode: number
   messages: Array<string>
   data: D
-}
-export type AuthMeType = {
-  id: number
-  email: string
-  login: string
 }

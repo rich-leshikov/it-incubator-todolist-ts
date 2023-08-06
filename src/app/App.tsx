@@ -1,22 +1,30 @@
 import {AppBarComponent} from '../features/AppBarComponent/AppBarComponent'
-import {Container} from '@mui/material'
+import {CircularProgress, Container} from '@mui/material'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
-import {store, useAppDispatch} from './store'
-import {Provider} from 'react-redux'
-import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
+import {AppRootStateType, useAppDispatch} from './store'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import {Login} from '../features/Login/Login'
 import {useEffect} from 'react'
 import {initializeAppTC} from './app-reducer'
+import {useSelector} from 'react-redux';
 
 
 export function App() {
   // console.log('render app')
+  const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(initializeAppTC())
   }, [])
+
+  if (!isInitialized) {
+    return <div
+      style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+      <CircularProgress/>
+    </div>
+  }
 
   return (
     <BrowserRouter>
