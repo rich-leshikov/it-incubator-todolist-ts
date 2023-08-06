@@ -3,15 +3,20 @@ import {Menu} from '@mui/icons-material'
 import {FC} from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from '../../app/store'
+import {AppRootStateType, useAppDispatch} from '../../app/store'
 import {RequestStatusType} from '../../app/app-reducer'
+import {logoutTC} from '../Login/auth-reducer';
 
 
 type AppBarPropsType = {}
 
 
 export const AppBarComponent: FC<AppBarPropsType> = () => {
+  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
   const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+  const dispatch = useAppDispatch()
+
+  const logOutHandler = () => dispatch(logoutTC())
 
   return (
     <AppBar position={'static'} color={'transparent'}>
@@ -22,7 +27,7 @@ export const AppBarComponent: FC<AppBarPropsType> = () => {
           </IconButton>
           <Typography variant={'h6'}>Todolist</Typography>
         </div>
-        <Button color={'inherit'}>Login</Button>
+        {isLoggedIn && <Button color={'inherit'} onClick={logOutHandler}>Log out</Button>}
       </Toolbar>
       {status === 'loading' && <LinearProgress/>}
     </AppBar>
