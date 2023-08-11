@@ -1,11 +1,11 @@
-import { AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType } from './todolists-reducer'
+import {} from './todolists-reducer'
 import { TaskPriorities, TaskStatuses, TaskType, todolistAPI, TodolistType } from 'api/todolist-api'
 import { Dispatch } from 'redux'
 import { AppRootStateType } from 'app/store'
 import { appActions, RequestStatusType } from 'app/app-reducer'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 
-export const tasksReducer = (state: TasksStateType = {}, action: TaskActionType): TasksStateType => {
+export const tasksReducer = (state: TasksStateType = {}, action: any): TasksStateType => {
   switch (action.type) {
     case 'SET-TASKS': {
       return { ...state, [action.todolistId]: action.tasks }
@@ -63,8 +63,7 @@ export const changeTaskEntityStatusAC = (taskID: string, entityStatus: RequestSt
 // thunks
 export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
   dispatch(appActions.setAppStatus({ status: 'loading' }))
-  todolistAPI
-    .getTasks(todolistId)
+  todolistAPI.getTasks(todolistId)
     .then(res => {
       const resData: TaskDomainType[] = res.data.items.map(task => ({ ...task, entityStatus: 'idle' }))
       dispatch(setTasksAC(resData, todolistId))
@@ -72,38 +71,33 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
     })
     .catch(err => handleServerNetworkError(err, dispatch))
 }
-export const addTaskTC =
-  (taskTitle: string, todolistId: string) => (dispatch: Dispatch) => {
-    dispatch(appActions.setAppStatus({ status: 'loading' }))
-    todolistAPI
-      .addTask(todolistId, taskTitle)
-      .then(res => {
-        if (res.data.resultCode === 0) {
-          dispatch(addTaskAC(res.data.data.item))
-          dispatch(appActions.setAppStatus({ status: 'succeeded' }))
-        } else {
-          handleServerAppError(res.data, dispatch)
-        }
-      })
-      .catch(err => handleServerNetworkError(err, dispatch))
-  }
-export const removeTaskTC =
-  (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
-    dispatch(appActions.setAppStatus({ status: 'loading' }))
-    dispatch(changeTaskEntityStatusAC(taskId, 'loading', todolistId))
-    todolistAPI
-      .removeTask(todolistId, taskId)
-      .then(() => {
-        dispatch(removeTaskAC(taskId, todolistId))
+export const addTaskTC = (taskTitle: string, todolistId: string) => (dispatch: Dispatch) => {
+  dispatch(appActions.setAppStatus({ status: 'loading' }))
+  todolistAPI.addTask(todolistId, taskTitle)
+    .then(res => {
+      if (res.data.resultCode === 0) {
+        dispatch(addTaskAC(res.data.data.item))
         dispatch(appActions.setAppStatus({ status: 'succeeded' }))
-      })
-      .catch(err => {
-        handleServerNetworkError(err, dispatch)
-        dispatch(changeTaskEntityStatusAC(taskId, 'failed', todolistId))
-      })
-  }
-export const updateTaskTC =
-  (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModelType) =>
+      } else {
+        handleServerAppError(res.data, dispatch)
+      }
+    })
+    .catch(err => handleServerNetworkError(err, dispatch))
+}
+export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
+  dispatch(appActions.setAppStatus({ status: 'loading' }))
+  dispatch(changeTaskEntityStatusAC(taskId, 'loading', todolistId))
+  todolistAPI.removeTask(todolistId, taskId)
+    .then(() => {
+      dispatch(removeTaskAC(taskId, todolistId))
+      dispatch(appActions.setAppStatus({ status: 'succeeded' }))
+    })
+    .catch(err => {
+      handleServerNetworkError(err, dispatch)
+      dispatch(changeTaskEntityStatusAC(taskId, 'failed', todolistId))
+    })
+}
+export const updateTaskTC = (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModelType) =>
   (dispatch: Dispatch, getState: () => AppRootStateType) => {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     dispatch(changeTaskEntityStatusAC(taskId, 'loading', todolistId))
@@ -113,16 +107,15 @@ export const updateTaskTC =
       throw new Error('Task not found')
     }
 
-    todolistAPI
-      .updateTask(todolistId, taskId, {
-        title: task.title,
-        startDate: task.startDate,
-        priority: task.priority,
-        description: task.description,
-        deadline: task.deadline,
-        status: task.status,
-        ...domainModel
-      })
+    todolistAPI.updateTask(todolistId, taskId, {
+      title: task.title,
+      startDate: task.startDate,
+      priority: task.priority,
+      description: task.description,
+      deadline: task.deadline,
+      status: task.status,
+      ...domainModel
+    })
       .then(res => {
         if (res.data.resultCode === 0) {
           dispatch(updateTaskAC(taskId, domainModel, todolistId))
@@ -139,21 +132,6 @@ export const updateTaskTC =
   }
 
 // types
-export type TaskActionType =
-  | SetTasksActionType
-  | AddTaskActionType
-  | RemoveTaskActionType
-  | UpdateTaskActionType
-  | AddTodolistActionType
-  | RemoveTodolistActionType
-  | SetTodolistsActionType
-  | ChangeTaskEntityStatusActionType
-export type SetTasksActionType = ReturnType<typeof setTasksAC>
-export type AddTaskActionType = ReturnType<typeof addTaskAC>
-export type RemoveTaskActionType = ReturnType<typeof removeTaskAC>
-export type UpdateTaskActionType = ReturnType<typeof updateTaskAC>
-export type ChangeTaskEntityStatusActionType = ReturnType<typeof changeTaskEntityStatusAC>
-
 export type TaskDomainType = TaskType & {
   entityStatus: RequestStatusType
 }

@@ -3,7 +3,7 @@ import { AddInputElement } from 'components/AddInputElement/AddInputElement'
 import { EditableTitle } from 'components/EditableTitle/EditableTitle'
 import { Button, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { changeTodolistFilterAC, FilterType } from '../todolists-reducer'
+import { FilterType, todolistsActions } from '../todolists-reducer'
 import styles from './Todolist.module.css'
 import { TaskStatuses } from 'api/todolist-api'
 import { AppRootStateType, useAppDispatch } from 'app/store'
@@ -41,7 +41,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
     [props.updateTodolist, props.id]
   )
   const filterTasks = (filterValue: FilterType) => {
-    dispatch(changeTodolistFilterAC(props.id, filterValue))
+    dispatch(todolistsActions.changeTodolistFilter({ id: props.id, filter: filterValue }))
   }
   const addTask = useCallback(
     (taskTitle: string) => {
