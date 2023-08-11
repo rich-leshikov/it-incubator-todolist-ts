@@ -1,5 +1,5 @@
 import { todolistsActions } from './todolists-reducer'
-import { addTaskAC, removeTaskAC, tasksReducer, TasksStateType, updateTaskAC } from './tasks-reducer'
+import { tasksActions, tasksReducer, TasksStateType } from './tasks-reducer'
 import { TaskPriorities, TaskStatuses } from 'api/todolist-api'
 
 let startState: TasksStateType
@@ -92,17 +92,19 @@ beforeEach(() => {
 })
 
 test('correct task should be added to correct array', () => {
-  const action = addTaskAC({
-    description: '',
-    title: 'juce',
-    status: TaskStatuses.New,
-    priority: TaskPriorities.Middle,
-    startDate: '',
-    deadline: '',
-    id: '12340932516512',
-    todoListId: 'todolistId2',
-    order: 0,
-    addedDate: ''
+  const action = tasksActions.addTask({
+    task: {
+      description: '',
+      title: 'juce',
+      status: TaskStatuses.New,
+      priority: TaskPriorities.Middle,
+      startDate: '',
+      deadline: '',
+      id: '12340932516512',
+      todoListId: 'todolistId2',
+      order: 0,
+      addedDate: ''
+    }
   })
 
   const endState = tasksReducer(startState, action)
@@ -115,7 +117,7 @@ test('correct task should be added to correct array', () => {
 })
 
 test('correct task should be deleted from correct array', () => {
-  const action = removeTaskAC('2', 'todolistId2')
+  const action = tasksActions.removeTask({ taskId: '2', todolistId: 'todolistId2' })
 
   const endState = tasksReducer(startState, action)
 
@@ -188,7 +190,11 @@ test('correct task should be deleted from correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-  const action = updateTaskAC('2', { status: TaskStatuses.New }, 'todolistId2')
+  const action = tasksActions.updateTask({
+    taskId: '2',
+    model: { status: TaskStatuses.New },
+    todolistId: 'todolistId2'
+  })
 
   const endState = tasksReducer(startState, action)
 
@@ -274,7 +280,7 @@ test('status of specified task should be changed', () => {
 })
 
 test('title of specified task should be changed', () => {
-  const action = updateTaskAC('2', { title: 'meat' }, 'todolistId2')
+  const action = tasksActions.updateTask({ taskId: '2', model: { title: 'meat' }, todolistId: 'todolistId2' })
 
   const endState = tasksReducer(startState, action)
 
