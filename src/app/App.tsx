@@ -11,9 +11,7 @@ import { useSelector } from 'react-redux'
 
 export function App() {
 	// console.log('render app')
-	const isInitialized = useSelector<AppRootStateType, boolean>(
-		state => state.app.isInitialized
-	)
+	const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {

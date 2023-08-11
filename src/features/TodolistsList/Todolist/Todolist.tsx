@@ -7,13 +7,7 @@ import { changeTodolistFilterAC, FilterType } from '../todolists-reducer'
 import styles from './Todolist.module.css'
 import { TaskStatuses } from '../../../api/todolist-api'
 import { AppRootStateType, useAppDispatch } from '../../../app/store'
-import {
-	addTaskTC,
-	fetchTasksTC,
-	removeTaskTC,
-	TaskDomainType,
-	updateTaskTC
-} from '../tasks-reducer'
+import { addTaskTC, fetchTasksTC, removeTaskTC, TaskDomainType, updateTaskTC } from '../tasks-reducer'
 import { useSelector } from 'react-redux'
 import { Task } from './Task/Task'
 import { RequestStatusType } from '../../../app/app-reducer'
@@ -30,9 +24,7 @@ type TodolistPropsType = {
 export const Todolist = memo((props: TodolistPropsType) => {
 	// console.log('render todolist')
 
-	const tasks = useSelector<AppRootStateType, TaskDomainType[]>(
-		state => state.tasks[props.id]
-	)
+	const tasks = useSelector<AppRootStateType, TaskDomainType[]>(state => state.tasks[props.id])
 	const dispatch = useAppDispatch()
 
 	useState(() => {
@@ -86,13 +78,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
 	}
 
 	let finalTasksList = tasksList.map(t => (
-		<Task
-			key={t.id}
-			task={t}
-			removeTask={removeTask}
-			checkTask={changeTaskStatus}
-			changeTaskTitle={changeTaskTitle}
-		/>
+		<Task key={t.id} task={t} removeTask={removeTask} checkTask={changeTaskStatus} changeTaskTitle={changeTaskTitle} />
 	))
 
 	return (
@@ -104,10 +90,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
 						changeTitle={onChangeTitleTodolist}
 						isDisabled={props.entityStatus === 'loading'}
 					/>
-					<IconButton
-						onClick={onDeleteTodolist}
-						disabled={props.entityStatus === 'loading'}
-					>
+					<IconButton onClick={onDeleteTodolist} disabled={props.entityStatus === 'loading'}>
 						<Delete style={{ color: '#ccc0c0' }} />
 					</IconButton>
 				</h2>
@@ -142,10 +125,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
 				</Button>
 			</div>
 			<div>{finalTasksList}</div>
-			<AddInputElement
-				addElement={addTask}
-				isDisabled={props.entityStatus === 'loading'}
-			/>
+			<AddInputElement addElement={addTask} isDisabled={props.entityStatus === 'loading'} />
 		</div>
 	)
 })

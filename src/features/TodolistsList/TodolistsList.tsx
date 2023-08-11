@@ -19,12 +19,8 @@ type TodolistsListPropsType = {}
 export const TodolistsList: FC<TodolistsListPropsType> = () => {
 	// console.log('render TodolistsList')
 
-	const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(
-		state => state.todolists
-	)
-	const isLoggedIn = useSelector<AppRootStateType, boolean>(
-		state => state.auth.isLoggedIn
-	)
+	const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
+	const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {

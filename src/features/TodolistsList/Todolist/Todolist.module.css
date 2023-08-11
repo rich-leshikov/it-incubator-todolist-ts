@@ -1,14 +1,14 @@
 .todolist {
-  width: 1000px;
+	width: 1000px;
 }
 
 .buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
 }
 
 .button {
-  /*do no working*/
-  /*margin-right: 5px;*/
+	/*do no working*/
+	/*margin-right: 5px;*/
 }

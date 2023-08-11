@@ -10,12 +10,8 @@ import { logoutTC } from '../Login/auth-reducer'
 type AppBarPropsType = {}
 
 export const AppBarComponent: FC<AppBarPropsType> = () => {
-	const isLoggedIn = useSelector<AppRootStateType, boolean>(
-		state => state.auth.isLoggedIn
-	)
-	const status = useSelector<AppRootStateType, RequestStatusType>(
-		state => state.app.status
-	)
+	const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+	const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 	const dispatch = useAppDispatch()
 
 	const logOutHandler = () => dispatch(logoutTC())
