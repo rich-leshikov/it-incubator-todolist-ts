@@ -1,43 +1,39 @@
 import { Dispatch } from 'redux'
 import { authAPI } from 'api/todolist-api'
-import { setIsLoggedInAC } from 'features/Login/auth-reducer'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { authActions } from 'features/Login/auth-reducer'
 
-const initialState: AppDomainType = {
-  isInitialized: false,
-  status: 'loading' as RequestStatusType,
-  error: null
-}
-
-export const appReducer = (state: AppDomainType = initialState, action: AppActionType): AppDomainType => {
-  switch (action.type) {
-    case 'APP/SET-IS-INITIALIZED':
-      return { ...state, isInitialized: action.isInitialized }
-    case 'APP/SET-STATUS':
-      return { ...state, status: action.status }
-    case 'APP/SET-ERROR':
-      return { ...state, error: action.error }
-    default:
-      return state
+const slice = createSlice({
+  name: 'app',
+  initialState: {
+    isInitialized: false,
+    status: 'loading' as RequestStatusType,
+    error: null as string | null
+  },
+  reducers: {
+    setAppIsInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
+      state.isInitialized = action.payload.isInitialized
+    },
+    setAppStatus: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
+      state.status = action.payload.status
+    },
+    setAppError: (state, action: PayloadAction<{ error: string | null }>) => {
+      state.error = action.payload.error
+    }
   }
-}
+})
 
-// actions
-export const setAppIsInitializedAC = (isInitialized: boolean) =>
-  ({
-    type: 'APP/SET-IS-INITIALIZED',
-    isInitialized
-  }) as const
-export const setAppStatusAC = (status: RequestStatusType) => ({ type: 'APP/SET-STATUS', status }) as const
-export const setAppErrorAC = (error: string | null) => ({ type: 'APP/SET-ERROR', error }) as const
+export const appReducer = slice.reducer
+export const appActions = slice.actions
+// export const { setIsLoggedIn } = slice.actions
 
 // thunks
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-  authAPI
-    .me()
+  authAPI.me()
     .then(res => {
       if (res.data.resultCode === 0) {
-        dispatch(setIsLoggedInAC(true))
+        dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }))
       } else {
         handleServerAppError(res.data, dispatch)
       }
@@ -46,19 +42,8 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
       handleServerNetworkError(err, dispatch)
     })
     .finally(() => {
-      dispatch(setAppIsInitializedAC(true))
+      dispatch(appActions.setAppIsInitialized({ isInitialized: true }))
     })
 }
 
-// types
-export type SetAppIsInitializedActionType = ReturnType<typeof setAppIsInitializedAC>
-export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
-export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
-export type AppActionType = SetAppIsInitializedActionType | SetAppStatusActionType | SetAppErrorActionType
-
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-type AppDomainType = {
-  isInitialized: boolean
-  status: RequestStatusType
-  error: string | null
-}
