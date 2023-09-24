@@ -17,7 +17,9 @@ const slice = createSlice({
       state[action.payload.task.todoListId].unshift({ ...action.payload.task, entityStatus: 'idle' })
     },
     removeTask: (state, action: PayloadAction<{ taskId: string, todolistId: string }>) => {
-      state[action.payload.todolistId].splice(+action.payload.taskId, 1)
+      const tasks = state[action.payload.todolistId]
+      const idx = tasks.findIndex(t => t.id === action.payload.taskId)
+      if (idx > -1) tasks.splice(idx, 1)
     },
     updateTask: (state, action: PayloadAction<{
       taskId: string,
@@ -82,6 +84,7 @@ export const addTaskTC = (taskTitle: string, todolistId: string) => (dispatch: D
     .catch(err => handleServerNetworkError(err, dispatch))
 }
 export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
+  // debugger
   dispatch(appActions.setAppStatus({ status: 'loading' }))
   dispatch(tasksActions.changeTaskEntityStatus({ taskId, entityStatus: 'loading', todolistId }))
   todolistAPI.removeTask(todolistId, taskId)
