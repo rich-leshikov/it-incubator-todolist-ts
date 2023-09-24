@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react'
+import { memo, useCallback } from 'react'
 import { AddInputElement } from 'components/AddInputElement/AddInputElement'
 import { EditableTitle } from 'components/EditableTitle/EditableTitle'
 import { Button, IconButton } from '@mui/material'
@@ -7,7 +7,7 @@ import { FilterType, todolistsActions } from '../todolists-reducer'
 import styles from './Todolist.module.css'
 import { TaskStatuses } from 'api/todolist-api'
 import { AppRootStateType, useAppDispatch } from 'app/store'
-import { addTaskTC, fetchTasksTC, removeTaskTC, TaskDomainType, updateTaskTC } from '../tasks-reducer'
+import { addTaskTC, removeTaskTC, TaskDomainType, updateTaskTC } from '../tasks-reducer'
 import { useSelector } from 'react-redux'
 import { Task } from './Task/Task'
 import { RequestStatusType } from 'app/app-reducer'
@@ -26,10 +26,6 @@ export const Todolist = memo((props: TodolistPropsType) => {
 
   const tasks = useSelector<AppRootStateType, TaskDomainType[]>(state => state.tasks[props.id])
   const dispatch = useAppDispatch()
-
-  useState(() => {
-    dispatch(fetchTasksTC(props.id))
-  })
 
   const onDeleteTodolist = () => {
     props.deleteTodolist(props.id)

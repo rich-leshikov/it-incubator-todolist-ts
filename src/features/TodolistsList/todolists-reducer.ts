@@ -3,13 +3,15 @@ import { Dispatch } from 'redux'
 import { appActions, RequestStatusType } from 'app/app-reducer'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { fetchTasksTC } from 'features/TodolistsList/tasks-reducer'
+import { AppThunkDispatchType } from 'app/store'
 
 const slice = createSlice({
   name: 'todolists',
   initialState: [] as Array<TodolistDomainType>,
   reducers: {
     setTodolists: (state, action: PayloadAction<{ todolists: TodolistType[] }>) => {
-      return action.payload.todolists.map(tl => ({ ...tl, filter: 'all', entityStatus: 'idle' }))
+      action.payload.todolists.forEach(tl => state.push({...tl, filter: 'all', entityStatus: 'idle' }))
     },
     addTodolist: (state, action: PayloadAction<{ todolist: TodolistType }>) => {
       state.unshift({ ...action.payload.todolist, filter: 'all', entityStatus: 'idle' })
@@ -37,13 +39,17 @@ export const todolistsReducer = slice.reducer
 export const todolistsActions = slice.actions
 
 // thunks
-export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
+export const fetchTodolistsTC = () => (dispatch: AppThunkDispatchType) => { // dispatch: Dispatch - уточни про эту типизацию
   dispatch(appActions.setAppStatus({ status: 'loading' }))
   todolistAPI.getTodolists()
     .then(res => {
-      const resData: TodolistDomainType[] = res.data.map(el => ({ ...el, filter: 'all', entityStatus: 'idle' }))
+      const resData: TodolistDomainType[] = res.data.map(tl => ({ ...tl, filter: 'all', entityStatus: 'idle' }))
       dispatch(todolistsActions.setTodolists({ todolists: resData }))
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
+      return resData
+    })
+    .then(todolists => {
+      todolists.forEach(tl => dispatch(fetchTasksTC(tl.id)))
     })
     .catch(err => handleServerNetworkError(err, dispatch))
 }
