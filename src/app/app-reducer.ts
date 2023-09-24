@@ -47,3 +47,4 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
 }
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type AppInitialStateType = ReturnType<typeof slice.getInitialState>

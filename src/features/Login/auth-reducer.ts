@@ -49,3 +49,5 @@ export const logoutTC = () => (dispatch: Dispatch) => {
     })
     .catch(err => handleServerNetworkError(err, dispatch))
 }
+
+export type AuthInitialStateType = ReturnType<typeof slice.getInitialState>

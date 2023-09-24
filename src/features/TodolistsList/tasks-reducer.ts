@@ -18,7 +18,7 @@ const slice = createSlice({
     },
     removeTask: (state, action: PayloadAction<{ taskId: string, todolistId: string }>) => {
       const tasks = state[action.payload.todolistId]
-      const idx = tasks.findIndex(t => t.id === action.payload.taskId)
+      const idx = tasks.findIndex(task => task.id === action.payload.taskId)
       if (idx > -1) tasks.splice(idx, 1)
     },
     updateTask: (state, action: PayloadAction<{
@@ -27,8 +27,8 @@ const slice = createSlice({
       todolistId: string
     }>) => {
       const tasks = state[action.payload.todolistId]
-      let index = tasks.findIndex(task => task.id === action.payload.taskId)
-      if (index > -1) tasks[index] = { ...tasks[index], ...action.payload.model }
+      let idx = tasks.findIndex(task => task.id === action.payload.taskId)
+      if (idx > -1) tasks[idx] = { ...tasks[idx], ...action.payload.model }
     },
     changeTaskEntityStatus: (state, action: PayloadAction<{
       taskId: string,
@@ -36,8 +36,8 @@ const slice = createSlice({
       todolistId: string
     }>) => {
       const tasks = state[action.payload.todolistId]
-      let index = tasks.findIndex(task => task.id === action.payload.taskId)
-      if (index > -1) tasks[index].entityStatus = action.payload.entityStatus
+      let idx = tasks.findIndex(task => task.id === action.payload.taskId)
+      if (idx > -1) tasks[idx].entityStatus = action.payload.entityStatus
     }
   },
   extraReducers: builder => {
