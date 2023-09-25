@@ -3,7 +3,7 @@ import { CircularProgress, Container } from '@mui/material'
 import { TodolistsList } from 'features/TodolistsList/TodolistsList'
 import { ErrorSnackbar } from 'components/ErrorSnackbar/ErrorSnackbar'
 import { AppRootStateType, useAppDispatch } from './store'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from 'features/Login/Login'
 import { useEffect } from 'react'
 import { initializeAppTC } from './app-reducer'
@@ -34,7 +34,7 @@ export function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className='App'>
         <ErrorSnackbar />
         <AppBarComponent />
@@ -47,6 +47,6 @@ export function App() {
           </Routes>
         </Container>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
