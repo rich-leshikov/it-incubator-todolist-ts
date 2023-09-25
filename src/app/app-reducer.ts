@@ -1,8 +1,8 @@
-import { Dispatch } from 'redux'
 import { authAPI } from 'api/todolist-api'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authActions } from 'features/Login/auth-reducer'
+import { AppThunkDispatchType } from 'app/store'
 
 const slice = createSlice({
   name: 'app',
@@ -29,7 +29,7 @@ export const appActions = slice.actions
 // export const { setIsLoggedIn } = slice.actions
 
 // thunks
-export const initializeAppTC = () => (dispatch: Dispatch) => {
+export const initializeAppTC = () => (dispatch: AppThunkDispatchType) => {
   authAPI.me()
     .then(res => {
       if (res.data.resultCode === 0) {

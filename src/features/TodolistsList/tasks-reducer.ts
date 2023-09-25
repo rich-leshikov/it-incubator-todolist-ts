@@ -1,6 +1,5 @@
 import { TaskPriorities, TaskStatuses, TaskType, todolistAPI } from 'api/todolist-api'
-import { Dispatch } from 'redux'
-import { AppRootStateType } from 'app/store'
+import { AppRootStateType, AppThunkDispatchType } from 'app/store'
 import { appActions, RequestStatusType } from 'app/app-reducer'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
@@ -47,6 +46,9 @@ const slice = createSlice({
           state[tl.id] = []
         })
       })
+      .addCase(todolistsActions.clearTodolists, () => {
+        return {}
+      })
       .addCase(todolistsActions.addTodolist, (state, action) => {
         state[action.payload.todolist.id] = []
       })
@@ -60,7 +62,7 @@ export const tasksReducer = slice.reducer
 export const tasksActions = slice.actions
 
 // thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: AppThunkDispatchType) => {
   dispatch(appActions.setAppStatus({ status: 'loading' }))
   todolistAPI.getTasks(todolistId)
     .then(res => {
@@ -70,7 +72,7 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
     })
     .catch(err => handleServerNetworkError(err, dispatch))
 }
-export const addTaskTC = (taskTitle: string, todolistId: string) => (dispatch: Dispatch) => {
+export const addTaskTC = (taskTitle: string, todolistId: string) => (dispatch: AppThunkDispatchType) => {
   dispatch(appActions.setAppStatus({ status: 'loading' }))
   todolistAPI.addTask(todolistId, taskTitle)
     .then(res => {
@@ -83,7 +85,7 @@ export const addTaskTC = (taskTitle: string, todolistId: string) => (dispatch: D
     })
     .catch(err => handleServerNetworkError(err, dispatch))
 }
-export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
+export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: AppThunkDispatchType) => {
   // debugger
   dispatch(appActions.setAppStatus({ status: 'loading' }))
   dispatch(tasksActions.changeTaskEntityStatus({ taskId, entityStatus: 'loading', todolistId }))
@@ -98,7 +100,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
     })
 }
 export const updateTaskTC = (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModelType) =>
-  (dispatch: Dispatch, getState: () => AppRootStateType) => {
+  (dispatch: AppThunkDispatchType, getState: () => AppRootStateType) => {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     dispatch(tasksActions.changeTaskEntityStatus({ taskId, entityStatus: 'loading', todolistId }))
     const task = getState().tasks[todolistId].find(t => t.id === taskId)
