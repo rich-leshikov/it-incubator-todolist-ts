@@ -1,32 +1,26 @@
 import { Grid, Paper } from '@mui/material'
-import styles from '../../app/App.module.css'
+import styles from 'app/App.module.css'
 import { Todolist } from './Todolist/Todolist'
 import { useSelector } from 'react-redux'
-import { AppRootStateType, useAppDispatch } from 'app/store'
-import {
-  addTodolistTC,
-  fetchTodolistsTC,
-  removeTodolistTC,
-  TodolistDomainType,
-  updateTodolistTC
-} from './todolists-reducer'
+import { useAppDispatch } from 'app/store'
+import { addTodolistTC, fetchTodolistsTC, removeTodolistTC, updateTodolistTC } from './todolists-reducer'
 import { FC, useCallback, useEffect } from 'react'
 import { AddInputElement } from 'components/AddInputElement/AddInputElement'
 import { Navigate } from 'react-router-dom'
+import * as todolistsSelectors from './todolists-selectors'
+import * as authSelectors from 'features/Login/auth-selectors'
 
 type TodolistsListPropsType = {}
 
 export const TodolistsList: FC<TodolistsListPropsType> = () => {
   // console.log('render TodolistsList')
 
-  const todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+  const todolists = useSelector(todolistsSelectors.todolists)
+  const isLoggedIn = useSelector(authSelectors.isLoggedIn)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      return
-    }
+    if (!isLoggedIn) return
 
     dispatch(fetchTodolistsTC())
   }, [])

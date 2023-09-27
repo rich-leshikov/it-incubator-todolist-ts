@@ -3,15 +3,16 @@ import { Menu } from '@mui/icons-material'
 import { FC } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useSelector } from 'react-redux'
-import { AppRootStateType, useAppDispatch } from 'app/store'
-import { RequestStatusType } from 'app/app-reducer'
+import { useAppDispatch } from 'app/store'
 import { logoutTC } from '../Login/auth-reducer'
+import * as authSelectors from 'features/Login/auth-selectors'
+import * as appSelectors from 'app/app-selectors'
 
 type AppBarPropsType = {}
 
 export const AppBarComponent: FC<AppBarPropsType> = () => {
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-  const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+  const isLoggedIn = useSelector(authSelectors.isLoggedIn)
+  const status = useSelector(appSelectors.status)
   const dispatch = useAppDispatch()
 
   const logOutHandler = () => dispatch(logoutTC())

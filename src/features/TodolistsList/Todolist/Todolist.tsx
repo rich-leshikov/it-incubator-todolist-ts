@@ -3,14 +3,15 @@ import { AddInputElement } from 'components/AddInputElement/AddInputElement'
 import { EditableTitle } from 'components/EditableTitle/EditableTitle'
 import { Button, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { FilterType, todolistsActions } from '../todolists-reducer'
-import styles from './Todolist.module.css'
+import { FilterType, todolistsActions } from 'features/TodolistsList/todolists-reducer'
+import styles from 'features/TodolistsList/Todolist/Todolist.module.css'
 import { TaskStatuses } from 'api/todolist-api'
-import { AppRootStateType, useAppDispatch } from 'app/store'
-import { addTaskTC, removeTaskTC, TaskDomainType, updateTaskTC } from '../tasks-reducer'
+import { useAppDispatch } from 'app/store'
+import { addTaskTC, removeTaskTC, updateTaskTC } from 'features/TodolistsList/tasks-reducer'
 import { useSelector } from 'react-redux'
-import { Task } from './Task/Task'
+import { Task } from 'features/TodolistsList/Todolist/Task/Task'
 import { RequestStatusType } from 'app/app-reducer'
+import * as tasksSelectors from 'features/TodolistsList/tasks-selectors'
 
 type TodolistPropsType = {
   id: string
@@ -24,7 +25,7 @@ type TodolistPropsType = {
 export const Todolist = memo((props: TodolistPropsType) => {
   // console.log('render todolist')
 
-  const tasks = useSelector<AppRootStateType, TaskDomainType[]>(state => state.tasks[props.id])
+  const tasks = useSelector(tasksSelectors.tasks)
   const dispatch = useAppDispatch()
 
   const onDeleteTodolist = () => {
@@ -64,7 +65,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
     [props.id]
   )
 
-  let tasksList = tasks
+  let tasksList = tasks[props.id]
 
   if (props.filter === 'active') {
     tasksList = tasksList.filter(t => t.status === TaskStatuses.New)
