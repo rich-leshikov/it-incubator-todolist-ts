@@ -7,9 +7,8 @@ import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useFormik } from 'formik'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch, useAppSelector } from 'app/store'
 import { loginTC } from './auth-reducer'
-import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import * as authSelectors from 'features/Login/auth-selectors'
 
@@ -22,7 +21,7 @@ type FormikErrorType = {
 export const Login = () => {
   // console.log('render Login')
 
-  const isLoggedIn = useSelector(authSelectors.isLoggedIn)
+  const isLoggedIn = useAppSelector(authSelectors.isLoggedIn)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({

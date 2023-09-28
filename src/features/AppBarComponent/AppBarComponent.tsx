@@ -2,8 +2,7 @@ import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import { Menu } from '@mui/icons-material'
 import { FC } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
-import { useSelector } from 'react-redux'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch, useAppSelector } from 'app/store'
 import { logoutTC } from '../Login/auth-reducer'
 import * as authSelectors from 'features/Login/auth-selectors'
 import * as appSelectors from 'app/app-selectors'
@@ -11,8 +10,8 @@ import * as appSelectors from 'app/app-selectors'
 type AppBarPropsType = {}
 
 export const AppBarComponent: FC<AppBarPropsType> = () => {
-  const isLoggedIn = useSelector(authSelectors.isLoggedIn)
-  const status = useSelector(appSelectors.status)
+  const isLoggedIn = useAppSelector(authSelectors.isLoggedIn)
+  const status = useAppSelector(appSelectors.status)
   const dispatch = useAppDispatch()
 
   const logOutHandler = () => dispatch(logoutTC())

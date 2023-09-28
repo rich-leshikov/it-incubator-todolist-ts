@@ -2,18 +2,17 @@ import { AppBarComponent } from 'features/AppBarComponent/AppBarComponent'
 import { CircularProgress, Container } from '@mui/material'
 import { TodolistsList } from 'features/TodolistsList/TodolistsList'
 import { ErrorSnackbar } from 'components/ErrorSnackbar/ErrorSnackbar'
-import { useAppDispatch } from './store'
+import { useAppDispatch, useAppSelector } from './store'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from 'features/Login/Login'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { initializeAppTC } from 'app/app-reducer'
 import * as appSelectors from 'app/app-selectors'
 
 export function App() {
   // console.log('render App')
 
-  const isInitialized = useSelector(appSelectors.isInitialized)
+  const isInitialized = useAppSelector(appSelectors.isInitialized)
   const dispatch = useAppDispatch()
 
   // console.log('isAppInitialized: ', isInitialized)

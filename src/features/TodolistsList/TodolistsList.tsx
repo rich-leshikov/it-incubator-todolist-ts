@@ -1,8 +1,7 @@
 import { Grid, Paper } from '@mui/material'
 import styles from 'app/App.module.css'
 import { Todolist } from './Todolist/Todolist'
-import { useSelector } from 'react-redux'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch, useAppSelector } from 'app/store'
 import { addTodolistTC, fetchTodolistsTC, removeTodolistTC, updateTodolistTC } from './todolists-reducer'
 import { FC, useCallback, useEffect } from 'react'
 import { AddInputElement } from 'components/AddInputElement/AddInputElement'
@@ -15,8 +14,8 @@ type TodolistsListPropsType = {}
 export const TodolistsList: FC<TodolistsListPropsType> = () => {
   // console.log('render TodolistsList')
 
-  const todolists = useSelector(todolistsSelectors.todolists)
-  const isLoggedIn = useSelector(authSelectors.isLoggedIn)
+  const todolists = useAppSelector(todolistsSelectors.todolists)
+  const isLoggedIn = useAppSelector(authSelectors.isLoggedIn)
   const dispatch = useAppDispatch()
 
   useEffect(() => {

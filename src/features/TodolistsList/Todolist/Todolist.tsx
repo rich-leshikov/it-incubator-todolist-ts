@@ -6,9 +6,8 @@ import { Delete } from '@mui/icons-material'
 import { FilterType, todolistsActions } from 'features/TodolistsList/todolists-reducer'
 import styles from 'features/TodolistsList/Todolist/Todolist.module.css'
 import { TaskStatuses } from 'api/todolist-api'
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch, useAppSelector } from 'app/store'
 import { addTaskTC, removeTaskTC, updateTaskTC } from 'features/TodolistsList/tasks-reducer'
-import { useSelector } from 'react-redux'
 import { Task } from 'features/TodolistsList/Todolist/Task/Task'
 import { RequestStatusType } from 'app/app-reducer'
 import * as tasksSelectors from 'features/TodolistsList/tasks-selectors'
@@ -25,7 +24,7 @@ type TodolistPropsType = {
 export const Todolist = memo((props: TodolistPropsType) => {
   // console.log('render todolist')
 
-  const tasks = useSelector(tasksSelectors.tasks(props.id))
+  const tasks = useAppSelector(tasksSelectors.tasks(props.id))
   const dispatch = useAppDispatch()
 
   const onDeleteTodolist = () => {
