@@ -25,7 +25,7 @@ type TodolistPropsType = {
 export const Todolist = memo((props: TodolistPropsType) => {
   // console.log('render todolist')
 
-  const tasks = useSelector(tasksSelectors.tasks)
+  const tasks = useSelector(tasksSelectors.tasks(props.id))
   const dispatch = useAppDispatch()
 
   const onDeleteTodolist = () => {
@@ -65,7 +65,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
     [props.id]
   )
 
-  let tasksList = tasks[props.id]
+  let tasksList = tasks
 
   if (props.filter === 'active') {
     tasksList = tasksList.filter(t => t.status === TaskStatuses.New)
