@@ -3,7 +3,7 @@ import { EditableTitle } from 'components/EditableTitle/EditableTitle'
 import { Checkbox, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import styles from './Task.module.css'
-import { TaskStatuses } from 'api/todolist-api'
+import { TaskStatuses } from 'api/todolists-api'
 import { TaskDomainType } from '../../tasks-reducer'
 
 type TaskPropsType = {

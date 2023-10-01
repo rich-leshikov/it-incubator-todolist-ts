@@ -1,4 +1,4 @@
-import { authAPI } from 'api/todolist-api'
+import { authAPI } from 'api/todolists-api'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authActions } from 'features/Login/auth-reducer'

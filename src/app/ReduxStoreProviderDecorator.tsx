@@ -4,7 +4,7 @@ import { applyMiddleware, combineReducers, legacy_createStore } from 'redux'
 import { AppRootStateType } from './store'
 import { tasksReducer } from 'features/TodolistsList/tasks-reducer'
 import { todolistsReducer } from 'features/TodolistsList/todolists-reducer'
-import { TaskPriorities, TaskStatuses } from 'api/todolist-api'
+import { TaskPriorities, TaskStatuses } from 'api/todolists-api'
 import { appReducer } from './app-reducer'
 import thunkMiddleware from 'redux-thunk'
 

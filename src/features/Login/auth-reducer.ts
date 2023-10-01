@@ -1,4 +1,4 @@
-import { authAPI, LoginParamsType } from 'api/todolist-api'
+import { authAPI, LoginParamsType } from 'api/todolists-api'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { appActions } from 'app/app-reducer'
@@ -19,7 +19,6 @@ const slice = createSlice({
 
 export const authReducer = slice.reducer
 export const authActions = slice.actions
-// export const { setIsLoggedIn } = slice.actions
 
 // thunks
 export const loginTC = (data: LoginParamsType) => (dispatch: AppThunkDispatchType) => {

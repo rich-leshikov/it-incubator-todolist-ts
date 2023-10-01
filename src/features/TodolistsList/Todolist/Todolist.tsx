@@ -5,9 +5,9 @@ import { Button, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import { FilterType, todolistsActions } from 'features/TodolistsList/todolists-reducer'
 import styles from 'features/TodolistsList/Todolist/Todolist.module.css'
-import { TaskStatuses } from 'api/todolist-api'
+import { TaskStatuses } from 'api/todolists-api'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { addTaskTC, removeTaskTC, updateTaskTC } from 'features/TodolistsList/tasks-reducer'
+import { addTaskTC, removeTaskTC, updateTask } from 'features/TodolistsList/tasks-reducer'
 import { Task } from 'features/TodolistsList/Todolist/Task/Task'
 import { RequestStatusType } from 'app/app-reducer'
 import * as tasksSelectors from 'features/TodolistsList/tasks-selectors'
@@ -53,13 +53,13 @@ export const Todolist = memo((props: TodolistPropsType) => {
   )
   const changeTaskStatus = useCallback(
     (taskId: string, status: TaskStatuses) => {
-      dispatch(updateTaskTC(taskId, props.id, { status: status }))
+      dispatch(updateTask(taskId, props.id, { status: status }))
     },
     [props.id]
   )
   const changeTaskTitle = useCallback(
     (taskId: string, title: string) => {
-      dispatch(updateTaskTC(taskId, props.id, { title: title }))
+      dispatch(updateTask(taskId, props.id, { title: title }))
     },
     [props.id]
   )
