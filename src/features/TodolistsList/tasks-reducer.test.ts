@@ -1,6 +1,6 @@
 import { todolistsActions } from './todolists-reducer'
-import { tasksActions, tasksReducer, TasksStateType } from './tasks-reducer'
-import { TaskPriorities, TaskStatuses } from 'api/todolist-api'
+import { tasksActions, tasksReducer, TasksStateType, tasksThunks } from './tasks-reducer'
+import { TaskPriorities, TaskStatuses } from 'api/todolists-api'
 
 let startState: TasksStateType
 
@@ -89,6 +89,20 @@ beforeEach(() => {
       }
     ]
   }
+})
+
+test('tasks should be fetched', () => {
+  const action = tasksThunks.fetchTasks.fulfilled(
+    { tasks: startState['todolistId1'], todolistId: 'todolistId1' },
+    'requestId',
+    'todolistId1'
+  )
+
+  const endState = tasksReducer({}, action)
+
+  expect(endState).toEqual({
+    'todolistId1': startState['todolistId1']
+  })
 })
 
 test('correct task should be added to correct array', () => {
