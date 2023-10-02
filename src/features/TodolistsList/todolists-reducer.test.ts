@@ -1,10 +1,10 @@
-import { todolistsReducer, TodolistDomainType, todolistsActions, FilterType } from './todolists-reducer'
+import { todolistsReducer, TodolistDomain, todolistsActions, Filter } from './todolists-reducer'
 import { v1 } from 'uuid'
 
 let todolistId1: string
 let todolistId2: string
 let todolistId3: string
-let startState: Array<TodolistDomainType>
+let startState: Array<TodolistDomain>
 
 beforeEach(() => {
   todolistId1 = v1()
@@ -69,7 +69,7 @@ test('todolist should change its name', () => {
 })
 
 test('filter of todolist should be changed', () => {
-  const newFilter: FilterType = 'completed'
+  const newFilter: Filter = 'completed'
   const action = todolistsActions.changeTodolistFilter({ id: todolistId2, filter: newFilter })
 
   const endState = todolistsReducer(startState, action)

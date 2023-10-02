@@ -3,20 +3,20 @@ import { AddInputElement } from 'components/AddInputElement/AddInputElement'
 import { EditableTitle } from 'components/EditableTitle/EditableTitle'
 import { Button, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { FilterType, todolistsActions } from 'features/TodolistsList/todolists-reducer'
+import { Filter, todolistsActions } from 'features/TodolistsList/todolists-reducer'
 import styles from 'features/TodolistsList/Todolist/Todolist.module.css'
 import { TaskStatuses } from 'api/todolists-api'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import { addTaskTC, removeTaskTC, updateTask } from 'features/TodolistsList/tasks-reducer'
 import { Task } from 'features/TodolistsList/Todolist/Task/Task'
-import { RequestStatusType } from 'app/app-reducer'
+import { RequestStatus } from 'app/app-reducer'
 import * as tasksSelectors from 'features/TodolistsList/tasks-selectors'
 
 type TodolistPropsType = {
   id: string
   title: string
-  filter: FilterType
-  entityStatus: RequestStatusType
+  filter: Filter
+  entityStatus: RequestStatus
   deleteTodolist: (id: string) => void
   updateTodolist: (title: string, todolistId: string) => void
 }
@@ -36,7 +36,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
     },
     [props.updateTodolist, props.id]
   )
-  const filterTasks = (filterValue: FilterType) => {
+  const filterTasks = (filterValue: Filter) => {
     dispatch(todolistsActions.changeTodolistFilter({ id: props.id, filter: filterValue }))
   }
   const addTask = useCallback(

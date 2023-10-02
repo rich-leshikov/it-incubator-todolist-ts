@@ -1,4 +1,4 @@
-import { authAPI, LoginParamsType } from 'api/todolists-api'
+import { authAPI, LoginParams } from 'api/todolists-api'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { appActions } from 'app/app-reducer'
@@ -21,7 +21,7 @@ export const authReducer = slice.reducer
 export const authActions = slice.actions
 
 // thunks
-export const loginTC = (data: LoginParamsType) => (dispatch: AppThunkDispatchType) => {
+export const loginTC = (data: LoginParams) => (dispatch: AppThunkDispatchType) => {
   dispatch(appActions.setAppStatus({ status: 'loading' }))
   authAPI
     .login(data)

@@ -1,8 +1,8 @@
 import { todolistsActions } from './todolists-reducer'
-import { tasksActions, tasksReducer, TasksStateType, tasksThunks } from './tasks-reducer'
+import { tasksActions, tasksReducer, TasksState, tasksThunks } from './tasks-reducer'
 import { TaskPriorities, TaskStatuses } from 'api/todolists-api'
 
-let startState: TasksStateType
+let startState: TasksState
 
 beforeEach(() => {
   startState = {

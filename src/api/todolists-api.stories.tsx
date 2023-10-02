@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { TaskType, todolistsAPI, TodolistType, UpdateTaskModelType } from 'api/todolists-api'
+import { TaskType, todolistsAPI, Todolist, UpdateTaskModelType } from 'api/todolists-api'
 
 export default {
   title: 'API'
 }
 
 export const GetTodolists = () => {
-  const [state, setState] = useState<TodolistType[]>([])
+  const [state, setState] = useState<Todolist[]>([])
 
   useEffect(() => {
     todolistsAPI.getTodolists().then(response => setState(response.data))

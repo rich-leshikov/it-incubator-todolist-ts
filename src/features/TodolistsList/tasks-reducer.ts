@@ -1,19 +1,19 @@
 import { TaskPriorities, TaskStatuses, TaskType, todolistsAPI } from 'api/todolists-api'
 import { AppRootStateType, AppThunkDispatchType } from 'app/store'
-import { appActions, RequestStatusType } from 'app/app-reducer'
+import { appActions, RequestStatus } from 'app/app-reducer'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { todolistsActions } from 'features/TodolistsList/todolists-reducer'
 import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 
 // thunks
-export const fetchTasks = createAppAsyncThunk<{ tasks: TaskDomainType[], todolistId: string }, string>('tasks/fetchTasks', async (todolistId: string, thunkAPI) => {
+export const fetchTasks = createAppAsyncThunk<{ tasks: TaskDomain[], todolistId: string }, string>('tasks/fetchTasks', async (todolistId: string, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
 
   try {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     const res = await todolistsAPI.getTasks(todolistId)
-    const tasks: TaskDomainType[] = res.data.items.map(task => ({ ...task, entityStatus: 'idle' }))
+    const tasks: TaskDomain[] = res.data.items.map(task => ({ ...task, entityStatus: 'idle' }))
 
     dispatch(appActions.setAppStatus({ status: 'succeeded' }))
 
@@ -50,7 +50,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: A
       dispatch(tasksActions.changeTaskEntityStatus({ taskId, entityStatus: 'failed', todolistId }))
     })
 }
-export const updateTask = (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModelType) =>
+export const updateTask = (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModel) =>
   (dispatch: AppThunkDispatchType, getState: () => AppRootStateType) => {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     dispatch(tasksActions.changeTaskEntityStatus({ taskId, entityStatus: 'loading', todolistId }))
@@ -86,7 +86,7 @@ export const updateTask = (taskId: string, todolistId: string, domainModel: Upda
 
 const slice = createSlice({
   name: 'tasks',
-  initialState: {} as TasksStateType,
+  initialState: {} as TasksState,
   reducers: {
     addTask: (state, action: PayloadAction<{ task: TaskType }>) => {
       state[action.payload.task.todoListId].unshift({ ...action.payload.task, entityStatus: 'idle' })
@@ -98,7 +98,7 @@ const slice = createSlice({
     },
     updateTask: (state, action: PayloadAction<{
       taskId: string,
-      model: UpdateDomainTaskModelType,
+      model: UpdateDomainTaskModel,
       todolistId: string
     }>) => {
       const tasks = state[action.payload.todolistId]
@@ -107,7 +107,7 @@ const slice = createSlice({
     },
     changeTaskEntityStatus: (state, action: PayloadAction<{
       taskId: string,
-      entityStatus: RequestStatusType,
+      entityStatus: RequestStatus,
       todolistId: string
     }>) => {
       const tasks = state[action.payload.todolistId]
@@ -142,13 +142,13 @@ export const tasksActions = slice.actions
 export const tasksThunks = { fetchTasks }
 
 // types
-export type TaskDomainType = TaskType & {
-  entityStatus: RequestStatusType
+export type TaskDomain = TaskType & {
+  entityStatus: RequestStatus
 }
-export type TasksStateType = {
-  [key: string]: Array<TaskDomainType>
+export type TasksState = {
+  [key: string]: Array<TaskDomain>
 }
-type UpdateDomainTaskModelType = {
+type UpdateDomainTaskModel = {
   title?: string
   description?: string
   status?: TaskStatuses

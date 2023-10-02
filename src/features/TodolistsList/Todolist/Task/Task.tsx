@@ -4,10 +4,10 @@ import { Checkbox, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import styles from './Task.module.css'
 import { TaskStatuses } from 'api/todolists-api'
-import { TaskDomainType } from '../../tasks-reducer'
+import { TaskDomain } from '../../tasks-reducer'
 
 type TaskPropsType = {
-  task: TaskDomainType
+  task: TaskDomain
   removeTask: (id: string) => void
   checkTask: (id: string, status: TaskStatuses) => void
   changeTaskTitle: (title: string, taskId: string) => void

@@ -11,25 +11,25 @@ export const instance = axios.create({
 
 // API
 export const authAPI = {
-  login: (data: LoginParamsType) => {
+  login: (data: LoginParams) => {
     return instance.post<ResponseType<{ userId: number }>>('auth/login', data)
   },
   logout: () => {
     return instance.delete<ResponseType>('auth/login')
   },
   me: () => {
-    return instance.get<ResponseType<AuthMeType>>('auth/me')
+    return instance.get<ResponseType<AuthMe>>('auth/me')
   }
 }
 
 export const todolistsAPI = {
   getTodolists: () => {
-    return instance.get<TodolistType[]>('todo-lists')
+    return instance.get<Todolist[]>('todo-lists')
   },
   addTodolist: (title: string) => {
     return instance.post<
-      ResponseType<{ item: TodolistType }>,
-      AxiosResponse<ResponseType<{ item: TodolistType }>>,
+      ResponseType<{ item: Todolist }>,
+      AxiosResponse<ResponseType<{ item: Todolist }>>,
       { title: string }
     >('todo-lists', { title })
   },
@@ -78,18 +78,18 @@ export enum TaskPriorities {
 }
 
 // types
-export type LoginParamsType = {
+export type LoginParams = {
   email: string
   password: string
   rememberMe: boolean
   captcha?: string
 }
-export type AuthMeType = {
+export type AuthMe = {
   id: number
   email: string
   login: string
 }
-export type TodolistType = {
+export type Todolist = {
   id: string
   title: string
   addedDate: string

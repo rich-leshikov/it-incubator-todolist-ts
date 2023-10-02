@@ -8,14 +8,14 @@ const slice = createSlice({
   name: 'app',
   initialState: {
     isInitialized: false,
-    status: 'loading' as RequestStatusType,
+    status: 'loading' as RequestStatus,
     error: null as string | null
   },
   reducers: {
     setAppIsInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
       state.isInitialized = action.payload.isInitialized
     },
-    setAppStatus: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
+    setAppStatus: (state, action: PayloadAction<{ status: RequestStatus }>) => {
       state.status = action.payload.status
     },
     setAppError: (state, action: PayloadAction<{ error: string | null }>) => {
@@ -26,7 +26,6 @@ const slice = createSlice({
 
 export const appReducer = slice.reducer
 export const appActions = slice.actions
-// export const { setIsLoggedIn } = slice.actions
 
 // thunks
 export const initializeAppTC = () => (dispatch: AppThunkDispatchType) => {
@@ -46,5 +45,5 @@ export const initializeAppTC = () => (dispatch: AppThunkDispatchType) => {
     })
 }
 
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type AppInitialStateType = ReturnType<typeof slice.getInitialState>
+export type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type AppInitialState = ReturnType<typeof slice.getInitialState>
