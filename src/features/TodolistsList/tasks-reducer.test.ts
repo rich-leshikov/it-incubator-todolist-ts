@@ -92,11 +92,16 @@ beforeEach(() => {
 })
 
 test('tasks should be fetched', () => {
-  const action = tasksThunks.fetchTasks.fulfilled(
+  const _action = tasksThunks.fetchTasks.fulfilled(
     { tasks: startState['todolistId1'], todolistId: 'todolistId1' },
     'requestId',
     'todolistId1'
   )
+
+  const action = {
+    type: tasksThunks.fetchTasks.fulfilled.type,
+    payload: { tasks: startState['todolistId1'], todolistId: 'todolistId1' }
+  }
 
   const endState = tasksReducer({}, action)
 
