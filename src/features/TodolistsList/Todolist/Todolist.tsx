@@ -7,7 +7,7 @@ import { Filter, todolistsActions } from 'features/TodolistsList/todolists-reduc
 import styles from 'features/TodolistsList/Todolist/Todolist.module.css'
 import { TaskStatuses } from 'api/todolists-api'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { addTaskTC, removeTaskTC, updateTask } from 'features/TodolistsList/tasks-reducer'
+import { addTask, removeTaskTC, updateTask } from 'features/TodolistsList/tasks-reducer'
 import { Task } from 'features/TodolistsList/Todolist/Task/Task'
 import { RequestStatus } from 'app/app-reducer'
 import * as tasksSelectors from 'features/TodolistsList/tasks-selectors'
@@ -39,9 +39,9 @@ export const Todolist = memo((props: TodolistPropsType) => {
   const filterTasks = (filterValue: Filter) => {
     dispatch(todolistsActions.changeTodolistFilter({ id: props.id, filter: filterValue }))
   }
-  const addTask = useCallback(
+  const createTask = useCallback(
     (taskTitle: string) => {
-      dispatch(addTaskTC(taskTitle, props.id))
+      dispatch(addTask({taskTitle, todolistId: props.id}))
     },
     [props.id]
   )
@@ -121,7 +121,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
         </Button>
       </div>
       <div>{finalTasksList}</div>
-      <AddInputElement addElement={addTask} isDisabled={props.entityStatus === 'loading'} />
+      <AddInputElement addElement={createTask} isDisabled={props.entityStatus === 'loading'} />
     </div>
   )
 })

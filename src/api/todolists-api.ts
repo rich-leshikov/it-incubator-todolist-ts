@@ -27,11 +27,9 @@ export const todolistsAPI = {
     return instance.get<Todolist[]>('todo-lists')
   },
   addTodolist: (title: string) => {
-    return instance.post<
-      ResponseType<{ item: Todolist }>,
+    return instance.post<ResponseType<{ item: Todolist }>,
       AxiosResponse<ResponseType<{ item: Todolist }>>,
-      { title: string }
-    >('todo-lists', { title })
+      { title: string }>('todo-lists', { title })
   },
   removeTodolist: (id: string) => {
     return instance.delete<ResponseType>(`todo-lists/${id}`)
@@ -42,22 +40,18 @@ export const todolistsAPI = {
   getTasks: (todolistId: string) => {
     return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
   },
-  addTask: (todolistId: string, taskTitle: string) => {
-    return instance.post<
-      ResponseType<{ item: TaskType }>,
+  addTask: (arg: AddTaskArgs) => {
+    return instance.post<ResponseType<{ item: TaskType }>,
       AxiosResponse<ResponseType<{ item: TaskType }>>,
-      { title: string }
-    >(`todo-lists/${todolistId}/tasks`, { title: taskTitle })
+      { title: string }>(`todo-lists/${arg.todolistId}/tasks`, { title: arg.taskTitle })
   },
   removeTask: (todolistId: string, taskId: string) => {
     return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
   },
   updateTask: (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
-    return instance.put<
-      ResponseType<{ item: TaskType }>,
+    return instance.put<ResponseType<{ item: TaskType }>,
       AxiosResponse<ResponseType<{ item: TaskType }>>,
-      UpdateTaskModelType
-    >(`todo-lists/${todolistId}/tasks/${taskId}`, model)
+      UpdateTaskModelType>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
   }
 }
 
@@ -124,4 +118,9 @@ export type ResponseType<D = {}> = {
   resultCode: number
   messages: Array<string>
   data: D
+}
+
+export type AddTaskArgs = {
+  taskTitle: string
+  todolistId: string
 }

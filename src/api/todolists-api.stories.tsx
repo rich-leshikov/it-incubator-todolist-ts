@@ -69,7 +69,7 @@ export const CreateTask = () => {
     let todolistId = '6ee902d6-24ca-4bbd-aee2-88fe6e31af55'
     let taskTitle = 'English'
 
-    todolistsAPI.addTask(todolistId, taskTitle).then(response => setState(response.data))
+    todolistsAPI.addTask({ todolistId, taskTitle }).then(response => setState(response.data))
   }, [])
 
   return <div>{JSON.stringify(state)}</div>
