@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import { UpdateDomainTaskModel } from 'features/TodolistsList/tasks-reducer'
 
 // axios instance
 export const instance = axios.create({
@@ -45,8 +46,8 @@ export const todolistsAPI = {
       AxiosResponse<ResponseType<{ item: TaskType }>>,
       { title: string }>(`todo-lists/${arg.todolistId}/tasks`, { title: arg.taskTitle })
   },
-  removeTask: (todolistId: string, taskId: string) => {
-    return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
+  removeTask: (arg: RemoveTaskArgs) => {
+    return instance.delete<ResponseType>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
   },
   updateTask: (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
     return instance.put<ResponseType<{ item: TaskType }>,
@@ -123,4 +124,13 @@ export type ResponseType<D = {}> = {
 export type AddTaskArgs = {
   taskTitle: string
   todolistId: string
+}
+export type RemoveTaskArgs = {
+  taskId: string
+  todolistId: string
+}
+export type UpdateTaskArgs = {
+  taskId: string
+  todolistId: string
+  domainModel: UpdateDomainTaskModel
 }

@@ -7,7 +7,7 @@ import { Filter, todolistsActions } from 'features/TodolistsList/todolists-reduc
 import styles from 'features/TodolistsList/Todolist/Todolist.module.css'
 import { TaskStatuses } from 'api/todolists-api'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { addTask, removeTaskTC, updateTask } from 'features/TodolistsList/tasks-reducer'
+import { addTask, removeTask, updateTask } from 'features/TodolistsList/tasks-reducer'
 import { Task } from 'features/TodolistsList/Todolist/Task/Task'
 import { RequestStatus } from 'app/app-reducer'
 import * as tasksSelectors from 'features/TodolistsList/tasks-selectors'
@@ -45,21 +45,21 @@ export const Todolist = memo((props: TodolistPropsType) => {
     },
     [props.id]
   )
-  const removeTask = useCallback(
+  const deleteTask = useCallback(
     (taskId: string) => {
-      dispatch(removeTaskTC(taskId, props.id))
+      dispatch(removeTask({ taskId, todolistId: props.id }))
     },
     [props.id]
   )
   const changeTaskStatus = useCallback(
     (taskId: string, status: TaskStatuses) => {
-      dispatch(updateTask(taskId, props.id, { status: status }))
+      dispatch(updateTask({taskId, todolistId: props.id, domainModel: { status }}))
     },
     [props.id]
   )
   const changeTaskTitle = useCallback(
     (taskId: string, title: string) => {
-      dispatch(updateTask(taskId, props.id, { title: title }))
+      dispatch(updateTask({taskId, todolistId: props.id, domainModel: { title }}))
     },
     [props.id]
   )
@@ -74,7 +74,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
   }
 
   let finalTasksList = tasksList.map(t => (
-    <Task key={t.id} task={t} removeTask={removeTask} checkTask={changeTaskStatus} changeTaskTitle={changeTaskTitle} />
+    <Task key={t.id} task={t} removeTask={deleteTask} checkTask={changeTaskStatus} changeTaskTitle={changeTaskTitle} />
   ))
 
   return (

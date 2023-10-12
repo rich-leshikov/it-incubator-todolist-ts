@@ -82,7 +82,7 @@ export const DeleteTask = () => {
     let todolistId = 'c7ec2c84-40a3-4b83-9e20-201a162022c5'
     let taskId = 'c7ec2c84-40a3-4b83-9e20-201a162022c5'
 
-    todolistsAPI.removeTask(todolistId, taskId).then(response => setState(response.data))
+    todolistsAPI.removeTask({ taskId, todolistId }).then(response => setState(response.data))
   }, [])
 
   return <div>{JSON.stringify(state)}</div>
