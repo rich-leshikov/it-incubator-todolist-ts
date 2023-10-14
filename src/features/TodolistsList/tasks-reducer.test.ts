@@ -1,6 +1,6 @@
 import { todolistsActions } from './todolists-reducer'
-import { tasksActions, tasksReducer, TasksState, tasksThunks } from './tasks-reducer'
-import { TaskPriorities, TaskStatuses } from 'api/todolists-api'
+import { tasksReducer, TasksState, tasksThunks } from './tasks-reducer'
+import { TaskPriorities, TaskStatuses, UpdateTaskArgs } from 'api/todolists-api'
 
 let startState: TasksState
 
@@ -92,12 +92,6 @@ beforeEach(() => {
 })
 
 test('tasks should be fetched', () => {
-  const _action = tasksThunks.fetchTasks.fulfilled(
-    { tasks: startState['todolistId1'], todolistId: 'todolistId1' },
-    'requestId',
-    'todolistId1'
-  )
-
   const action = {
     type: tasksThunks.fetchTasks.fulfilled.type,
     payload: { tasks: startState['todolistId1'], todolistId: 'todolistId1' }
@@ -139,7 +133,13 @@ test('correct task should be added to correct array', () => {
 })
 
 test('correct task should be deleted from correct array', () => {
-  const action = tasksActions.removeTask({ taskId: '2', todolistId: 'todolistId2' })
+  const action = {
+    type: tasksThunks.removeTask.fulfilled.type,
+    payload: {
+      taskId: '2',
+      todolistId: 'todolistId2'
+    }
+  }
 
   const endState = tasksReducer(startState, action)
 
@@ -217,11 +217,14 @@ test('correct task should be deleted from correct array', () => {
 })
 
 test('status of specified task should be changed', () => {
-  const action = tasksActions.updateTask({
-    taskId: '2',
-    model: { status: TaskStatuses.New },
-    todolistId: 'todolistId2'
-  })
+  const action: UpdateTaskAction = {
+    type: tasksThunks.updateTask.fulfilled.type,
+    payload: {
+      taskId: '2',
+      domainModel: { status: TaskStatuses.New },
+      todolistId: 'todolistId2'
+    }
+  }
 
   const endState = tasksReducer(startState, action)
 
@@ -313,7 +316,14 @@ test('status of specified task should be changed', () => {
 })
 
 test('title of specified task should be changed', () => {
-  const action = tasksActions.updateTask({ taskId: '2', model: { title: 'meat' }, todolistId: 'todolistId2' })
+  const action: UpdateTaskAction = {
+    type: tasksThunks.updateTask.fulfilled.type,
+    payload: {
+      taskId: '2',
+      domainModel: { title: 'meat' },
+      todolistId: 'todolistId2'
+    }
+  }
 
   const endState = tasksReducer(startState, action)
 
@@ -425,3 +435,9 @@ test('new array should be added when new todolist is added', () => {
   expect(keys.length).toBe(3)
   expect(endState[newKey]).toEqual([])
 })
+
+
+type UpdateTaskAction = {
+  type: string,
+  payload: UpdateTaskArgs
+}
