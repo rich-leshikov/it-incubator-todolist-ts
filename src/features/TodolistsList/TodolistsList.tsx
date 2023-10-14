@@ -9,9 +9,9 @@ import { Navigate } from 'react-router-dom'
 import * as todolistsSelectors from './todolists-selectors'
 import * as authSelectors from 'features/Login/auth-selectors'
 
-type TodolistsListPropsType = {}
+type TodolistsListProps = {}
 
-export const TodolistsList: FC<TodolistsListPropsType> = () => {
+export const TodolistsList: FC<TodolistsListProps> = () => {
   // console.log('render TodolistsList')
 
   const todolists = useAppSelector(todolistsSelectors.todolists)

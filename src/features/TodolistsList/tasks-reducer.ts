@@ -7,12 +7,10 @@ import {
   todolistsAPI,
   UpdateTaskArgs
 } from 'api/todolists-api'
-import { AppRootStateType, AppThunkDispatchType } from 'app/store'
 import { appActions, RequestStatus } from 'app/app-reducer'
-import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
+import { handleServerAppError, handleServerNetworkError, createAppAsyncThunk} from 'common/utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { todolistsActions } from 'features/TodolistsList/todolists-reducer'
-import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 
 // thunks
 export const fetchTasks = createAppAsyncThunk<{ tasks: TaskDomain[], todolistId: string }, string>('tasks/fetchTasks', async (todolistId: string, thunkAPI) => {
@@ -50,6 +48,7 @@ export const addTask = createAppAsyncThunk<{task: TaskType}, AddTaskArgs>('tasks
 })
 export const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>('tasks/removeTask', async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
+
   try {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     dispatch(tasksActions.changeTaskEntityStatus({ taskId: arg.taskId, entityStatus: 'loading', todolistId: arg.todolistId }))
@@ -76,13 +75,16 @@ export const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>('t
 })
 export const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>('tasks/updateTask', async (arg, thunkAPI) => {
   const { dispatch, getState, rejectWithValue } = thunkAPI
+
   try {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     dispatch(tasksActions.changeTaskEntityStatus({ taskId: arg.taskId, entityStatus: 'loading', todolistId: arg.todolistId }))
 
     const task = getState().tasks[arg.todolistId].find(t => t.id === arg.taskId)
     if (!task) {
-      throw new Error('Task not found')
+      dispatch(appActions.setAppError({error: 'Task not found'}))
+      dispatch(tasksActions.changeTaskEntityStatus({ taskId: arg.taskId, entityStatus: 'failed', todolistId: arg.todolistId }))
+      return rejectWithValue(null)
     }
 
     const res = await todolistsAPI.updateTask(arg.todolistId, arg.taskId, {
@@ -98,7 +100,7 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>('t
     if (res.data.resultCode === 0) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       dispatch(tasksActions.changeTaskEntityStatus({ taskId: arg.taskId, entityStatus: 'succeeded', todolistId: arg.todolistId }))
-      return { taskId: arg.taskId, domainModel: arg.domainModel, todolistId: arg.todolistId }
+      return arg
     } else {
       handleServerAppError(res.data, dispatch)
       dispatch(tasksActions.changeTaskEntityStatus({ taskId: arg.taskId, entityStatus: 'failed', todolistId: arg.todolistId }))
@@ -110,41 +112,6 @@ export const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>('t
     return rejectWithValue(null)
   }
 })
-
-// legacy
-// export const _updateTask = (taskId: string, todolistId: string, domainModel: UpdateDomainTaskModel) =>
-//   (dispatch: AppThunkDispatchType, getState: () => AppRootStateType) => {
-//     // dispatch(appActions.setAppStatus({ status: 'loading' }))
-//     // dispatch(tasksActions.changeTaskEntityStatus({ taskId, entityStatus: 'loading', todolistId }))
-//
-//     const task = getState().tasks[todolistId].find(t => t.id === taskId)
-//     if (!task) {
-//       throw new Error('Task not found')
-//     }
-//
-//     todolistsAPI.updateTask(todolistId, taskId, {
-//       title: task.title,
-//       startDate: task.startDate,
-//       priority: task.priority,
-//       description: task.description,
-//       deadline: task.deadline,
-//       status: task.status,
-//       ...domainModel
-//     })
-//       .then(res => {
-//         if (res.data.resultCode === 0) {
-//           dispatch(tasksActions.updateTask({ taskId, model: domainModel, todolistId }))
-//           dispatch(appActions.setAppStatus({ status: 'succeeded' }))
-//           dispatch(tasksActions.changeTaskEntityStatus({ taskId, entityStatus: 'succeeded', todolistId }))
-//         } else {
-//           handleServerAppError(res.data, dispatch)
-//         }
-//       })
-//       .catch(err => {
-//         handleServerNetworkError(err, dispatch)
-//         dispatch(tasksActions.changeTaskEntityStatus({ taskId, entityStatus: 'failed', todolistId }))
-//       })
-//   }
 
 const slice = createSlice({
   name: 'tasks',
