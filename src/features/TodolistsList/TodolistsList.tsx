@@ -4,10 +4,10 @@ import { Todolist } from './Todolist/Todolist'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import { addTodolistTC, fetchTodolistsTC, removeTodolistTC, updateTodolistTC } from './todolists-reducer'
 import { FC, useCallback, useEffect } from 'react'
-import { AddInputElement } from 'components/AddInputElement/AddInputElement'
 import { Navigate } from 'react-router-dom'
 import * as todolistsSelectors from './todolists-selectors'
 import * as authSelectors from 'features/Login/auth-selectors'
+import { AddInputElement } from 'common/components'
 
 type TodolistsListProps = {}
 

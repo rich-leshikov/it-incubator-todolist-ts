@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { AddInputElement } from './AddInputElement'
+import { AddInputElement } from 'common/components/AddInputElement/AddInputElement'
 
 const meta: Meta<typeof AddInputElement> = {
   title: 'TODOLISTS/AddInputElement',

@@ -1,6 +1,4 @@
 import { memo, useCallback } from 'react'
-import { AddInputElement } from 'components/AddInputElement/AddInputElement'
-import { EditableTitle } from 'components/EditableTitle/EditableTitle'
 import { Button, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import { Filter, todolistsActions } from 'features/TodolistsList/todolists-reducer'
@@ -11,6 +9,7 @@ import { addTask, removeTask, updateTask } from 'features/TodolistsList/tasks-re
 import { Task } from 'features/TodolistsList/Todolist/Task/Task'
 import { RequestStatus } from 'app/app-reducer'
 import * as tasksSelectors from 'features/TodolistsList/tasks-selectors'
+import { AddInputElement, EditableTitle } from 'common/components'
 
 type TodolistPropsType = {
   id: string

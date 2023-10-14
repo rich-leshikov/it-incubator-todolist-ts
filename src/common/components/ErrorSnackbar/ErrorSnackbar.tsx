@@ -10,7 +10,6 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) 
 })
 
 export function ErrorSnackbar() {
-  // const error = useSelector<AppRootStateType, string | null>(state => state.app.error)
   const error = useAppSelector(appSelectors.error)
   const dispatch = useAppDispatch()
 
