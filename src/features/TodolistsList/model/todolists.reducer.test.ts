@@ -1,4 +1,4 @@
-import { todolistsReducer, TodolistDomain, todolistsActions, Filter } from './todolists-reducer'
+import { todolistsReducer, TodolistDomain, todolistsActions, Filter } from 'features/TodolistsList/model/todolists.reducer'
 import { v1 } from 'uuid'
 
 let todolistId1: string

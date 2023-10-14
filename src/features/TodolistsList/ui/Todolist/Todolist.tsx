@@ -1,15 +1,15 @@
 import { memo, useCallback } from 'react'
 import { Button, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { Filter, todolistsActions } from 'features/TodolistsList/todolists-reducer'
-import styles from 'features/TodolistsList/Todolist/Todolist.module.css'
-import { TaskStatuses } from 'api/todolists-api'
+import { Filter, todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
+import styles from 'features/TodolistsList/ui/Todolist/Todolist.module.css'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { addTask, removeTask, updateTask } from 'features/TodolistsList/tasks-reducer'
-import { Task } from 'features/TodolistsList/Todolist/Task/Task'
+import { addTask, removeTask, updateTask } from 'features/TodolistsList/model/tasks.reducer'
+import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
 import { RequestStatus } from 'app/app-reducer'
-import * as tasksSelectors from 'features/TodolistsList/tasks-selectors'
+import * as tasksSelectors from 'features/TodolistsList/model/tasks.selectors'
 import { AddInputElement, EditableTitle } from 'common/components'
+import { TaskStatuses } from 'common/enums'
 
 type TodolistPropsType = {
   id: string

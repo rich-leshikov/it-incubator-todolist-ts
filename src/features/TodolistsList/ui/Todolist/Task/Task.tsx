@@ -1,10 +1,10 @@
 import { ChangeEvent, memo, useCallback } from 'react'
 import { Checkbox, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import styles from './Task.module.css'
-import { TaskStatuses } from 'api/todolists-api'
-import { TaskDomain } from '../../tasks-reducer'
+import styles from 'features/TodolistsList/ui/Todolist/Task/Task.module.css'
 import { EditableTitle } from 'common/components'
+import { TaskStatuses } from 'common/enums'
+import { TaskDomain } from 'features/TodolistsList/model/task.types'
 
 type TaskPropsType = {
   task: TaskDomain

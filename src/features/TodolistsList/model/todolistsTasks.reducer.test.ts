@@ -1,6 +1,7 @@
-import { todolistsReducer, TodolistDomain, todolistsActions } from './todolists-reducer'
-import { tasksReducer, TasksState } from './tasks-reducer'
-import { TaskPriorities, TaskStatuses } from 'api/todolists-api'
+import { todolistsReducer, TodolistDomain, todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
+import { tasksReducer} from 'features/TodolistsList/model/tasks.reducer'
+import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
+import { TasksState } from 'features/TodolistsList/model/task.types'
 
 test('ids should be equals', () => {
   const startTasksState: TasksState = {}

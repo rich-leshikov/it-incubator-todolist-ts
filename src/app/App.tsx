@@ -1,6 +1,6 @@
 import { AppBarComponent } from 'features/AppBarComponent/AppBarComponent'
 import { CircularProgress, Container } from '@mui/material'
-import { TodolistsList } from 'features/TodolistsList/TodolistsList'
+import { TodolistsList } from 'features/TodolistsList/ui/TodolistsList'
 import { useAppDispatch, useAppSelector } from './store'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from 'features/Login/Login'
