@@ -1,4 +1,9 @@
-import { todolistsReducer, TodolistDomain, todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
+import {
+  todolistsReducer,
+  TodolistDomain,
+  todolistsActions,
+  todolistsThunks
+} from 'features/TodolistsList/model/todolists.reducer'
 import { tasksReducer} from 'features/TodolistsList/model/tasks.reducer'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
 import { TasksState } from 'features/TodolistsList/model/task.types'
@@ -7,14 +12,18 @@ test('ids should be equals', () => {
   const startTasksState: TasksState = {}
   const startTodolistsState: Array<TodolistDomain> = []
 
-  const action = todolistsActions.addTodolist({
-    todolist: {
-      id: '231442',
-      title: 'New Todolist',
-      addedDate: '',
-      order: 0
+  const newTodolistTitle = 'New Todolist'
+  const action = {
+    type: todolistsThunks.addTodolist.fulfilled.type,
+    payload: {
+      todolist: {
+        id: '231442',
+        title: newTodolistTitle,
+        addedDate: '',
+        order: 0
+      }
     }
-  })
+  }
 
   const endTasksState = tasksReducer(startTasksState, action)
   const endTodolistsState = todolistsReducer(startTodolistsState, action)

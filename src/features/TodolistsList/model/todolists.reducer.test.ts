@@ -1,5 +1,12 @@
-import { todolistsReducer, TodolistDomain, todolistsActions, Filter } from 'features/TodolistsList/model/todolists.reducer'
+import {
+  todolistsReducer,
+  TodolistDomain,
+  todolistsActions,
+  Filter,
+  todolistsThunks
+} from 'features/TodolistsList/model/todolists.reducer'
 import { v1 } from 'uuid'
+import { todolists } from 'features/TodolistsList/model/todolists.selectors'
 
 let todolistId1: string
 let todolistId2: string
@@ -40,18 +47,20 @@ test('todolist should be removed', () => {
 
 test('todolist should be added', () => {
   const newTodolistTitle = 'New Todolist'
-
-  const endState = todolistsReducer(
-    startState,
-    todolistsActions.addTodolist({
+  const action = {
+    type: todolistsThunks.addTodolist.fulfilled.type,
+    payload: {
       todolist: {
         id: todolistId3,
-        title: 'New Todolist',
+        title: newTodolistTitle,
         addedDate: '',
         order: 0
       }
-    })
-  )
+    }
+  }
+
+
+  const endState = todolistsReducer(startState, action)
 
   expect(endState.length).toBe(3)
   expect(endState[0].title).toBe(newTodolistTitle)

@@ -2,7 +2,7 @@ import { todolistsApi } from 'features/TodolistsList/api/todolists.api'
 import { appActions, RequestStatus } from 'app/app-reducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
+import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolists.reducer'
 import { AddTaskArgs, RemoveTaskArgs, TaskType, UpdateTaskArgs } from 'features/TodolistsList/api/todolist.types.api'
 import { TaskDomain, TasksState } from 'features/TodolistsList/model/task.types'
 
@@ -60,7 +60,7 @@ export const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>('t
         todolistId: arg.todolistId
       }))
 
-      return { taskId: arg.taskId, todolistId: arg.todolistId }
+      return arg
     } else {
       handleServerAppError(res.data, dispatch)
       dispatch(tasksActions.changeTaskEntityStatus({
@@ -166,7 +166,7 @@ const slice = createSlice({
       .addCase(todolistsActions.clearTodolists, () => {
         return {}
       })
-      .addCase(todolistsActions.addTodolist, (state, action) => {
+      .addCase(todolistsThunks.addTodolist.fulfilled, (state, action) => {
         state[action.payload.todolist.id] = []
       })
       .addCase(todolistsActions.removeTodolist, (state, action) => {
