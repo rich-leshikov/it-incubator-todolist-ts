@@ -32,6 +32,10 @@ export type GetTasksResponse = {
   totalCount: number
   items: TaskType[]
 }
+export type UpdateTodolistArgs = {
+  todolistId: string,
+  title: string
+}
 export type FetchTasksArgs = {
   tasks: TaskDomain[],
   todolistId: string
