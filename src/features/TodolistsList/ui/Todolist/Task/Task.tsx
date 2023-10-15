@@ -44,7 +44,7 @@ export const Task = memo((props: TaskPropsType) => {
           isDisabled={props.task.entityStatus === 'loading'}
         />
       </div>
-      <IconButton onClick={removeTask}>
+      <IconButton onClick={removeTask} disabled={props.task.entityStatus === 'loading'}>
         <Delete style={{ color: '#ccc0c0' }} />
       </IconButton>
     </div>
