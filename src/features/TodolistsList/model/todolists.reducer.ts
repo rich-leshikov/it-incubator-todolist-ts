@@ -6,6 +6,7 @@ import { AppThunkDispatchType } from 'app/store'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { Todolist, UpdateTodolistArgs } from 'features/TodolistsList/api/todolist.types.api'
 import { Filter, TodolistDomain } from 'features/TodolistsList/model/todolist.types.reducer'
+import { ResultCode } from 'common/enums'
 
 const fetchTodolists = createAppAsyncThunk('todolists/fetchTodolists', async (params, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
@@ -30,7 +31,7 @@ const addTodolist = createAppAsyncThunk<{ todolist: Todolist }, string>('todolis
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     const res = await todolistsApi.addTodolist(title)
 
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       return { todolist: res.data.data.item }
     } else {
@@ -50,7 +51,7 @@ const removeTodolist = createAppAsyncThunk<{ id: string }, string>('todolists/re
     dispatch(todolistsActions.changeTodolistEntityStatus({ id: todolistId, entityStatus: 'loading' }))
     const res = await todolistsApi.removeTodolist(todolistId)
 
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       dispatch(todolistsActions.changeTodolistEntityStatus({ id: todolistId, entityStatus: 'succeeded' }))
       return { id: todolistId }
@@ -73,7 +74,7 @@ const updateTodolist = createAppAsyncThunk<UpdateTodolistArgs, UpdateTodolistArg
     dispatch(todolistsActions.changeTodolistEntityStatus({ id: params.todolistId, entityStatus: 'loading' }))
     const res = await todolistsApi.updateTodolist(params.todolistId, params.title)
 
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       dispatch(todolistsActions.changeTodolistEntityStatus({ id: params.todolistId, entityStatus: 'succeeded' }))
       return params

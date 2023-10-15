@@ -11,6 +11,7 @@ import {
   UpdateTaskArgs
 } from 'features/TodolistsList/api/todolist.types.api'
 import { TaskDomain, TasksState } from 'features/TodolistsList/model/task.types'
+import { ResultCode } from 'common/enums'
 
 const fetchTasks = createAppAsyncThunk<FetchTasksArgs, string>('tasks/fetchTasks', async (todolistId: string, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
@@ -33,7 +34,7 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>('tasks/addT
   try {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     const res = await todolistsApi.addTask(arg)
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       return { task: res.data.data.item }
     } else {
@@ -58,7 +59,7 @@ const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>('tasks/re
 
     const res = await todolistsApi.removeTask(arg)
 
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       dispatch(tasksActions.changeTaskEntityStatus({
         taskId: arg.taskId,
@@ -120,7 +121,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>('tasks/up
       ...arg.domainModel
     })
 
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       dispatch(tasksActions.changeTaskEntityStatus({
         taskId: arg.taskId,

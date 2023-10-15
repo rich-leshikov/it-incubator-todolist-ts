@@ -4,6 +4,7 @@ import { todolistsActions } from 'features/TodolistsList/model/todolists.reducer
 import { AppThunkDispatchType } from 'app/store'
 import { handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { authAPI, LoginParams } from 'features/Login/auth.api'
+import { ResultCode } from 'common/enums'
 
 const slice = createSlice({
   name: 'auth',
@@ -26,7 +27,7 @@ export const loginTC = (data: LoginParams) => (dispatch: AppThunkDispatchType) =
   authAPI
     .login(data)
     .then(res => {
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }))
         dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       } else {
@@ -40,7 +41,7 @@ export const logoutTC = () => (dispatch: AppThunkDispatchType) => {
   authAPI
     .logout()
     .then(res => {
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }))
         dispatch(todolistsActions.clearTodolists())
         dispatch(appActions.setAppStatus({ status: 'succeeded' }))

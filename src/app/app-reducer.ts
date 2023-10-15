@@ -3,6 +3,7 @@ import { authActions } from 'features/Login/auth-reducer'
 import { AppThunkDispatchType } from 'app/store'
 import { handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { authAPI } from 'features/Login/auth.api'
+import { ResultCode } from 'common/enums'
 
 const slice = createSlice({
   name: 'app',
@@ -31,7 +32,7 @@ export const appActions = slice.actions
 export const initializeAppTC = () => (dispatch: AppThunkDispatchType) => {
   authAPI.me()
     .then(res => {
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }))
       } else {
         handleServerAppError(res.data, dispatch)
