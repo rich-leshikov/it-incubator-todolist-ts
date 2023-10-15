@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/it-incubator-todolist-ts/static/css/main.d51de3f1.css",
-    "main.js": "/it-incubator-todolist-ts/static/js/main.8a08bf04.js",
+    "main.css": "/it-incubator-todolist-ts/static/css/main.5c8fff35.css",
+    "main.js": "/it-incubator-todolist-ts/static/js/main.5fa3e3c1.js",
     "index.html": "/it-incubator-todolist-ts/index.html",
-    "main.d51de3f1.css.map": "/it-incubator-todolist-ts/static/css/main.d51de3f1.css.map",
-    "main.8a08bf04.js.map": "/it-incubator-todolist-ts/static/js/main.8a08bf04.js.map"
+    "main.5c8fff35.css.map": "/it-incubator-todolist-ts/static/css/main.5c8fff35.css.map",
+    "main.5fa3e3c1.js.map": "/it-incubator-todolist-ts/static/js/main.5fa3e3c1.js.map"
   },
   "entrypoints": [
-    "static/css/main.d51de3f1.css",
-    "static/js/main.8a08bf04.js"
+    "static/css/main.5c8fff35.css",
+    "static/js/main.5fa3e3c1.js"
   ]
 }
