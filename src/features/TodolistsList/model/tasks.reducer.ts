@@ -175,7 +175,7 @@ const slice = createSlice({
       .addCase(todolistsThunks.addTodolist.fulfilled, (state, action) => {
         state[action.payload.todolist.id] = []
       })
-      .addCase(todolistsActions.removeTodolist, (state, action) => {
+      .addCase(todolistsThunks.removeTodolist.fulfilled, (state, action) => {
         delete state[action.payload.id]
       })
       .addCase(tasksThunks.fetchTasks.fulfilled, (state, action) => {

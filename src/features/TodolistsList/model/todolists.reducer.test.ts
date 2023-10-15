@@ -38,7 +38,12 @@ beforeEach(() => {
 })
 
 test('todolist should be removed', () => {
-  const endState = todolistsReducer(startState, todolistsActions.removeTodolist({ id: todolistId1 }))
+  const action = {
+    type: todolistsThunks.removeTodolist.fulfilled.type,
+    payload: { id: todolistId1 }
+  }
+
+  const endState = todolistsReducer(startState, action)
 
   expect(endState.length).toBe(1)
   expect(endState[0].id).toBe(todolistId2)

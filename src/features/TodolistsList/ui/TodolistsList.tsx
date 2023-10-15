@@ -2,7 +2,7 @@ import { Grid, Paper } from '@mui/material'
 import styles from 'app/App.module.css'
 import { Todolist } from 'features/TodolistsList/ui/Todolist/Todolist'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { removeTodolistTC, todolistsThunks, updateTodolistTC } from 'features/TodolistsList/model/todolists.reducer'
+import { todolistsThunks, updateTodolistTC } from 'features/TodolistsList/model/todolists.reducer'
 import { FC, useCallback, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import * as todolistsSelectors from 'features/TodolistsList/model/todolists.selectors'
@@ -28,7 +28,7 @@ export const TodolistsList: FC<TodolistsListProps> = () => {
     dispatch(todolistsThunks.addTodolist(todolistTitle))
   }, [])
   const deleteTodolist = useCallback((todolistId: string) => {
-    dispatch(removeTodolistTC(todolistId))
+    dispatch(todolistsThunks.removeTodolist(todolistId))
   }, [])
   const updateTodolist = useCallback((title: string, todolistId: string) => {
     dispatch(updateTodolistTC(todolistId, title))

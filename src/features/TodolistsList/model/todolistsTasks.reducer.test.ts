@@ -1,10 +1,5 @@
-import {
-  todolistsReducer,
-  TodolistDomain,
-  todolistsActions,
-  todolistsThunks
-} from 'features/TodolistsList/model/todolists.reducer'
-import { tasksReducer} from 'features/TodolistsList/model/tasks.reducer'
+import { TodolistDomain, todolistsReducer, todolistsThunks } from 'features/TodolistsList/model/todolists.reducer'
+import { tasksReducer } from 'features/TodolistsList/model/tasks.reducer'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
 import { TasksState } from 'features/TodolistsList/model/task.types'
 
@@ -121,7 +116,10 @@ test('property with todolistId should be deleted', () => {
     ]
   }
 
-  const action = todolistsActions.removeTodolist({ id: 'todolistId2' })
+  const action = {
+    type: todolistsThunks.removeTodolist.fulfilled.type,
+    payload: { id: 'todolistId2' }
+  }
 
   const endState = tasksReducer(startState, action)
 
