@@ -1,5 +1,5 @@
 import { TaskPriorities, TaskStatuses } from 'common/enums'
-import { UpdateDomainTaskModel } from 'features/TodolistsList/model/task.types'
+import { TaskDomain, UpdateDomainTaskModel } from 'features/TodolistsList/model/task.types'
 
 export type Todolist = {
   id: string
@@ -31,6 +31,10 @@ export type GetTasksResponse = {
   error: string | null
   totalCount: number
   items: TaskType[]
+}
+export type FetchTasksArgs = {
+  tasks: TaskDomain[],
+  todolistId: string
 }
 export type AddTaskArgs = {
   taskTitle: string

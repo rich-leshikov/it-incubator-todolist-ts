@@ -4,7 +4,7 @@ import { Delete } from '@mui/icons-material'
 import { Filter, todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
 import styles from 'features/TodolistsList/ui/Todolist/Todolist.module.css'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { addTask, removeTask, updateTask } from 'features/TodolistsList/model/tasks.reducer'
+import { tasksThunks } from 'features/TodolistsList/model/tasks.reducer'
 import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
 import { RequestStatus } from 'app/app-reducer'
 import * as tasksSelectors from 'features/TodolistsList/model/tasks.selectors'
@@ -40,25 +40,25 @@ export const Todolist = memo((props: TodolistPropsType) => {
   }
   const createTask = useCallback(
     (taskTitle: string) => {
-      dispatch(addTask({taskTitle, todolistId: props.id}))
+      dispatch(tasksThunks.addTask({taskTitle, todolistId: props.id}))
     },
     [props.id]
   )
   const deleteTask = useCallback(
     (taskId: string) => {
-      dispatch(removeTask({ taskId, todolistId: props.id }))
+      dispatch(tasksThunks.removeTask({ taskId, todolistId: props.id }))
     },
     [props.id]
   )
   const changeTaskStatus = useCallback(
     (taskId: string, status: TaskStatuses) => {
-      dispatch(updateTask({taskId, todolistId: props.id, domainModel: { status }}))
+      dispatch(tasksThunks.updateTask({taskId, todolistId: props.id, domainModel: { status }}))
     },
     [props.id]
   )
   const changeTaskTitle = useCallback(
     (taskId: string, title: string) => {
-      dispatch(updateTask({taskId, todolistId: props.id, domainModel: { title }}))
+      dispatch(tasksThunks.updateTask({taskId, todolistId: props.id, domainModel: { title }}))
     },
     [props.id]
   )

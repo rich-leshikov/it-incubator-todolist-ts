@@ -2,7 +2,7 @@ import { Grid, Paper } from '@mui/material'
 import styles from 'app/App.module.css'
 import { Todolist } from 'features/TodolistsList/ui/Todolist/Todolist'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { addTodolistTC, fetchTodolistsTC, removeTodolistTC, updateTodolistTC } from 'features/TodolistsList/model/todolists.reducer'
+import { removeTodolistTC, todolistsThunks, updateTodolistTC } from 'features/TodolistsList/model/todolists.reducer'
 import { FC, useCallback, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import * as todolistsSelectors from 'features/TodolistsList/model/todolists.selectors'
@@ -21,11 +21,11 @@ export const TodolistsList: FC<TodolistsListProps> = () => {
   useEffect(() => {
     if (!isLoggedIn) return
 
-    dispatch(fetchTodolistsTC())
+    dispatch(todolistsThunks.fetchTodolists())
   }, [])
 
   const addTodolist = useCallback((todolistTitle: string) => {
-    dispatch(addTodolistTC(todolistTitle))
+    dispatch(todolistsThunks.addTodolist(todolistTitle))
   }, [])
   const deleteTodolist = useCallback((todolistId: string) => {
     dispatch(removeTodolistTC(todolistId))

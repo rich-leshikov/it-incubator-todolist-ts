@@ -6,7 +6,6 @@ import {
   todolistsThunks
 } from 'features/TodolistsList/model/todolists.reducer'
 import { v1 } from 'uuid'
-import { todolists } from 'features/TodolistsList/model/todolists.selectors'
 
 let todolistId1: string
 let todolistId2: string
@@ -58,7 +57,6 @@ test('todolist should be added', () => {
       }
     }
   }
-
 
   const endState = todolistsReducer(startState, action)
 
