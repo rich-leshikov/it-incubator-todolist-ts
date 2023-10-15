@@ -5,6 +5,7 @@ import { tasksThunks } from 'features/TodolistsList/model/tasks.reducer'
 import { AppThunkDispatchType } from 'app/store'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { Todolist, UpdateTodolistArgs } from 'features/TodolistsList/api/todolist.types.api'
+import { Filter, TodolistDomain } from 'features/TodolistsList/model/todolist.types.reducer'
 
 const fetchTodolists = createAppAsyncThunk('todolists/fetchTodolists', async (params, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
@@ -143,8 +144,3 @@ export const fetchTodolistsTC = () => (dispatch: AppThunkDispatchType) => {
     .catch(err => handleServerNetworkError(err, dispatch))
 }
 
-export type Filter = 'all' | 'active' | 'completed'
-export type TodolistDomain = Todolist & {
-  filter: Filter
-  entityStatus: RequestStatus
-}

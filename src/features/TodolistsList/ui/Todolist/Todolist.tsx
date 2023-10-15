@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react'
 import { Button, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { Filter, todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
+import { todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
 import styles from 'features/TodolistsList/ui/Todolist/Todolist.module.css'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import { tasksThunks } from 'features/TodolistsList/model/tasks.reducer'
@@ -10,6 +10,7 @@ import { RequestStatus } from 'app/app-reducer'
 import * as tasksSelectors from 'features/TodolistsList/model/tasks.selectors'
 import { AddInputElement, EditableTitle } from 'common/components'
 import { TaskStatuses } from 'common/enums'
+import { Filter } from 'features/TodolistsList/model/todolist.types.reducer'
 
 type TodolistPropsType = {
   id: string
