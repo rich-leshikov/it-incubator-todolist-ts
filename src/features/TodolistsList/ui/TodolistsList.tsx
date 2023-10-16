@@ -6,7 +6,7 @@ import { todolistsThunks } from 'features/TodolistsList/model/todolists.reducer'
 import { FC, useCallback, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import * as todolistsSelectors from 'features/TodolistsList/model/todolists.selectors'
-import * as authSelectors from 'features/Login/auth-selectors'
+import * as authSelectors from 'features/Login/auth.selectors'
 import { AddInputElement } from 'common/components'
 
 type TodolistsListProps = {}

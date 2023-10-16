@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { authActions } from 'features/Login/auth-reducer'
+import { authActions } from 'features/Login/auth.reducer'
 import { AppThunkDispatchType } from 'app/store'
 import { handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { authAPI } from 'features/Login/auth.api'

@@ -8,9 +8,9 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useFormik } from 'formik'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { loginTC } from './auth-reducer'
 import { Navigate } from 'react-router-dom'
-import * as authSelectors from 'features/Login/auth-selectors'
+import * as authSelectors from 'features/Login/auth.selectors'
+import { authThunks } from 'features/Login/auth.reducer'
 
 type FormikErrorType = {
   email?: string
@@ -45,7 +45,7 @@ export const Login = () => {
       return errors
     },
     onSubmit: values => {
-      dispatch(loginTC(values))
+      dispatch(authThunks.login(values))
       formik.resetForm()
     }
   })
