@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { appActions } from 'app/app-reducer'
+import { appActions } from 'app/app.reducer'
 import { todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { authAPI, LoginParams } from 'features/Login/auth.api'
 import { ResultCode } from 'common/enums'
 
-const login = createAppAsyncThunk<void, LoginParams>('auth/login', async (param, thunkAPI) => {
+const login = createAppAsyncThunk<void, LoginParams>(
+  'auth/login',
+  async (param, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
 
   try {
@@ -24,7 +26,9 @@ const login = createAppAsyncThunk<void, LoginParams>('auth/login', async (param,
     return rejectWithValue(null)
   }
 })
-const logout = createAppAsyncThunk<void, undefined>('auth/logout', async (_, thunkAPI) => {
+const logout = createAppAsyncThunk<void, undefined>(
+  'auth/logout',
+  async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
 
   try {
@@ -44,7 +48,9 @@ const logout = createAppAsyncThunk<void, undefined>('auth/logout', async (_, thu
     return rejectWithValue(null)
   }
 })
-const initializeApp = createAppAsyncThunk<void, undefined>('app/initializeApp', async (_, thunkAPI) => {
+const initializeApp = createAppAsyncThunk<void, undefined>(
+  'app/initializeApp',
+  async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
 
   try {

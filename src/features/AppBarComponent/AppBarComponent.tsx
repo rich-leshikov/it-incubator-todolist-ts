@@ -4,7 +4,7 @@ import { FC } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import * as authSelectors from 'features/Login/auth.selectors'
-import * as appSelectors from 'app/app-selectors'
+import * as appSelectors from 'app/app.selectors'
 import { authThunks } from 'features/Login/auth.reducer'
 
 type AppBarPropsType = {}

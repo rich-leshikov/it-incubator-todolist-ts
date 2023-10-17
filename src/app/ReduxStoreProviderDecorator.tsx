@@ -5,7 +5,7 @@ import { AppRootStateType } from './store'
 import { tasksReducer } from 'features/TodolistsList/model/tasks.reducer'
 import { todolistsReducer } from 'features/TodolistsList/model/todolists.reducer'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
-import { appReducer } from './app-reducer'
+import { appReducer } from 'app/app.reducer'
 import thunkMiddleware from 'redux-thunk'
 
 const rootReducer = combineReducers({

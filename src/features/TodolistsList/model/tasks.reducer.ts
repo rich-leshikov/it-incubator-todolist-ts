@@ -1,5 +1,5 @@
 import { todolistsApi } from 'features/TodolistsList/api/todolists.api'
-import { appActions, RequestStatus } from 'app/app-reducer'
+import { appActions, RequestStatus } from 'app/app.reducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolists.reducer'
@@ -13,7 +13,9 @@ import {
 import { TaskDomain, TasksState } from 'features/TodolistsList/model/task.types'
 import { ResultCode } from 'common/enums'
 
-const fetchTasks = createAppAsyncThunk<FetchTasksArgs, string>('tasks/fetchTasks', async (todolistId: string, thunkAPI) => {
+const fetchTasks = createAppAsyncThunk<FetchTasksArgs, string>(
+  'tasks/fetchTasks',
+  async (todolistId: string, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
 
   try {
@@ -28,12 +30,14 @@ const fetchTasks = createAppAsyncThunk<FetchTasksArgs, string>('tasks/fetchTasks
     return rejectWithValue(null)
   }
 })
-const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>('tasks/addTask', async (arg, thunkAPI) => {
+const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
+  'tasks/addTask',
+  async (param, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
 
   try {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
-    const res = await todolistsApi.addTask(arg)
+    const res = await todolistsApi.addTask(param)
     if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       return { task: res.data.data.item }
@@ -46,34 +50,36 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>('tasks/addT
     return rejectWithValue(null)
   }
 })
-const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>('tasks/removeTask', async (arg, thunkAPI) => {
+const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>(
+  'tasks/removeTask',
+  async (param, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
 
   try {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     dispatch(tasksActions.changeTaskEntityStatus({
-      taskId: arg.taskId,
+      taskId: param.taskId,
       entityStatus: 'loading',
-      todolistId: arg.todolistId
+      todolistId: param.todolistId
     }))
 
-    const res = await todolistsApi.removeTask(arg)
+    const res = await todolistsApi.removeTask(param)
 
     if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       dispatch(tasksActions.changeTaskEntityStatus({
-        taskId: arg.taskId,
+        taskId: param.taskId,
         entityStatus: 'succeeded',
-        todolistId: arg.todolistId
+        todolistId: param.todolistId
       }))
 
-      return arg
+      return param
     } else {
       handleServerAppError(res.data, dispatch)
       dispatch(tasksActions.changeTaskEntityStatus({
-        taskId: arg.taskId,
+        taskId: param.taskId,
         entityStatus: 'failed',
-        todolistId: arg.todolistId
+        todolistId: param.todolistId
       }))
 
       return rejectWithValue(null)
@@ -81,69 +87,71 @@ const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>('tasks/re
   } catch (err) {
     handleServerNetworkError(err, dispatch)
     dispatch(tasksActions.changeTaskEntityStatus({
-      taskId: arg.taskId,
+      taskId: param.taskId,
       entityStatus: 'failed',
-      todolistId: arg.todolistId
+      todolistId: param.todolistId
     }))
 
     return rejectWithValue(null)
   }
 })
-const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>('tasks/updateTask', async (arg, thunkAPI) => {
+const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
+  'tasks/updateTask',
+  async (param, thunkAPI) => {
   const { dispatch, getState, rejectWithValue } = thunkAPI
 
   try {
     dispatch(appActions.setAppStatus({ status: 'loading' }))
     dispatch(tasksActions.changeTaskEntityStatus({
-      taskId: arg.taskId,
+      taskId: param.taskId,
       entityStatus: 'loading',
-      todolistId: arg.todolistId
+      todolistId: param.todolistId
     }))
 
-    const task = getState().tasks[arg.todolistId].find(t => t.id === arg.taskId)
+    const task = getState().tasks[param.todolistId].find(t => t.id === param.taskId)
     if (!task) {
       dispatch(appActions.setAppError({ error: 'Task not found' }))
       dispatch(tasksActions.changeTaskEntityStatus({
-        taskId: arg.taskId,
+        taskId: param.taskId,
         entityStatus: 'failed',
-        todolistId: arg.todolistId
+        todolistId: param.todolistId
       }))
       return rejectWithValue(null)
     }
 
-    const res = await todolistsApi.updateTask(arg.todolistId, arg.taskId, {
+    const res = await todolistsApi.updateTask(param.todolistId, param.taskId, {
       title: task.title,
       startDate: task.startDate,
       priority: task.priority,
       description: task.description,
       deadline: task.deadline,
       status: task.status,
-      ...arg.domainModel
+      ...param.domainModel
     })
 
     if (res.data.resultCode === ResultCode.Success) {
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
       dispatch(tasksActions.changeTaskEntityStatus({
-        taskId: arg.taskId,
+        taskId: param.taskId,
         entityStatus: 'succeeded',
-        todolistId: arg.todolistId
+        todolistId: param.todolistId
       }))
-      return arg
+      return param
     } else {
       handleServerAppError(res.data, dispatch)
       dispatch(tasksActions.changeTaskEntityStatus({
-        taskId: arg.taskId,
+        taskId: param.taskId,
         entityStatus: 'failed',
-        todolistId: arg.todolistId
+        todolistId: param.todolistId
       }))
       return rejectWithValue(null)
     }
   } catch (err) {
     handleServerNetworkError(err, dispatch)
     dispatch(tasksActions.changeTaskEntityStatus({
-      taskId: arg.taskId,
+      taskId: param.taskId,
       entityStatus: 'failed',
-      todolistId: arg.todolistId
+      todolistId: param.todolistId
     }))
     return rejectWithValue(null)
   }

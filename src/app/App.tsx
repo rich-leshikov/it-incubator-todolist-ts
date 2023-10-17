@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from './store'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from 'features/Login/Login'
 import { useEffect } from 'react'
-import * as appSelectors from 'app/app-selectors'
+import * as appSelectors from 'app/app.selectors'
 import { ErrorSnackbar } from 'common/components'
 import { authThunks } from 'features/Login/auth.reducer'
 
