@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from './store'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Login } from 'features/Login/Login'
 import { useEffect } from 'react'
-import { initializeAppTC } from 'app/app-reducer'
 import * as appSelectors from 'app/app-selectors'
 import { ErrorSnackbar } from 'common/components'
+import { authThunks } from 'features/Login/auth.reducer'
 
 export function App() {
   // console.log('render App')
@@ -16,7 +16,7 @@ export function App() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(initializeAppTC())
+    dispatch(authThunks.initializeApp())
   }, [])
 
   if (!isInitialized) {
