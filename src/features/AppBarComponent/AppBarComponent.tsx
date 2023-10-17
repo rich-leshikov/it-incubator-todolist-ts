@@ -3,9 +3,9 @@ import { Menu } from '@mui/icons-material'
 import { FC } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useAppDispatch, useAppSelector } from 'app/store'
-import { logoutTC } from 'features/Login/auth.reducer'
 import * as authSelectors from 'features/Login/auth.selectors'
 import * as appSelectors from 'app/app-selectors'
+import { authThunks } from 'features/Login/auth.reducer'
 
 type AppBarPropsType = {}
 
@@ -14,7 +14,7 @@ export const AppBarComponent: FC<AppBarPropsType> = () => {
   const status = useAppSelector(appSelectors.status)
   const dispatch = useAppDispatch()
 
-  const logOutHandler = () => dispatch(logoutTC())
+  const logOutHandler = () => dispatch(authThunks.logout())
 
   return (
     <AppBar position={'static'} color={'transparent'}>
