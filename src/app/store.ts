@@ -18,7 +18,7 @@ export const store = configureStore({
 })
 
 export type AppRootStateType = ReturnType<typeof store.getState>
-export type AppThunkDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
+export type AppThunkDispatchType = typeof store.dispatch
 
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 export const useAppDispatch = () => useDispatch<AppThunkDispatchType>()
