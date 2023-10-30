@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { appActions } from 'app/app.reducer'
 import { todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
+import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch } from 'common/utils'
 import { authAPI, LoginParams } from 'features/Login/auth.api'
 import { ResultCode } from 'common/enums'
 
@@ -49,24 +49,19 @@ const logout = createAppAsyncThunk<void, undefined>(
     }
   })
 const initializeApp = createAppAsyncThunk<void, undefined>(
-  'app/initializeApp',
+  'auth/initializeApp',
   async (_, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI
-
-    try {
+    return thunkTryCatch(thunkAPI, async () => {
       const res = await authAPI.me()
-
       if (res.data.resultCode === ResultCode.Success) {
         return
       } else {
         return rejectWithValue(null)
       }
-    } catch (err) {
-      handleServerNetworkError(err, dispatch)
-      return rejectWithValue(null)
-    } finally {
+    }).finally(() => {
       dispatch(appActions.setAppIsInitialized({ isInitialized: true }))
-    }
+    })
   })
 
 const slice = createSlice({
