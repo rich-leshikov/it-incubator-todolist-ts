@@ -5,9 +5,7 @@ import { RequestStatus } from 'app/app.reducer'
 export type TaskDomain = TaskType & {
   entityStatus: RequestStatus
 }
-export type TasksState = {
-  [key: string]: Array<TaskDomain>
-}
+export type TasksState = Record<string, TaskDomain[]>
 export type UpdateDomainTaskModel = {
   title?: string
   description?: string

@@ -11,12 +11,9 @@ import { useAppDispatch, useAppSelector } from 'app/store'
 import { Navigate } from 'react-router-dom'
 import * as authSelectors from 'features/Login/auth.selectors'
 import { authThunks } from 'features/Login/auth.reducer'
+import { LoginParams } from 'features/Login/auth.api'
 
-type FormikErrorType = {
-  email?: string
-  password?: string
-  rememberMe?: boolean
-}
+type FormikErrorType = Partial<Omit<LoginParams, 'captcha'>>
 
 export const Login = () => {
   // console.log('render Login')
