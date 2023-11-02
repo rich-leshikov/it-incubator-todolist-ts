@@ -23,7 +23,5 @@ export const Tasks: FC<TasksProps> = ({ todolist }) => {
     <Task key={t.id} task={t} />
   ))
 
-  return (
-    <div>{tasksList}</div>
-  )
+  return <div>{tasksList}</div>
 }
