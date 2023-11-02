@@ -41,25 +41,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
   }
   const createTask = useCallback(
     (taskTitle: string) => {
-      dispatch(tasksThunks.addTask({taskTitle, todolistId: props.id}))
-    },
-    [props.id]
-  )
-  const deleteTask = useCallback(
-    (taskId: string) => {
-      dispatch(tasksThunks.removeTask({ taskId, todolistId: props.id }))
-    },
-    [props.id]
-  )
-  const changeTaskStatus = useCallback(
-    (taskId: string, status: TaskStatuses) => {
-      dispatch(tasksThunks.updateTask({taskId, todolistId: props.id, domainModel: { status }}))
-    },
-    [props.id]
-  )
-  const changeTaskTitle = useCallback(
-    (taskId: string, title: string) => {
-      dispatch(tasksThunks.updateTask({taskId, todolistId: props.id, domainModel: { title }}))
+      dispatch(tasksThunks.addTask({ taskTitle, todolistId: props.id }))
     },
     [props.id]
   )
@@ -74,7 +56,7 @@ export const Todolist = memo((props: TodolistPropsType) => {
   }
 
   let finalTasksList = tasksList.map(t => (
-    <Task key={t.id} task={t} removeTask={deleteTask} checkTask={changeTaskStatus} changeTaskTitle={changeTaskTitle} />
+    <Task key={t.id} task={t} />
   ))
 
   return (

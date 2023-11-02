@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
 import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
 
@@ -8,9 +7,6 @@ const meta: Meta<typeof Task> = {
   component: Task,
   tags: ['autodocs'],
   args: {
-    checkTask: action('Status changed inside Task'),
-    changeTaskTitle: action('Title changed inside Task'),
-    removeTask: action('Remove Button clicked changed inside Task'),
     task: {
       id: '1',
       title: 'CSS',
