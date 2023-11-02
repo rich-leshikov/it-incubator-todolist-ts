@@ -1,14 +1,14 @@
 import { AxiosResponse } from 'axios'
 import { BaseResponseType, instance } from 'common/api/common.api'
-import { Todolist } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+import { TodolistOrigin } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
 
 export const todolistsApi = {
   getTodolists: () => {
-    return instance.get<Todolist[]>('todo-lists')
+    return instance.get<TodolistOrigin[]>('todo-lists')
   },
   addTodolist: (title: string) => {
-    return instance.post<BaseResponseType<{ item: Todolist }>,
-      AxiosResponse<BaseResponseType<{ item: Todolist }>>,
+    return instance.post<BaseResponseType<{ item: TodolistOrigin }>,
+      AxiosResponse<BaseResponseType<{ item: TodolistOrigin }>>,
       { title: string }>('todo-lists', { title })
   },
   removeTodolist: (id: string) => {

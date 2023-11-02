@@ -4,7 +4,7 @@ import {
   todolistsThunks
 } from 'features/TodolistsList/model/todolists/todolists.reducer'
 import { v1 } from 'uuid'
-import { Filter, TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+import { TodolistFilterButton, TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
 
 let todolistId1: string
 let todolistId2: string
@@ -86,7 +86,7 @@ test('todolist should change its name', () => {
 })
 
 test('filter of todolist should be changed', () => {
-  const newFilter: Filter = 'completed'
+  const newFilter: TodolistFilterButton = 'completed'
   const action = todolistsActions.changeTodolistFilter({ id: todolistId2, filter: newFilter })
 
   const endState = todolistsReducer(startState, action)

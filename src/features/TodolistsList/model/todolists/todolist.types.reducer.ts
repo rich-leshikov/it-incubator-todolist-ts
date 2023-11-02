@@ -1,7 +1,6 @@
 import { RequestStatus } from 'app/app.reducer'
 
-export type Filter = 'all' | 'active' | 'completed'
-export type Todolist = {
+export type TodolistOrigin = {
   id: string
   title: string
   addedDate: string
@@ -11,7 +10,8 @@ export type UpdateTodolistArgs = {
   todolistId: string,
   title: string
 }
-export type TodolistDomain = Todolist & {
-  filter: Filter
+export type TodolistFilterButton = 'all' | 'active' | 'completed'
+export type TodolistDomain = TodolistOrigin & {
+  filter: TodolistFilterButton
   entityStatus: RequestStatus
 }

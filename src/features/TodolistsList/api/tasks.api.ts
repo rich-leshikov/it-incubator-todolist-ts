@@ -3,7 +3,7 @@ import {
   AddTaskArgs,
   GetTasksResponse,
   RemoveTaskArgs,
-  TaskType,
+  TaskOrigin,
   UpdateTaskModelType
 } from 'features/TodolistsList/model/tasks/task.types'
 import { AxiosResponse } from 'axios'
@@ -13,16 +13,16 @@ export const tasksApi = {
     return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
   },
   addTask: (arg: AddTaskArgs) => {
-    return instance.post<BaseResponseType<{ item: TaskType }>,
-      AxiosResponse<BaseResponseType<{ item: TaskType }>>,
+    return instance.post<BaseResponseType<{ item: TaskOrigin }>,
+      AxiosResponse<BaseResponseType<{ item: TaskOrigin }>>,
       { title: string }>(`todo-lists/${arg.todolistId}/tasks`, { title: arg.taskTitle })
   },
   removeTask: (arg: RemoveTaskArgs) => {
     return instance.delete<BaseResponseType>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
   },
   updateTask: (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
-    return instance.put<BaseResponseType<{ item: TaskType }>,
-      AxiosResponse<BaseResponseType<{ item: TaskType }>>,
+    return instance.put<BaseResponseType<{ item: TaskOrigin }>,
+      AxiosResponse<BaseResponseType<{ item: TaskOrigin }>>,
       UpdateTaskModelType>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
   }
 }

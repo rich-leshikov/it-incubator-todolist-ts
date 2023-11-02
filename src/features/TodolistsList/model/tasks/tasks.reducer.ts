@@ -8,7 +8,7 @@ import {
   RemoveTaskArgs,
   TaskDomain,
   TasksState,
-  TaskType,
+  TaskOrigin,
   UpdateTaskArgs
 } from 'features/TodolistsList/model/tasks/task.types'
 import { ResultCode } from 'common/enums'
@@ -31,7 +31,7 @@ const fetchTasks = createAppAsyncThunk<FetchTasksArgs, string>(
       return rejectWithValue(null)
     }
   })
-const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
+const addTask = createAppAsyncThunk<{ task: TaskOrigin }, AddTaskArgs>(
   'tasks/addTask',
   async (param, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI

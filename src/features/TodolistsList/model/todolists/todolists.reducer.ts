@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { tasksThunks } from 'features/TodolistsList/model/tasks/tasks.reducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from 'common/utils'
 import {
-  Filter, Todolist,
+  TodolistFilterButton, TodolistOrigin,
   TodolistDomain,
   UpdateTodolistArgs
 } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
@@ -28,7 +28,7 @@ const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistDomain[] }, unde
     return rejectWithValue(null)
   }
 })
-const addTodolist = createAppAsyncThunk<{ todolist: Todolist }, string>(
+const addTodolist = createAppAsyncThunk<{ todolist: TodolistOrigin }, string>(
   'todolists/addTodolist',
   async (title: string, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
@@ -107,7 +107,7 @@ const slice = createSlice({
     clearTodolists: () => {
       return []
     },
-    changeTodolistFilter: (state, action: PayloadAction<{ id: string, filter: Filter }>) => {
+    changeTodolistFilter: (state, action: PayloadAction<{ id: string, filter: TodolistFilterButton }>) => {
       const todo = state.find((todo) => todo.id === action.payload.id)
       if (todo) todo.filter = action.payload.filter
     },

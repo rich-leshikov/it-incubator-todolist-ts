@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { todolistsApi } from 'features/TodolistsList/api/todolists.api'
-import { TaskType, UpdateTaskModelType } from 'features/TodolistsList/model/tasks/task.types'
-import { Todolist } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+import { TaskOrigin, UpdateTaskModelType } from 'features/TodolistsList/model/tasks/task.types'
+import { TodolistOrigin } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
 import { tasksApi } from 'features/TodolistsList/api/tasks.api'
 
 export default {
@@ -9,7 +9,7 @@ export default {
 }
 
 export const GetTodolists = () => {
-  const [state, setState] = useState<Todolist[]>([])
+  const [state, setState] = useState<TodolistOrigin[]>([])
 
   useEffect(() => {
     todolistsApi.getTodolists().then(response => setState(response.data))
@@ -54,7 +54,7 @@ export const UpdateTodolistTitle = () => {
 }
 
 export const GetTasks = () => {
-  const [state, setState] = useState<TaskType[]>([])
+  const [state, setState] = useState<TaskOrigin[]>([])
 
   useEffect(() => {
     let todolistId = '6ee902d6-24ca-4bbd-aee2-88fe6e31af55'
