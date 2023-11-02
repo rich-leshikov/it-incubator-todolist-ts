@@ -29,19 +29,6 @@ export const Todolist: FC<TodolistProps> = memo(({ todolist }) => {
     dispatch(tasksThunks.addTask({ taskTitle, todolistId: todolist.id }))
   }, [todolist.id])
 
-  let tasksList = tasks
-
-  if (todolist.filter === 'active') {
-    tasksList = tasksList.filter(t => t.status === TaskStatuses.New)
-  }
-  if (todolist.filter === 'completed') {
-    tasksList = tasksList.filter(t => t.status === TaskStatuses.Completed)
-  }
-
-  let finalTasksList = tasksList.map(t => (
-    <Task key={t.id} task={t} />
-  ))
-
   return (
     <div className={'todolist'}>
       <div className='todolist__title'>
@@ -59,7 +46,7 @@ export const Todolist: FC<TodolistProps> = memo(({ todolist }) => {
       <div className={styles.buttons}>
         <FilterTasksButtons todolist={todolist} />
       </div>
-      <div>{finalTasksList}</div>
+      <Tasks todolist={todolist} />
       <AddInputElement addElement={addTaskHandler} isDisabled={todolist.entityStatus === 'loading'} />
     </div>
   )
