@@ -27,25 +27,11 @@ export const TodolistsList: FC<TodolistsListProps> = () => {
   const addTodolist = useCallback((todolistTitle: string) => {
     dispatch(todolistsThunks.addTodolist(todolistTitle))
   }, [])
-  const deleteTodolist = useCallback((todolistId: string) => {
-    dispatch(todolistsThunks.removeTodolist(todolistId))
-  }, [])
-  const updateTodolist = useCallback((title: string, todolistId: string) => {
-    dispatch(todolistsThunks.updateTodolist({ todolistId, title }))
-  }, [])
 
   const todolistsList = todolists.map(tl => (
     <Grid key={tl.id} item>
       <Paper className={styles.todolist} style={{ padding: '10px' }}>
-        <Todolist
-          key={tl.id}
-          id={tl.id}
-          title={tl.title}
-          filter={tl.filter}
-          entityStatus={tl.entityStatus}
-          deleteTodolist={deleteTodolist}
-          updateTodolist={updateTodolist}
-        />
+        <Todolist key={tl.id} todolist={tl} />
       </Paper>
     </Grid>
   ))
