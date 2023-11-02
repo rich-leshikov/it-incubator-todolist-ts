@@ -19,9 +19,5 @@ export const Tasks: FC<TasksProps> = ({ todolist }) => {
     tasks = tasks.filter(t => t.status === TaskStatuses.Completed)
   }
 
-  const tasksList = tasks.map(t => (
-    <Task key={t.id} task={t} />
-  ))
-
-  return <div>{tasksList}</div>
+  return <div>{tasks.map(t => <Task key={t.id} task={t} />)}</div>
 }

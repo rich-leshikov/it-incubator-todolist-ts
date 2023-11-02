@@ -1,13 +1,13 @@
 import { TextField } from '@mui/material'
-import { ChangeEvent, memo, useState } from 'react'
+import { ChangeEvent, FC, memo, useState } from 'react'
 
-type TitleElementPropsType = {
+type TitleElementProps = {
   title: string
   changeTitle: (title: string) => void
   isDisabled: boolean
 }
 
-export const EditableTitle = memo(({ title, changeTitle, isDisabled }: TitleElementPropsType) => {
+export const EditableTitle: FC<TitleElementProps> = memo(({ title, changeTitle, isDisabled }) => {
   // console.log('render title')
 
   const [changing, setChanging] = useState<boolean>(false)

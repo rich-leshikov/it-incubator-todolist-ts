@@ -1,14 +1,14 @@
-import { ChangeEvent, KeyboardEvent, memo, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, memo, useState } from 'react'
 import { IconButton, TextField } from '@mui/material'
 import { AddBox } from '@mui/icons-material'
 import styles from 'common/components/AddInputElement/AddInputElement.module.css'
 
-type AddInputElementPropsType = {
+type AddInputElementProps = {
   addElement: (title: string) => void
   isDisabled: boolean
 }
 
-export const AddInputElement = memo((props: AddInputElementPropsType) => {
+export const AddInputElement: FC<AddInputElementProps> = memo(({ addElement, isDisabled }) => {
   // console.log('render input')
 
   const [newElementTitle, setNewElementTitle] = useState<string>('')
@@ -20,7 +20,7 @@ export const AddInputElement = memo((props: AddInputElementPropsType) => {
   }
   const onPressAddElement = () => {
     if (newElementTitle.trim() !== '') {
-      props.addElement(newElementTitle.trim())
+      addElement(newElementTitle.trim())
       setNewElementTitle('')
     } else {
       setError('Field is empty!')
@@ -43,7 +43,7 @@ export const AddInputElement = memo((props: AddInputElementPropsType) => {
           error={!!error}
           label={'Task title'}
           placeholder={error}
-          disabled={props.isDisabled}
+          disabled={isDisabled}
         />
         <IconButton
           onClick={onPressAddElement}
@@ -53,7 +53,7 @@ export const AddInputElement = memo((props: AddInputElementPropsType) => {
             minWidth: '40px',
             minHeight: '40px'
           }}
-          disabled={props.isDisabled}
+          disabled={isDisabled}
         >
           <AddBox
             style={{

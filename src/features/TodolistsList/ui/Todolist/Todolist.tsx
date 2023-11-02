@@ -1,4 +1,4 @@
-import { FC, memo, useCallback } from 'react'
+import { FC, memo } from 'react'
 import styles from 'features/TodolistsList/ui/Todolist/Todolist.module.css'
 import { useAppDispatch } from 'app/store'
 import { tasksThunks } from 'features/TodolistsList/model/tasks/tasks.reducer'
@@ -17,9 +17,9 @@ export const Todolist: FC<TodolistProps> = memo(({ todolist }) => {
 
   const dispatch = useAppDispatch()
 
-  const addTaskHandler = useCallback((taskTitle: string) => {
+  const addTaskCallback = (taskTitle: string) => {
     dispatch(tasksThunks.addTask({ taskTitle, todolistId: todolist.id }))
-  }, [todolist.id])
+  }
 
   return (
     <div className={'todolist'}>
@@ -30,7 +30,7 @@ export const Todolist: FC<TodolistProps> = memo(({ todolist }) => {
         <FilterTasksButtons todolist={todolist} />
       </div>
       <Tasks todolist={todolist} />
-      <AddInputElement addElement={addTaskHandler} isDisabled={todolist.entityStatus === 'loading'} />
+      <AddInputElement addElement={addTaskCallback} isDisabled={todolist.entityStatus === 'loading'} />
     </div>
   )
 })

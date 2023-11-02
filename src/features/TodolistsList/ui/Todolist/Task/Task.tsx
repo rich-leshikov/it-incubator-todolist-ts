@@ -27,7 +27,7 @@ export const Task: FC<TaskProps> = memo(({ task }) => {
       domainModel: { status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New }
     }))
   }
-  const changeTitleHandler = (title: string) => {
+  const changeTitleCallback = (title: string) => {
     dispatch(tasksThunks.updateTask({
       taskId: task.id,
       todolistId: task.todoListId,
@@ -46,7 +46,7 @@ export const Task: FC<TaskProps> = memo(({ task }) => {
         />
         <EditableTitle
           title={task.title}
-          changeTitle={changeTitleHandler}
+          changeTitle={changeTitleCallback}
           isDisabled={task.entityStatus === 'loading'}
         />
       </div>

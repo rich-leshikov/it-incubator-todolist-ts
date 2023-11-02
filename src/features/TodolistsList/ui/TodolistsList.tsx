@@ -3,15 +3,13 @@ import styles from 'app/App.module.css'
 import { Todolist } from 'features/TodolistsList/ui/Todolist/Todolist'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import { todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.reducer'
-import { FC, useCallback, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import * as todolistsSelectors from 'features/TodolistsList/model/todolists/todolists.selectors'
 import * as authSelectors from 'features/Login/auth.selectors'
 import { AddInputElement } from 'common/components'
 
-type TodolistsListProps = {}
-
-export const TodolistsList: FC<TodolistsListProps> = () => {
+export const TodolistsList: FC = () => {
   // console.log('render TodolistsList')
 
   const todolists = useAppSelector(todolistsSelectors.todolists)
@@ -24,9 +22,9 @@ export const TodolistsList: FC<TodolistsListProps> = () => {
     dispatch(todolistsThunks.fetchTodolists())
   }, [])
 
-  const addTodolist = useCallback((todolistTitle: string) => {
+  const addTodolistCallback = (todolistTitle: string) => {
     dispatch(todolistsThunks.addTodolist(todolistTitle))
-  }, [])
+  }
 
   const todolistsList = todolists.map(tl => (
     <Grid key={tl.id} item>
@@ -43,7 +41,7 @@ export const TodolistsList: FC<TodolistsListProps> = () => {
   return (
     <>
       <Grid container style={{ margin: '20px 0' }}>
-        <AddInputElement addElement={addTodolist} isDisabled={false} />
+        <AddInputElement addElement={addTodolistCallback} isDisabled={false} />
       </Grid>
       <Grid container spacing={3}>
         {todolistsList}

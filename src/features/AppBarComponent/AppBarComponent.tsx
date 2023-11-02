@@ -7,9 +7,7 @@ import * as authSelectors from 'features/Login/auth.selectors'
 import * as appSelectors from 'app/app.selectors'
 import { authThunks } from 'features/Login/auth.reducer'
 
-type AppBarPropsType = {}
-
-export const AppBarComponent: FC<AppBarPropsType> = () => {
+export const AppBarComponent: FC = () => {
   const isLoggedIn = useAppSelector(authSelectors.isLoggedIn)
   const status = useAppSelector(appSelectors.status)
   const dispatch = useAppDispatch()
