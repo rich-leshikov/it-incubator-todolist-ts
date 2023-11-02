@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { todolistsApi} from 'features/TodolistsList/api/todolists.api'
-import { TaskType, Todolist, UpdateTaskModelType } from 'features/TodolistsList/api/todolist.types.api'
+import { TaskType, UpdateTaskModelType } from 'features/TodolistsList/model/tasks/task.types'
+import { Todolist } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
 
 export default {
   title: 'API'

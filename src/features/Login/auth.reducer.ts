@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { appActions } from 'app/app.reducer'
-import { todolistsActions } from 'features/TodolistsList/model/todolists.reducer'
+import { todolistsActions } from 'features/TodolistsList/model/todolists/todolists.reducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch } from 'common/utils'
 import { authAPI, LoginParams } from 'features/Login/auth.api'
 import { ResultCode } from 'common/enums'

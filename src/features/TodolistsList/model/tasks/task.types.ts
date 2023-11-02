@@ -1,12 +1,6 @@
 import { TaskPriorities, TaskStatuses } from 'common/enums'
-import { TaskDomain, UpdateDomainTaskModel } from 'features/TodolistsList/model/task.types'
+import { RequestStatus } from 'app/app.reducer'
 
-export type Todolist = {
-  id: string
-  title: string
-  addedDate: string
-  order: number
-}
 export type TaskType = {
   description: string
   title: string
@@ -32,10 +26,6 @@ export type GetTasksResponse = {
   totalCount: number
   items: TaskType[]
 }
-export type UpdateTodolistArgs = {
-  todolistId: string,
-  title: string
-}
 export type FetchTasksArgs = {
   tasks: TaskDomain[],
   todolistId: string
@@ -52,4 +42,16 @@ export type UpdateTaskArgs = {
   taskId: string
   todolistId: string
   domainModel: UpdateDomainTaskModel
+}
+export type TaskDomain = TaskType & {
+  entityStatus: RequestStatus
+}
+export type TasksState = Record<string, TaskDomain[]>
+export type UpdateDomainTaskModel = {
+  title?: string
+  description?: string
+  status?: TaskStatuses
+  priority?: TaskPriorities
+  startDate?: string
+  deadline?: string
 }

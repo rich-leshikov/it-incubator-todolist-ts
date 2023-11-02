@@ -4,7 +4,7 @@ import { Delete } from '@mui/icons-material'
 import styles from 'features/TodolistsList/ui/Todolist/Task/Task.module.css'
 import { EditableTitle } from 'common/components'
 import { TaskStatuses } from 'common/enums'
-import { TaskDomain } from 'features/TodolistsList/model/task.types'
+import { TaskDomain } from 'features/TodolistsList/model/tasks/task.types'
 
 type TaskPropsType = {
   task: TaskDomain

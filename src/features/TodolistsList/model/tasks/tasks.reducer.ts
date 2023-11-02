@@ -2,15 +2,14 @@ import { todolistsApi } from 'features/TodolistsList/api/todolists.api'
 import { appActions, RequestStatus } from 'app/app.reducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch } from 'common/utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolists.reducer'
+import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.reducer'
 import {
-  AddTaskArgs,
-  FetchTasksArgs,
+  AddTaskArgs, FetchTasksArgs,
   RemoveTaskArgs,
-  TaskType,
+  TaskDomain,
+  TasksState, TaskType,
   UpdateTaskArgs
-} from 'features/TodolistsList/api/todolist.types.api'
-import { TaskDomain, TasksState } from 'features/TodolistsList/model/task.types'
+} from 'features/TodolistsList/model/tasks/task.types'
 import { ResultCode } from 'common/enums'
 
 const fetchTasks = createAppAsyncThunk<FetchTasksArgs, string>(

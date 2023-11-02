@@ -1,8 +1,7 @@
-import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolists.reducer'
-import { tasksReducer, tasksThunks } from 'features/TodolistsList/model/tasks.reducer'
+import { todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.reducer'
+import { tasksReducer, tasksThunks } from 'features/TodolistsList/model/tasks/tasks.reducer'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
-import { UpdateTaskArgs } from 'features/TodolistsList/api/todolist.types.api'
-import { TasksState } from 'features/TodolistsList/model/task.types'
+import { TasksState, UpdateTaskArgs } from 'features/TodolistsList/model/tasks/task.types'
 
 let startState: TasksState
 

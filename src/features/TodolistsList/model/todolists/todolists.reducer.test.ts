@@ -2,9 +2,9 @@ import {
   todolistsReducer,
   todolistsActions,
   todolistsThunks
-} from 'features/TodolistsList/model/todolists.reducer'
+} from 'features/TodolistsList/model/todolists/todolists.reducer'
 import { v1 } from 'uuid'
-import { Filter, TodolistDomain } from 'features/TodolistsList/model/todolist.types.reducer'
+import { Filter, TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
 
 let todolistId1: string
 let todolistId2: string

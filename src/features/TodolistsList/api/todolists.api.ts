@@ -3,11 +3,10 @@ import { instance, ResponseType } from 'common/api/common.api'
 import {
   AddTaskArgs,
   GetTasksResponse,
-  RemoveTaskArgs,
-  TaskType,
-  Todolist,
+  RemoveTaskArgs, TaskType,
   UpdateTaskModelType
-} from 'features/TodolistsList/api/todolist.types.api'
+} from 'features/TodolistsList/model/tasks/task.types'
+import { Todolist } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
 
 export const todolistsApi = {
   getTodolists: () => {
