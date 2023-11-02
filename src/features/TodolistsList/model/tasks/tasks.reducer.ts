@@ -1,16 +1,18 @@
-import { todolistsApi } from 'features/TodolistsList/api/todolists.api'
 import { appActions, RequestStatus } from 'app/app.reducer'
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch } from 'common/utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { todolistsActions, todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.reducer'
 import {
-  AddTaskArgs, FetchTasksArgs,
+  AddTaskArgs,
+  FetchTasksArgs,
   RemoveTaskArgs,
   TaskDomain,
-  TasksState, TaskType,
+  TasksState,
+  TaskType,
   UpdateTaskArgs
 } from 'features/TodolistsList/model/tasks/task.types'
 import { ResultCode } from 'common/enums'
+import { tasksApi } from 'features/TodolistsList/api/tasks.api'
 
 const fetchTasks = createAppAsyncThunk<FetchTasksArgs, string>(
   'tasks/fetchTasks',
@@ -19,7 +21,7 @@ const fetchTasks = createAppAsyncThunk<FetchTasksArgs, string>(
 
     try {
       dispatch(appActions.setAppStatus({ status: 'loading' }))
-      const res = await todolistsApi.getTasks(todolistId)
+      const res = await tasksApi.getTasks(todolistId)
       const tasks: TaskDomain[] = res.data.items.map(task => ({ ...task, entityStatus: 'idle' }))
 
       dispatch(appActions.setAppStatus({ status: 'succeeded' }))
@@ -35,7 +37,7 @@ const addTask = createAppAsyncThunk<{ task: TaskType }, AddTaskArgs>(
     const { dispatch, rejectWithValue } = thunkAPI
 
     return thunkTryCatch(thunkAPI, async () => {
-      const res = await todolistsApi.addTask(param)
+      const res = await tasksApi.addTask(param)
 
       if (res.data.resultCode === ResultCode.Success) {
         return { task: res.data.data.item }
@@ -59,7 +61,7 @@ const removeTask = createAppAsyncThunk<RemoveTaskArgs, RemoveTaskArgs>(
         todolistId: param.todolistId
       }))
 
-      const res = await todolistsApi.removeTask(param)
+      const res = await tasksApi.removeTask(param)
 
       if (res.data.resultCode === ResultCode.Success) {
         dispatch(appActions.setAppStatus({ status: 'succeeded' }))
@@ -115,7 +117,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgs, UpdateTaskArgs>(
         return rejectWithValue(null)
       }
 
-      const res = await todolistsApi.updateTask(param.todolistId, param.taskId, {
+      const res = await tasksApi.updateTask(param.todolistId, param.taskId, {
         title: task.title,
         startDate: task.startDate,
         priority: task.priority,
