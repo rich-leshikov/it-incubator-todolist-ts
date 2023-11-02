@@ -36,7 +36,7 @@ export const Task: FC<TaskProps> = memo(({ task }) => {
   }
 
   return (
-    <div className={`${styles.task} ${task.status === TaskStatuses.Completed && 'isCompleted'}`}>
+    <div className={`${styles.task} ${task.status === TaskStatuses.Completed && styles.isCompleted}`}>
       <div className={styles.content}>
         <Checkbox
           color={'success'}

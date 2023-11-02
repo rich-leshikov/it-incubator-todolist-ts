@@ -9,3 +9,7 @@
 .content {
   display: inline-block;
 }
+
+.isCompleted {
+  opacity: .5;
+}
