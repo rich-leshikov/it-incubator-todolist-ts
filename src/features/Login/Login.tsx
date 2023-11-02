@@ -6,46 +6,16 @@ import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { useFormik } from 'formik'
-import { useAppDispatch, useAppSelector } from 'app/store'
+import { useAppSelector } from 'app/store'
 import { Navigate } from 'react-router-dom'
 import * as authSelectors from 'features/Login/auth.selectors'
-import { authThunks } from 'features/Login/auth.reducer'
-import { LoginParams } from 'features/Login/auth.api'
-
-type FormikErrorType = Partial<Omit<LoginParams, 'captcha'>>
+import { useLogin } from 'features/Login/useLogin'
 
 export const Login = () => {
   // console.log('render Login')
 
+  const { formik } = useLogin()
   const isLoggedIn = useAppSelector(authSelectors.isLoggedIn)
-  const dispatch = useAppDispatch()
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      rememberMe: false
-    },
-    validate: values => {
-      const errors: FormikErrorType = {}
-      if (!values.email) {
-        errors.email = 'Field is required'
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-      }
-      if (!values.password) {
-        errors.password = 'Field is required'
-      } else if (values.password.length < 4) {
-        errors.password = 'Password too short'
-      }
-      return errors
-    },
-    onSubmit: values => {
-      dispatch(authThunks.login(values))
-      formik.resetForm()
-    }
-  })
 
   if (isLoggedIn) {
     return <Navigate to={'/'} />

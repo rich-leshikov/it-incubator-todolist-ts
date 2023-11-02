@@ -8,8 +8,13 @@ export const instance = axios.create({
   }
 })
 
-export type ResponseType<D = {}> = {
+type FieldErrorType = {
+  error: string
+  field: string
+}
+export type BaseResponseType<D = {}> = {
   resultCode: number
   messages: Array<string>
   data: D
+  fieldsErrors: FieldErrorType[]
 }
