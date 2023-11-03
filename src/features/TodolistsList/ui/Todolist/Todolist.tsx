@@ -18,14 +18,12 @@ export const Todolist: FC<TodolistProps> = memo(({ todolist }) => {
   const dispatch = useAppDispatch()
 
   const addTaskCallback = (taskTitle: string) => {
-    dispatch(tasksThunks.addTask({ taskTitle, todolistId: todolist.id }))
+    return dispatch(tasksThunks.addTask({ taskTitle, todolistId: todolist.id })).unwrap()
   }
 
   return (
     <div className={'todolist'}>
-      <div className='todolist__title'>
-        <TodolistTitle todolist={todolist} />
-      </div>
+      <TodolistTitle todolist={todolist} />
       <div className={styles.buttons}>
         <FilterTasksButtons todolist={todolist} />
       </div>

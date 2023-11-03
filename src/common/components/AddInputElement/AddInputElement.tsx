@@ -2,10 +2,11 @@ import { ChangeEvent, FC, KeyboardEvent, memo, useState } from 'react'
 import { IconButton, TextField } from '@mui/material'
 import { AddBox } from '@mui/icons-material'
 import styles from 'common/components/AddInputElement/AddInputElement.module.css'
+import { BaseResponseType } from 'common/api/common.api'
 
 type AddInputElementProps = {
-  addElement: (title: string) => void
-  isDisabled: boolean
+  addElement: (title: string) => Promise<any>
+  isDisabled?: boolean
 }
 
 export const AddInputElement: FC<AddInputElementProps> = memo(({ addElement, isDisabled }) => {
@@ -14,20 +15,25 @@ export const AddInputElement: FC<AddInputElementProps> = memo(({ addElement, isD
   const [newElementTitle, setNewElementTitle] = useState<string>('')
   const [error, setError] = useState<string>('')
 
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setNewElementTitle(e.currentTarget.value)
     error && setError('')
   }
-  const onPressAddElement = () => {
+  const addItemHandler = () => {
     if (newElementTitle.trim() !== '') {
       addElement(newElementTitle.trim())
-      setNewElementTitle('')
+        .then(() => {
+          setNewElementTitle('')
+        })
+        .catch((err: BaseResponseType) => {
+          setError(err.messages[0])
+        })
     } else {
       setError('Field is empty!')
     }
   }
-  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    e.code === 'Enter' && e.ctrlKey && onPressAddElement()
+  const keyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    e.code === 'Enter' && e.ctrlKey && addItemHandler()
   }
 
   return (
@@ -38,15 +44,15 @@ export const AddInputElement: FC<AddInputElementProps> = memo(({ addElement, isD
           variant={'outlined'}
           size={'small'}
           value={newElementTitle}
-          onChange={onChangeInput}
-          onKeyPress={onKeyPressHandler}
+          onChange={changeInputHandler}
+          onKeyPress={keyPressHandler}
           error={!!error}
           label={'Task title'}
           placeholder={error}
           disabled={isDisabled}
         />
         <IconButton
-          onClick={onPressAddElement}
+          onClick={addItemHandler}
           style={{
             maxWidth: '40px',
             maxHeight: '40px',

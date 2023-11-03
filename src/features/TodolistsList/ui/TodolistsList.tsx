@@ -23,7 +23,7 @@ export const TodolistsList: FC = () => {
   }, [])
 
   const addTodolistCallback = (todolistTitle: string) => {
-    dispatch(todolistsThunks.addTodolist(todolistTitle))
+    return dispatch(todolistsThunks.addTodolist(todolistTitle)).unwrap()
   }
 
   const todolistsList = todolists.map(tl => (
