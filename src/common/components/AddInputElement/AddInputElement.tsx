@@ -2,7 +2,7 @@ import { ChangeEvent, FC, KeyboardEvent, memo, useState } from 'react'
 import { IconButton, TextField } from '@mui/material'
 import { AddBox } from '@mui/icons-material'
 import styles from 'common/components/AddInputElement/AddInputElement.module.css'
-import { BaseResponseType } from 'common/api/common.api'
+import { RejectValue } from 'common/utils/createAppAsyncThunk'
 
 type AddInputElementProps = {
   addElement: (title: string) => Promise<any>
@@ -25,8 +25,10 @@ export const AddInputElement: FC<AddInputElementProps> = memo(({ addElement, isD
         .then(() => {
           setNewElementTitle('')
         })
-        .catch((err: BaseResponseType) => {
-          setError(err.messages[0])
+        .catch((err: RejectValue) => {
+          if (err?.data.resultCode) {
+            setError(err.data.messages[0])
+          }
         })
     } else {
       setError('Field is empty!')
