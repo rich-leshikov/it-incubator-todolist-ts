@@ -7,7 +7,7 @@ import { Login } from 'features/Login/Login'
 import { useEffect } from 'react'
 import * as appSelectors from 'app/app.selectors'
 import { ErrorSnackbar } from 'common/components'
-import { authThunks } from 'features/Login/auth.reducer'
+import { authThunks } from 'features/Login/auth.slice'
 
 export function App() {
   // console.log('render App')

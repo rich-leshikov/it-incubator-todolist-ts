@@ -8,7 +8,7 @@ import {
   TodolistFilterButton,
   TodolistOrigin,
   UpdateTodolistArgs
-} from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+} from 'features/TodolistsList/model/todolists/todolist.types'
 import { ResultCode } from 'common/enums'
 
 const fetchTodolists = createAppAsyncThunk<{ todolists: TodolistDomain[] }, void>(

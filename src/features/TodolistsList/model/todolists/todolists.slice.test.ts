@@ -4,7 +4,7 @@ import {
   todolistsThunks
 } from 'features/TodolistsList/model/todolists/todolists.slice'
 import { v1 } from 'uuid'
-import { TodolistFilterButton, TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+import { TodolistFilterButton, TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types'
 
 let todolistId1: string
 let todolistId2: string

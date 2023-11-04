@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { Button } from '@mui/material'
 import { useAppDispatch } from 'app/store'
-import { TodolistFilterButton, TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
-import { todolistsActions } from 'features/TodolistsList/model/todolists/todolists.reducer'
+import { TodolistFilterButton, TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types'
+import { todolistsActions } from 'features/TodolistsList/model/todolists/todolists.slice'
 
 type FilterTasksButtonsProps = {
   todolist: TodolistDomain

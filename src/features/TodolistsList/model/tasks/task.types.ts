@@ -1,5 +1,5 @@
 import { TaskPriorities, TaskStatuses } from 'common/enums'
-import { RequestStatus } from 'app/app.reducer'
+import { RequestStatus } from 'app/app.slice'
 
 export type TaskOrigin = {
   description: string

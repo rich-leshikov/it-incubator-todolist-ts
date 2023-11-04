@@ -1,8 +1,8 @@
 import { useAppDispatch } from 'app/store'
 import { FormikHelpers, useFormik } from 'formik'
-import { authThunks } from 'features/Login/auth.reducer'
+import { authThunks } from 'features/Login/auth.slice'
 import { LoginParams } from 'features/Login/auth.api'
-import { BaseResponseType } from 'common/api/common.api'
+import { BaseResponse } from 'common/api/common.api'
 
 type FormikErrorType = Partial<Omit<LoginParams, 'captcha'>>
 
@@ -32,7 +32,7 @@ export const useLogin = () => {
     onSubmit: (values, formikHelpers: FormikHelpers<LoginParams>) => {
       dispatch(authThunks.login(values))
         .unwrap()
-        .catch((reason: BaseResponseType) => {
+        .catch((reason: BaseResponse) => {
           reason.fieldsErrors?.forEach((fieldError) => {
             formikHelpers.setFieldError(fieldError.field, fieldError.error)
           })

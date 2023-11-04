@@ -2,7 +2,7 @@ import { todolistsSlice, todolistsThunks } from 'features/TodolistsList/model/to
 import { tasksSlice } from 'features/TodolistsList/model/tasks/tasks.slice'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
 import { TasksState } from 'features/TodolistsList/model/tasks/task.types'
-import { TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+import { TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types'
 
 test('ids should be equals', () => {
   const startTasksState: TasksState = {}

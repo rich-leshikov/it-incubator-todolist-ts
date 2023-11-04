@@ -1,17 +1,17 @@
-import { tasksReducer } from 'features/TodolistsList/model/tasks/tasks.reducer'
-import { todolistsReducer } from 'features/TodolistsList/model/todolists/todolists.reducer'
+import { tasksSlice } from 'features/TodolistsList/model/tasks/tasks.slice'
+import { todolistsSlice } from 'features/TodolistsList/model/todolists/todolists.slice'
 import thunkMiddleware from 'redux-thunk'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { appReducer } from 'app/app.reducer'
-import { authReducer } from 'features/Login/auth.reducer'
+import { appSlice } from 'app/app.slice'
+import { authSlice } from 'features/Login/auth.slice'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   reducer: {
-    app: appReducer,
-    auth: authReducer,
-    tasks: tasksReducer,
-    todolists: todolistsReducer
+    app: appSlice,
+    auth: authSlice,
+    tasks: tasksSlice,
+    todolists: todolistsSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware)
 })

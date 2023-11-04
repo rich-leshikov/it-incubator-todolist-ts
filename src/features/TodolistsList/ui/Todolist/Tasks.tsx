@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useAppSelector } from 'app/store'
 import * as tasksSelectors from 'features/TodolistsList/model/tasks/tasks.selectors'
-import { TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+import { TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types'
 import { TaskStatuses } from 'common/enums'
 import { Task } from 'features/TodolistsList/ui/Todolist/Task/Task'
 

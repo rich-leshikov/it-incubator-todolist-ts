@@ -5,7 +5,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import * as authSelectors from 'features/Login/auth.selectors'
 import * as appSelectors from 'app/app.selectors'
-import { authThunks } from 'features/Login/auth.reducer'
+import { authThunks } from 'features/Login/auth.slice'
 
 export const AppBarComponent: FC = () => {
   const isLoggedIn = useAppSelector(authSelectors.isLoggedIn)

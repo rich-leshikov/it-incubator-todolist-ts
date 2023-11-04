@@ -2,16 +2,16 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { applyMiddleware, combineReducers, legacy_createStore } from 'redux'
 import { AppRootStateType } from './store'
-import { tasksReducer } from 'features/TodolistsList/model/tasks/tasks.reducer'
-import { todolistsReducer } from 'features/TodolistsList/model/todolists/todolists.reducer'
+import { tasksSlice } from 'features/TodolistsList/model/tasks/tasks.slice'
+import { todolistsSlice } from 'features/TodolistsList/model/todolists/todolists.slice'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
-import { appReducer } from 'app/app.reducer'
+import { appSlice } from 'app/app.slice'
 import thunkMiddleware from 'redux-thunk'
 
 const rootReducer = combineReducers({
-  tasks: tasksReducer,
-  todolists: todolistsReducer,
-  app: appReducer
+  tasks: tasksSlice,
+  todolists: todolistsSlice,
+  app: appSlice
 })
 
 const initialGlobalState = {

@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { BaseResponse, instance } from 'common/api/common.api'
-import { TodolistOrigin } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+import { TodolistOrigin } from 'features/TodolistsList/model/todolists/todolist.types'
 
 export const todolistsApi = {
   getTodolists: () => {

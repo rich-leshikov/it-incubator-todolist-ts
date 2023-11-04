@@ -6,7 +6,7 @@ import { EditableTitle } from 'common/components'
 import { TaskStatuses } from 'common/enums'
 import { TaskDomain } from 'features/TodolistsList/model/tasks/task.types'
 import { useAppDispatch } from 'app/store'
-import { tasksThunks } from 'features/TodolistsList/model/tasks/tasks.reducer'
+import { tasksThunks } from 'features/TodolistsList/model/tasks/tasks.slice'
 
 type TaskProps = {
   task: TaskDomain

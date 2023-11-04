@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 import { EditableTitle } from 'common/components'
 import { IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
-import { TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
+import { TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types'
 import { useAppDispatch } from 'app/store'
-import { todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.reducer'
+import { todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.slice'
 
 type TodolistTitleProps = {
   todolist: TodolistDomain
