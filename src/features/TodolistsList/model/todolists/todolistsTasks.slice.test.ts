@@ -1,5 +1,5 @@
-import { todolistsReducer, todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.reducer'
-import { tasksReducer } from 'features/TodolistsList/model/tasks/tasks.reducer'
+import { todolistsSlice, todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.slice'
+import { tasksSlice } from 'features/TodolistsList/model/tasks/tasks.slice'
 import { TaskPriorities, TaskStatuses } from 'common/enums/enums'
 import { TasksState } from 'features/TodolistsList/model/tasks/task.types'
 import { TodolistDomain } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
@@ -21,8 +21,8 @@ test('ids should be equals', () => {
     }
   }
 
-  const endTasksState = tasksReducer(startTasksState, action)
-  const endTodolistsState = todolistsReducer(startTodolistsState, action)
+  const endTasksState = tasksSlice(startTasksState, action)
+  const endTodolistsState = todolistsSlice(startTodolistsState, action)
 
   const idFromTasks = Object.keys(endTasksState)[0]
   const idFromTodolists = endTodolistsState[0].id
@@ -122,7 +122,7 @@ test('property with todolistId should be deleted', () => {
     payload: { id: 'todolistId2' }
   }
 
-  const endState = tasksReducer(startState, action)
+  const endState = tasksSlice(startState, action)
 
   const keys = Object.keys(endState)
 

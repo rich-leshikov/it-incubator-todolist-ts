@@ -1,5 +1,5 @@
-import { todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.reducer'
-import { tasksReducer, tasksThunks } from 'features/TodolistsList/model/tasks/tasks.reducer'
+import { todolistsThunks } from 'features/TodolistsList/model/todolists/todolists.slice'
+import { tasksSlice, tasksThunks } from 'features/TodolistsList/model/tasks/tasks.slice'
 import { TaskPriorities, TaskStatuses } from 'common/enums'
 import { TasksState, UpdateTaskArgs } from 'features/TodolistsList/model/tasks/task.types'
 
@@ -98,7 +98,7 @@ test('tasks should be fetched', () => {
     payload: { tasks: startState['todolistId1'], todolistId: 'todolistId1' }
   }
 
-  const endState = tasksReducer({}, action)
+  const endState = tasksSlice({}, action)
 
   expect(endState).toEqual({
     'todolistId1': startState['todolistId1']
@@ -124,7 +124,7 @@ test('correct task should be added to correct array', () => {
     }
   }
 
-  const endState = tasksReducer(startState, action)
+  const endState = tasksSlice(startState, action)
 
   expect(endState['todolistId1'].length).toBe(3)
   expect(endState['todolistId2'].length).toBe(4)
@@ -142,7 +142,7 @@ test('correct task should be deleted from correct array', () => {
     }
   }
 
-  const endState = tasksReducer(startState, action)
+  const endState = tasksSlice(startState, action)
 
   expect(endState).toEqual({
     todolistId1: [
@@ -227,7 +227,7 @@ test('status of specified task should be changed', () => {
     }
   }
 
-  const endState = tasksReducer(startState, action)
+  const endState = tasksSlice(startState, action)
 
   expect(endState.todolistId2[1].status).toBe(TaskStatuses.New)
   expect(endState).toEqual({
@@ -326,7 +326,7 @@ test('title of specified task should be changed', () => {
     }
   }
 
-  const endState = tasksReducer(startState, action)
+  const endState = tasksSlice(startState, action)
 
   expect(endState.todolistId2[1].title).toBe('meat')
   expect(endState).toEqual({
@@ -429,7 +429,7 @@ test('new array should be added when new todolist is added', () => {
     }
   }
 
-  const endState = tasksReducer(startState, action)
+  const endState = tasksSlice(startState, action)
 
   const keys = Object.keys(endState)
   const newKey = keys.find(k => k !== 'todolistId1' && k !== 'todolistId2')
