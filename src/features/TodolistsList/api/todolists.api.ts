@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { BaseResponseType, instance } from 'common/api/common.api'
+import { BaseResponse, instance } from 'common/api/common.api'
 import { TodolistOrigin } from 'features/TodolistsList/model/todolists/todolist.types.reducer'
 
 export const todolistsApi = {
@@ -7,14 +7,14 @@ export const todolistsApi = {
     return instance.get<TodolistOrigin[]>('todo-lists')
   },
   addTodolist: (title: string) => {
-    return instance.post<BaseResponseType<{ item: TodolistOrigin }>,
-      AxiosResponse<BaseResponseType<{ item: TodolistOrigin }>>,
+    return instance.post<BaseResponse<{ item: TodolistOrigin }>,
+      AxiosResponse<BaseResponse<{ item: TodolistOrigin }>>,
       { title: string }>('todo-lists', { title })
   },
   removeTodolist: (id: string) => {
-    return instance.delete<BaseResponseType>(`todo-lists/${id}`)
+    return instance.delete<BaseResponse>(`todo-lists/${id}`)
   },
   updateTodolist: (id: string, title: string) => {
-    return instance.put<BaseResponseType, AxiosResponse<BaseResponseType>, { title: string }>(`todo-lists/${id}`, { title })
+    return instance.put<BaseResponse, AxiosResponse<BaseResponse>, { title: string }>(`todo-lists/${id}`, { title })
   }
 }
