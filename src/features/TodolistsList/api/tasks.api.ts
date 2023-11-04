@@ -1,4 +1,4 @@
-import { BaseResponseType, instance } from 'common/api/common.api'
+import { BaseResponse, instance } from 'common/api/common.api'
 import {
   AddTaskArgs,
   GetTasksResponse,
@@ -13,16 +13,16 @@ export const tasksApi = {
     return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
   },
   addTask: (arg: AddTaskArgs) => {
-    return instance.post<BaseResponseType<{ item: TaskOrigin }>,
-      AxiosResponse<BaseResponseType<{ item: TaskOrigin }>>,
+    return instance.post<BaseResponse<{ item: TaskOrigin }>,
+      AxiosResponse<BaseResponse<{ item: TaskOrigin }>>,
       { title: string }>(`todo-lists/${arg.todolistId}/tasks`, { title: arg.taskTitle })
   },
   removeTask: (arg: RemoveTaskArgs) => {
-    return instance.delete<BaseResponseType>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
+    return instance.delete<BaseResponse>(`todo-lists/${arg.todolistId}/tasks/${arg.taskId}`)
   },
   updateTask: (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
-    return instance.put<BaseResponseType<{ item: TaskOrigin }>,
-      AxiosResponse<BaseResponseType<{ item: TaskOrigin }>>,
+    return instance.put<BaseResponse<{ item: TaskOrigin }>,
+      AxiosResponse<BaseResponse<{ item: TaskOrigin }>>,
       UpdateTaskModelType>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
   }
 }
