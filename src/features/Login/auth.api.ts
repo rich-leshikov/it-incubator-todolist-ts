@@ -1,14 +1,14 @@
-import { instance, BaseResponseType } from 'common/api/common.api'
+import { instance, BaseResponse } from 'common/api/common.api'
 
 export const authAPI = {
   login: (data: LoginParams) => {
-    return instance.post<BaseResponseType<{ userId: number }>>('auth/login', data)
+    return instance.post<BaseResponse<{ userId: number }>>('auth/login', data)
   },
   logout: () => {
-    return instance.delete<BaseResponseType>('auth/login')
+    return instance.delete<BaseResponse>('auth/login')
   },
   me: () => {
-    return instance.get<BaseResponseType<AuthMe>>('auth/me')
+    return instance.get<BaseResponse<AuthMe>>('auth/me')
   }
 }
 
